@@ -1,0 +1,119 @@
+#home{
+    h1{
+        color: $secondary;
+        text-align: center;
+        font-weight: 600;
+        span{
+            display: inline-block;
+        }
+    }
+    #tile-hero{
+        background: url('../img/orchid-background.png');
+        background-size: 110em;
+        background-position-y: -5em;
+        .product-image{
+            padding-left: 38%;
+            display: inline-block;
+            float: left;
+            width: 39em;
+        }
+    }
+    #tile-lifestyle{
+        background: url('../img/yoga-girls.png');
+        padding-top: 27em;
+        h1{
+            color: white;
+        }
+    }
+    #tile-cta{
+        text-align: center;
+        span{
+            display: block;
+            color: $secondary;
+            font-size: .8em;
+            font-weight: 700;
+        }
+    }
+    .bullet-points{
+        float: left;
+        display: inline-block;
+        margin-top: 7em;
+        .bullet-icon{
+            background: white;
+            color: $secondary;
+            border-radius: 25px;
+            border: 1px solid darken(white, 20%);
+            display: inline-block;
+            width: 47px;
+            height: 47px;
+            padding: .5em;
+            margin-right: .5em;
+            -webkit-box-shadow: -3px 5px 5px 0px rgba(0,0,0,0.17);
+            -moz-box-shadow: -3px 5px 5px 0px rgba(0,0,0,0.17);
+            box-shadow: -3px 5px 5px 0px rgba(0,0,0,0.17);
+        }
+        li{
+            margin-bottom: 1em;
+            font-weight: 600;
+            color: $secondary;
+            font-size: 1.2em;
+            &:last-child{
+                margin-bottom: 0;
+            }
+        }
+    }
+    #tile-clinical-keypoints, #tile-main-keypoints{
+        background: rgba(255, 255, 255, .7);
+    }
+    #tile-main-keypoints{
+        [class^="span"]{
+            &:first-child{
+                padding-right: 2em;
+                border-right: 1px dashed lighten(black, 80%);
+            }
+            &:last-child{
+                padding-left: 2em;
+            }
+        }
+        .main-keypoint{
+            h3{
+                color: $accent;
+                font-size: 1.25em;
+                margin-bottom: .15em;
+            }
+            margin-bottom: 1.5em;
+        }
+    }
+    #tile-clinical-keypoints{
+        .clinical-keypoint{
+            text-align: center;
+            img.icon-tulip{
+                width: 2em;
+                margin: 0 auto;
+                text-align: center;
+            }
+            h4{
+                text-align: center;
+                font-size: 1.2em;
+                font-weight: 700;
+                margin-bottom: .5em;
+                margin-top: .5em;
+                color: $secondary;
+            }
+            padding: 0 2em;
+            border-left: 1px dashed lighten(black, 80%);
+            border-right: 1px dashed lighten(black, 80%);
+            &:first-child{
+                padding-left: 0;
+                border: 0;
+            }
+            &:last-child{
+                padding-right: 0;
+                border: 0;
+            }
+        }
+    }
+}
+
+
+// Responsive

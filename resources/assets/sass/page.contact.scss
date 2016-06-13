@@ -1,0 +1,32 @@
+#contact{
+    aside{
+        padding-left: 2em;
+        h3{
+            margin-bottom: .5em;
+        }
+        .row{
+            margin-bottom: 1em;
+        }
+        ul.social-icons{
+            li.social-icon{
+                display: inline-block;
+                margin-right: .5em;
+                color: white;
+                background: $primary;
+                text-align: center;
+                width: 2em;
+                padding: .5em 0;
+                i{
+                    color: white;
+                }
+                &:hover{
+                    background: darken($primary, 10%);
+                }
+            }
+        }
+    }
+    .form-area{
+        padding-right: 2em;
+        border-right: 1px dashed lighten(black, 80%);
+    }
+}

@@ -1,0 +1,71 @@
+#product{
+    #tile-product{
+        background: white;
+        padding-bottom: 0;
+        .product-image{
+            padding: 0 4em;
+        }
+        #product-options{
+            margin-top: 3em;
+            .product-option{
+                border: 1px solid $primary;
+                padding: .5em .75em;
+                color: $primary;
+                margin-right: 1em;
+                font-weight: 600;
+                &:last-child{
+                    margin-right: 0;
+                }
+                &:hover{
+                    background: $primary;
+                    color: white;
+                }
+            }
+        }
+        h2{
+            color: $secondary;
+            font-weight: 600;
+            line-height: 1.3em;
+        }
+        ul{
+            margin-left: 1.2em;
+            li{
+                color: $secondary;
+                margin-bottom: .75em;
+                list-style-type: disc;
+                &:last-child{
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+    #tile-product-info{
+        border-top: 1px solid darken(white, 15%);
+        h2{
+            color: lighten(black, 40%);
+        }
+    }
+    #product-info-tabs{
+        background: white;
+        margin-bottom: -1px;
+        nav{
+            ul{
+                li{
+                    display: inline-block;
+                    margin-right: 1.5em;
+                    padding: 1em;
+                    &:hover{
+                    }
+                    a{
+                        color: $secondary;
+                    }
+                    &.active-tab{
+                        background: darken(white, 3%);
+                        border: 1px solid darken(white, 15%);
+                        border-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+}

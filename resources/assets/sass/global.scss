@@ -1,0 +1,355 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,700,800);
+
+$primary: #c31da2;
+$secondary: #a4509e;
+$accent: #ed39cd;
+$sub-header-background: #f4f4f4;
+$dark-copy: lighten(black, 20%);
+
+body {
+    font-size: 1.1em;
+    font-family: 'Open Sans', sans-serif;
+    color: $dark-copy;
+    background: darken(white, 3%);
+}
+.ease {
+    transition: all 0.25s ease;
+}
+h1 {
+    color: lighten(black, 50%);
+    font-size: 2.5em;
+    margin-bottom: .5em;
+    &:last-child{
+        margin-bottom: 0;
+    }
+}
+strong {
+    font-weight: 700;
+}
+h2 {
+    font-size: 1.75em;
+    margin-bottom: .5em;
+    &:last-child{
+        margin-bottom: 0;
+    }
+}
+h3 {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: $secondary;
+}
+a {
+    text-decoration: none;
+    @extend .ease;
+    &:hover {
+        @extend .ease;
+    }
+}
+section {
+    padding: 3em;
+}
+p {
+    line-height: 1.75em;
+    margin-bottom: 1em;
+    color: lighten(black, 40%);
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+.align-right {
+    text-align: right;
+}
+.fixed-container {
+    height: auto;
+    overflow: hidden;
+}
+.background-area{
+    background: url('../img/wood-background.png');
+}
+.fixed {
+    float: left;
+}
+.fluid {
+    float: none;
+    width: auto;
+    overflow: hidden;
+}
+.full {
+    width: 100%;
+}
+.main-cta-btn{
+    padding: 1em;
+    font-size: 1.5em;
+    font-weight: 700;
+    display: inline-block;
+    margin: .5em 0;
+    color: white;
+    background: $accent;
+    &:hover{
+        background: darken($accent, 15%);
+    }
+}
+form{
+    .input-box{
+        &:first-child{
+            padding-right: .5em;
+        }
+        &:last-child{
+            padding-left: .5em;
+        }
+    }
+    .input-row{
+        margin-bottom: 1em;
+        &:last-child{
+            margin-bottom: 0;
+        }
+    }
+    label{
+        margin-bottom: .5em;
+        display: inline-block;
+        color: lighten(black, 50%);
+        text-transform: uppercase;
+    }
+    input, textarea{
+        padding: .5em;
+        font-size: 1.25em;
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+        color: lighten(black, 50%);
+        outline: 0;
+        border: 1px solid darken(white, 20%);
+        border-radius: 3px;
+        &[type=submit]{
+            background: $secondary;
+            color: white;
+            border: none;
+            font-size: 1em;
+            font-weight: 500;
+            border-radius: 25px;
+            padding: .5em 2em;
+            width: initial;
+            min-width: initial;
+            max-width: initial;
+            cursor: pointer;
+            @extend .ease;
+            &:hover{
+                @extend .ease;
+                background: darken($secondary, 10%);
+            }
+        }
+    }
+    textarea{
+        min-height: 12em;
+    }
+}
+.alert{
+    padding: 1em;
+    margin-bottom: 1em;
+    ul{
+        margin-left: 1em;
+        li{
+            margin-bottom: .5em;
+            list-style-type: disc;
+            &:last-child{
+                margin-bottom: 0;
+            }
+        }
+    }
+    &.alert-danger{
+        border: 1px solid red;
+        background: lighten(red, 40%);
+    }
+    &.alert-success{
+        border: 1px solid green;
+        background: lighten(green, 70%);
+    }
+}
+select {
+    padding: 0.5em;
+    font-size: 1.2em;
+    border-radius: 0;
+    outline: 0;
+    background: none;
+    color: darken(white, 40%);
+    border: 0;
+    border-bottom: 2px solid lighten(black, 60%);
+    background-image: url("../img/dropdown-icon.png");
+    background-position: 95% center;
+    background-repeat: no-repeat;
+    padding-right: 2em;
+}
+header {
+    #sub-header {
+        padding: 0.75em;
+
+        font-size: 0.8em;
+        nav {
+            text-align: right;
+            ul {
+                li {
+                    display: inline-block;
+                    margin-right: 1.5em;
+                    a {
+                        color: lighten(black, 50%);
+                        &:hover {
+                            color: lighten(black, 20%);
+                        }
+                        i {
+                            margin-right: 0.25em;
+                        }
+                    }
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+    }
+    #main-header {
+        padding: 0.6em;
+        background: $primary;
+        .logo{
+            img{
+                width: 17em;
+            }
+        }
+        nav {
+            text-align: right;
+            margin-top: .3em;
+            ul {
+                li {
+                    display: inline-block;
+                    font-weight: 300;
+                    margin-right: -5px;
+                    &.accent-nav{
+                        a{
+                            background: darken($primary, 10%);
+                            color: white;
+                            font-weight: 700;
+                            &:hover{
+                                color: white;
+                            }
+                            &.active-nav{
+                                background: darken($primary, 5%);
+                            }
+                        }
+                    }
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                    a {
+                        padding: .7em .75em;
+                        color: white;
+                        &:hover{
+                            background: darken($primary, 5%);
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}
+footer{
+    #main-footer{
+        padding: 2em;
+        background: lighten(black, 30%);
+        #contact-info{
+            float: right;
+            span{
+                font-weight: 700;
+                margin-bottom: .75em;
+                color: white;
+                font-size: .8em;
+                display: inline-block;
+            }
+            a{
+                color: white;
+                &:hover{
+                    color: darken(white, 20%);
+                }
+                i{
+                    margin-right: .5em;
+                }
+            }
+            ul{
+                li{
+                    margin-bottom: .5em;
+                    font-size: .9em;
+                    font-weight: 300;
+                    &:last-child{
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+        nav {
+            ul {
+                columns: 2;
+                 -webkit-columns: 2;
+                 -moz-columns: 2;
+                li {
+                    font-size: 0.8em;
+                    text-transform: uppercase;
+                    margin-bottom: 0.75em;
+                    font-weight: 700;
+                    color: white;
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                    a {
+                        color: white;
+                        &:hover {
+                            color: darken(white, 20%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    #sub-footer{
+        padding: 1em;
+        font-size: .8em;
+        color: lighten(black, 50%);
+        .disclaimer-text{
+            margin-top: 1em;
+            p{
+                font-weight: 300;
+                font-size: .6em;
+                margin-bottom: .25em;
+                color: darken(white, 30%);
+                &:last-child{
+                    margin-bottom: 0;
+                }
+            }
+        }
+        span{
+            display: inline-block;
+            float: right;
+        }
+        ul{
+            display: inline-block;
+            li{
+                margin-right: 1em;
+                padding-right: 1em;
+                border-right: 1px solid lighten(black, 50%);
+                display: inline-block;
+                i{
+                    margin: 0 .5em;
+                }
+                &:last-child{
+                    margin-right: 0;
+                    border-right: 0;
+                    padding-right: 0;
+                }
+                a{
+                    color: lighten(black, 50%);
+                    &:hover{
+                        color: $primary;
+                    }
+                }
+            }
+        }
+    }
+}
