@@ -27,9 +27,10 @@
                     </ul>
                 </div>
                 <div id="product-options" class="row">
-                    <a href="#" class="product-option">TESTING</a>
-                    <a href="#" class="product-option">TESTING</a>
-                    <a href="#" class="product-option">TESTING</a>
+                    <a href="#" class="product-option">AUTO-REFILL<span>$36.00</span></a>
+                    <a href="#" class="product-option">TWO-PACK<span>$77.90</span></a>
+                    <a href="#" class="product-option">FOUR-PACK<span>$149.90</span></a>
+                    <a href="#" class="product-option">SINGLE BOTTLE<span>$39.50</span></a>
                 </div>
             </div>
         </div>
@@ -38,11 +39,12 @@
 <div id="product-info-tabs">
     <div class="container">
         <nav>
-            <ul>
-                <li class="active-tab"><a href="#">DESCRIPTION</a></li>
-                <li><a href="#">INGREDIENTS</a></li>
-                <li><a href="#">REVIEWS</a></li>
-                <li><a href="#">F.A.Q.</a></li>
+            <ul class="tabs">
+                <li class="current"><a class="tab" href="#tab-description">DESCRIPTION</a></li>
+                <li><a class="tab" href="#tab-directions">DIRECTIONS</a></li>
+                <li><a class="tab" href="#tab-ingredients">INGREDIENTS</a></li>
+                <li><a class="tab" href="#tab-reviews">REVIEWS</a></li>
+                <li><a class="tab" href="#tab-faq">F.A.Q.</a></li>
             </ul>
         </nav>
     </div>
@@ -50,10 +52,58 @@
 <section id="tile-product-info">
     <div class="container">
         <div class="row">
-            <h2>Find Your Balance with Femina Plus<sup>&reg;</sup></h2>
-            <p>Nam egestas tempus nisi sit amet fringilla. Vivamus non faucibus mauris. Morbi suscipit feugiat porta. Phasellus sed justo nunc. Nulla sagittis, risus a commodo posuere, est turpis egestas tellus, et efficitur mauris nunc sit amet ligula. Praesent tincidunt ultrices felis, sit amet efficitur dolor sagittis a. In pulvinar erat nec lacinia volutpat. Sed efficitur ut elit eget aliquet. Morbi tempus semper elit. Praesent vestibulum hendrerit nisl, quis mollis urna consequat id. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec venenatis dolor eu justo tincidunt rhoncus. Nam mi dolor, tincidunt eu nibh vitae, auctor tempus nisl. Maecenas nec enim lacinia, vestibulum elit nec, maximus elit.</p>
-            <p>In nec enim pharetra, lacinia mauris id, ultrices felis. Donec sit amet enim aliquet, dignissim leo id, convallis enim. Morbi at metus ultrices leo placerat pretium sit amet a felis. Quisque vel justo et eros interdum pharetra. Quisque rhoncus interdum augue, vehicula molestie risus viverra sed. Sed sit amet dictum eros, maximus interdum libero. In a elit in magna fringilla molestie quis non diam. Integer eu ullamcorper arcu. Nullam aliquet eget erat ut volutpat. Pellentesque pharetra venenatis tincidunt. Morbi vitae dapibus massa, id accumsan libero. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin fringilla arcu ac lorem eleifend lacinia. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
-            <p>Integer ullamcorper faucibus commodo. Morbi blandit velit quam, vitae facilisis justo cursus at. Nulla a libero non ante vulputate faucibus. Nulla hendrerit interdum ipsum, ut molestie velit lobortis vitae. Etiam id fermentum diam. Praesent quam velit, accumsan eget bibendum quis, tincidunt ut mauris. Phasellus condimentum hendrerit mauris vel lacinia. Nullam a ullamcorper magna. Quisque porttitor fermentum aliquet. Mauris eget massa nec erat molestie faucibus. Integer id vehicula mi. Suspendisse vitae magna felis. Nunc ultrices iaculis leo tempor efficitur. Vivamus non tortor tellus.</p>
+            <div id="tab-description" class="tab-content">
+                <h3>Find Your Balance with Femina Plus<sup>&reg;</sup></h3>
+                <p>Finding a healthy balance for both body and mind is especially important during menopause, when hormonal changes can make you feel like you’ve lost control of many aspects of your life. Many women turn to therapies that introduce additional hormones into their system – or use some herbal remedies that can do more harm than good – causing potentially dangerous or unpleasant side effects.</p>
+                <p>Femina Plus is a groundbreaking supplement that offers women a new menopause experience. It is natural, effective and safe relief with no risk of side effects. The exclusive botanical blend, Fem-Fleur™, is shown to significantly relieve many of the most common symptoms of menopause. Femina Plus even relieves symptoms six times faster than black cohosh, one of the more common herbal supplements taken by women in menopause.</p>
+            </div>
+            <div id="tab-directions" class="tab-content">
+                <h3>Directions</h3>
+                <p>Take 1 capsule, twice daily, with a mail. Suitable for vegetarians, Non-GMO, water extracted. We do not use ingredients produced using biotechnology.</p>
+                <h3>Dietary Supplement</h3>
+                <p>Made without Phytoestrogens or Soy.<br /><strong>Net Qty:</strong> 60 Soft Gel Capsules.</p>
+                <h3>CAUTION:</h3>
+                <p>For adults only. Not for pregnant or lactating women. Consult a physician if taking medication or have a medical condition. Keep out of reach of children. Do not eat the freshness packet. Keep in the bottle.</p>
+            </div>
+            <div id="tab-ingredients" class="tab-content">
+                <h3>Ingredients</h3>
+                <p>Fem-Fleur is an extract of these gentle, yet powerful botanicals.</p>
+                <ul>
+                    <li>Angelica Gigas Nakai Root Extract</li>
+                    <li>Cynanchum Wilfordii Root Extract</li>
+                    <li>Phlomis Umbrosa Root Extract</li>
+                </ul>
+            </div>
+            <div id="tab-reviews" class="tab-content">
+                <h3>Reviews</h3>
+            </div>
+            <div id="tab-faq" class="tab-content">
+                <h3>Frequently Asked Questions</h3>
+                <div class="question-box">
+                    <h4>Lorem Ipsum</h4>
+                    <div class="answer">
+                        <p>Lorem ipsum</p>
+                    </div>
+                </div>
+                <div class="question-box">
+                    <h4>Lorem Ipsum</h4>
+                    <div class="answer">
+                        <p>Lorem ipsum</p>
+                    </div>
+                </div>
+                <div class="question-box">
+                    <h4>Lorem Ipsum</h4>
+                    <div class="answer">
+                        <p>Lorem ipsum</p>
+                    </div>
+                </div>
+                <div class="question-box">
+                    <h4>Lorem Ipsum</h4>
+                    <div class="answer">
+                        <p>Lorem ipsum</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>

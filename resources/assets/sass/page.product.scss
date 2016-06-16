@@ -6,13 +6,21 @@
             padding: 0 4em;
         }
         #product-options{
-            margin-top: 3em;
+            margin-top: 2em;
+            margin-bottom: 2em;
             .product-option{
                 border: 1px solid $primary;
                 padding: .5em .75em;
                 color: $primary;
                 margin-right: 1em;
                 font-weight: 600;
+                display: inline-block;
+                text-align: center;
+                span{
+                    display: block;
+                    font-weight: 300;
+                    margin-top: .35em;
+                }
                 &:last-child{
                     margin-right: 0;
                 }
@@ -44,6 +52,32 @@
         h2{
             color: lighten(black, 40%);
         }
+        h3{
+            margin-bottom: .5em;
+            margin-top: 1.5em;
+            &:first-child{
+                margin-top: 0;
+            }
+        }
+        .tab-content{
+            display: none;
+        }
+        #tab-description{
+            display: block;
+        }
+        #tab-faq{
+            .question-box{
+                h4{
+                    background: $primary;
+                    color: white;
+                    padding: .5em;
+                }
+                margin-bottom: 1em;
+                &:last-child{
+                    margin-bottom: 0;
+                }
+            }
+        }
     }
     #product-info-tabs{
         background: white;
@@ -52,17 +86,17 @@
             ul{
                 li{
                     display: inline-block;
-                    margin-right: 1.5em;
-                    padding: 1em;
+                    margin-right: 1em;
+                    padding: .75em;
                     &:hover{
                     }
-                    a{
-                        color: $secondary;
-                    }
-                    &.active-tab{
+                    &.current{
                         background: darken(white, 3%);
                         border: 1px solid darken(white, 15%);
                         border-bottom: 0;
+                    }
+                    a{
+                        color: $secondary;
                     }
                 }
             }

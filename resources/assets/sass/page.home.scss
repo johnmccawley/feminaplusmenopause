@@ -9,6 +9,7 @@
     }
     #tile-hero{
         background: url('../img/orchid-background.png');
+        background-repeat: no-repeat;
         background-size: 110em;
         background-position-y: -5em;
         .product-image{
@@ -19,10 +20,14 @@
         }
     }
     #tile-lifestyle{
-        background: url('../img/yoga-girls.png');
-        padding-top: 27em;
+        background: url('../img/yoga-girls.png') center;
+        background-position: center;
+        background-repeat: no-repeat;
+        padding: 25em 0em 3em 0em;
         h1{
             color: white;
+            background: $primary;
+            padding: .25em;
         }
     }
     #tile-cta{
@@ -105,11 +110,12 @@
             border-right: 1px dashed lighten(black, 80%);
             &:first-child{
                 padding-left: 0;
-                border: 0;
+                border-right: 0;
+                border-left: 0;
             }
             &:last-child{
                 padding-right: 0;
-                border: 0;
+                border-right: 0;
             }
         }
     }
@@ -117,3 +123,116 @@
 
 
 // Responsive
+#home{
+    @media screen and (max-width: 1200px) {
+        #tile-hero{
+            background-size: 179%;
+            background-position-x: -4em;
+            .product-image{
+                width: 13em;
+                padding-left: 0;
+                margin-left: 18%;
+            }
+            h1{
+                font-size: 1.75em;
+            }
+        }
+        .bullet-points{
+            margin-top: 5em;
+        }
+    }
+    @media screen and (max-width: 960px) {
+        #tile-clinical-keypoints{
+            .clinical-keypoint{
+                border: 0;
+                padding: 0;
+                padding-bottom: 1em;
+                border-bottom: 1px dashed lighten(black, 80%);
+                width: 100%;
+                margin-bottom: 1em;
+                &:last-child{
+                    margin-bottom: 0;
+                    border: 0;
+                    padding-bottom: 0;
+                }
+            }
+        }
+        #tile-cta{
+            border-top: 1px solid darken(white, 15%);
+            border-bottom: 1px solid darken(white, 15%);
+        }
+        #tile-lifestyle{
+            h1{
+                padding: .5em;
+                font-size: 1.5em;
+                line-height: 1.25em;
+                span{
+                    display: inline-block;
+                }
+            }
+        }
+        .background-area{
+            background: none;
+        }
+    }
+    @media screen and (max-width: 900px) {
+        #tile-hero{
+            background-width: 200%;
+            .product-image{
+                margin-left: 10%;
+            }
+        }
+    }
+    @media screen and (max-width: 800px) {
+        #tile-hero{
+            background: url('../img/wood-background.png');
+            text-align: center;
+            .bullet-points{
+                margin-top: 0;
+                margin-left: 0;
+                text-align: center;
+                width: 100%;
+                margin-bottom: 2em;
+            }
+            .product-image{
+                display: inline-block;
+                text-align: center;
+                width: 15em;
+                margin-left: 25%;
+            }
+        }
+    }
+    @media screen and (max-width: 625px) {
+        #tile-hero{
+
+        }
+    }
+    @media screen and (max-width: 625px) {
+        #tile-main-keypoints{
+            [class^=span]{
+                width: 100%;
+                &:first-child{
+                    padding-right: 0;
+                    border: 0;
+                }
+                &:last-child{
+                    padding-left: 0;
+                }
+            }
+            .main-keypoint{
+                &:last-child{
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 500px) {
+        #tile-hero{
+            .bullet-points{
+                font-size: .9em;
+            }
+            .product-image{
+                margin-left: 15%;
+            }
+        }
+    }
+}
