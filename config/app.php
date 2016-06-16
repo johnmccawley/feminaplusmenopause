@@ -157,6 +157,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Barryvdh\Debugbar\ServiceProvider::class,
+        Laravel\Cashier\CashierServiceProvider::class
 
     ],
 

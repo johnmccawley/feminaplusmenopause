@@ -36,3 +36,17 @@ Route::get('/terms', function () {
 Route::get('/privacy', function () {
     return view('privacy');
 });
+
+Route::auth();
+
+Route::get('/home', 'HomeController@index');
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/checkout', function () {
+        return view('checkout');
+    });
+});
+
+Route::get('/cart', function () {
+    return view('cart');
+});
