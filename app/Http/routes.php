@@ -45,6 +45,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/checkout', function () {
         return view('checkout');
     });
+
+    Route::post('/customer', 'CustomerController@create');
 });
 
 Route::get('/cart', function () {

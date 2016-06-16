@@ -7,9 +7,10 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Dashboard</div>
 
-                <div class="panel-body">
-                    You are logged in!
-                </div>
+                <a href="{{ url('/checkout') }}">
+                    <button type="button" class="btn btn-primary btn-order" style="margin: 10px;">Checkout</button>
+                </a>
+
             </div>
         </div>
     </div>
