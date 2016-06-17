@@ -10,6 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+use App\User;
 
 Route::get('/', function () {
     return view('home');
@@ -42,8 +43,10 @@ Route::auth();
 Route::get('/home', 'HomeController@index');
 
 Route::group(['middleware' => 'auth'], function () {
+
     Route::get('/payment', function () {
-        return view('payment');
+        $user = User::with($id)->get();
+        return view('payment', 'user' => $user);
     });
 
     Route::post('/payment', 'PaymentController@create');

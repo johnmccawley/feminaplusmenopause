@@ -13,6 +13,12 @@ class Subscriptions extends Migration
     public function up()
     {
         Schema::table('users', function ($table) {
+            $table->string('phone')->nullable();
+            $table->string('address');
+            $table->string('apartmentSuiteNumber')->nullable();
+            $table->string('city');
+            $table->string('state');
+            $table->string('zip');
             $table->string('stripe_id')->nullable();
             $table->string('card_brand')->nullable();
             $table->string('card_last_four')->nullable();

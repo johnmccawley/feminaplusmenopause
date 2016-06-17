@@ -29,7 +29,7 @@ class PaymentController extends Controller
      */
      public function create(PaymentRequest $request)
      {
-         Stripe::setApiKey(env("STRIPE_SECRET"));
+         $this->setApiKey();
 
          $expiration = explode("/", $request->expiration);
 
@@ -43,10 +43,15 @@ class PaymentController extends Controller
            )
          ));
 
-         $user = new User();
+        //  $user = new User();
+        //  $user->getUserInformation($request->userId);
+         //
+        //  $payment = new Payment();
+        //  $payment->
+        //  $product = new Product();
 
          try {
-             $response = $user->charge(999, ["source" => $creditCardToken]);
+             $response = $user->charge($product->getPrice($request->productId), ["source" => $creditCardToken]);
          } catch (Exception $e) {
              echo $e->message();
          }
@@ -108,5 +113,9 @@ class PaymentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function setApiKey() {
+        Stripe::setApiKey(env("STRIPE_SECRET"));
     }
 }
