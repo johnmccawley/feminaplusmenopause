@@ -6,10 +6,11 @@ use App\User;
 use \Stripe\Stripe as Stripe;
 use \Stripe\Token as Token;
 use Illuminate\Http\Request;
+use App\Http\Requests\PaymentRequest as PaymentRequest;
 
 use App\Http\Requests;
 
-class CustomerController extends Controller
+class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,40 +27,32 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
-    {
-        $this->validate($request, [
-            'name' => 'required|max:255',
-            'cardNumber' => 'required|max:16',
-            'expiration' => 'required|max:7',
-            'cvc' => 'required|max:4'
-        ]);
+     public function create(PaymentRequest $request)
+     {
+         Stripe::setApiKey(env("STRIPE_SECRET"));
 
-        Stripe::setApiKey(env('STRIPE_SECRET'));
-        
-        $expiration = explode('/', $request->expiration);
+         $expiration = explode("/", $request->expiration);
 
-        $creditCardToken = Token::create(array(
-          "card" => array(
-              "name" => $request->name,
-              "number" => $request->cardNumber,
-              "exp_month" => $expiration[0],
-              "exp_year" => $expiration[1],
-              "cvc" => $request->cvc
-          )
-        ));
+         $creditCardToken = Token::create(array(
+           "card" => array(
+               "name" => $request->name,
+               "number" => $request->cardNumber,
+               "exp_month" => $expiration[0],
+               "exp_year" => $expiration[1],
+               "cvc" => $request->cvc
+           )
+         ));
 
-        $user = new User();
+         $user = new User();
 
-        try {
-            $response = $user->charge(999, ['source' => $creditCardToken]);
-        } catch (Exception $e) {
-            echo $e->message();
-        }
+         try {
+             $response = $user->charge(999, ["source" => $creditCardToken]);
+         } catch (Exception $e) {
+             echo $e->message();
+         }
 
-        return redirect('/');
-        // $user->newSubscription('main', 'fpclubtwo')->create($creditCardToken);
-    }
+         return redirect("/");
+     }
 
     /**
      * Store a newly created resource in storage.

@@ -42,11 +42,11 @@ Route::auth();
 Route::get('/home', 'HomeController@index');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/checkout', function () {
-        return view('checkout');
+    Route::get('/payment', function () {
+        return view('payment');
     });
 
-    Route::post('/customer', 'CustomerController@create');
+    Route::post('/payment', 'PaymentController@create');
 });
 
 Route::get('/cart', function () {

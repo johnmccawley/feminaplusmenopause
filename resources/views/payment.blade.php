@@ -12,7 +12,7 @@
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
           @include('errors.errors')
-          <form action="{{ action('CustomerController@create') }}" id="payment-form" method="POST">
+          <form action="{{ action('PaymentController@create') }}" id="payment-form" method="POST">
               {{ csrf_field() }}
 
               <div class="form-group">

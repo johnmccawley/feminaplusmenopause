@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Dashboard</div>
 
-                <a href="{{ url('/checkout') }}">
+                <a href="{{ url('/payment') }}">
                     <button type="button" class="btn btn-primary btn-order" style="margin: 10px;">Checkout</button>
                 </a>
 
