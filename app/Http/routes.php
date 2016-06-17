@@ -29,6 +29,10 @@ Route::get('/clinical', function () {
     return view('clinical');
 });
 
+Route::get('/cart', function () {
+    return view('cart');
+});
+
 Route::get('/terms', function () {
     return view('terms');
 });

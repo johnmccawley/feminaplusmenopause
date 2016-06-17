@@ -15,6 +15,16 @@ body {
 .ease {
     transition: all 0.25s ease;
 }
+.fa-custom{
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 1em;
+    text-align: left;
+    display: inline-block;
+}
 h1 {
     color: lighten(black, 50%);
     font-size: 2.5em;
@@ -96,13 +106,13 @@ p {
   flex-direction: column;
 }
 .site-content{
-    min-width: 100%;
-    min-height: 100%;
-    position: relative;
-    top: 0;
-    bottom: 100%;
-    left: 0;
-    z-index: 1;
+    // min-width: 100%;
+    // min-height: 100%;
+    // position: relative;
+    // top: 0;
+    // bottom: 100%;
+    // left: 0;
+    // z-index: 1;
     flex: 1;
 }
 
@@ -180,8 +190,13 @@ p {
 #menu-open{
     display: inline-block;
 }
-
-
+#privacy, #terms{
+    h2{
+        color: $primary;
+        margin-top: 1em;
+        font-size: 1.25em;
+    }
+}
 form{
     .input-box{
         &:first-child{
@@ -555,11 +570,6 @@ footer{
         #sub-header{
             display: none;
         }
-    }
-}
-@media screen and (max-width: 800px) {
-    #tile-hero{
-        background-size: 250%;
     }
 }
 @media screen and (max-width: 650px) {
