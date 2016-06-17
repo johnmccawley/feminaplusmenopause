@@ -14,6 +14,8 @@ var elixir = require('laravel-elixir');
 elixir(function(mix) {
     mix.sass('style.scss');
     mix.scripts([
-        'jquery.js'
+        'jquery.js',
+        'input-mask.js',
+        'functions.js'
     ]);
 });

@@ -46,7 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/payment', function () {
         $user = User::with($id)->get();
-        return view('payment', 'user' => $user);
+        return view('payment');
     });
 
     Route::post('/payment', 'PaymentController@create');

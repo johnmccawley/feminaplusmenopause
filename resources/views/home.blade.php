@@ -108,7 +108,11 @@
 </div>
 
 <section id="tile-lifestyle">
-    <h1><span>THE FASTEST, SAFEST, MOST EFFECTIVE</span> <span>HERBAL MENOPAUSE RELIEF</span> <span>IN THE WORLD.</span></h1>
+    <h1>
+        <div class="container">
+            <span>THE FASTEST, SAFEST, MOST EFFECTIVE</span> <span>HERBAL MENOPAUSE RELIEF</span> <span>IN THE WORLD.</span>
+        </div>
+    </h1>
 </section>
 
 @endsection
