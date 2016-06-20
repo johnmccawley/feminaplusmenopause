@@ -199,7 +199,7 @@ $(document).ready(function() {
     });
 
     // Mobile navigation
-    $(function() {
+	$(function() {
 		$('#mobile-nav-btn, #menu-overlay').click(function() {
 			toggleNav();
 		});
@@ -220,6 +220,15 @@ $(document).ready(function() {
 			$('#menu-close').fadeIn();
 		}
 	}
+
+	// FAQ
+	$(".question-box").click(function() {
+		if( $(this).find('.answer').is(":visible") ){
+			$(this).find('.answer').slideUp();
+		} else {
+			$(this).find('.answer').slideDown();
+		}
+	});
 
 });
 

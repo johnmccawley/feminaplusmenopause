@@ -1,0 +1,26 @@
+#cart{
+    .cart-header{
+        background: $primary;
+        color: white;
+        padding: .5em .75em;
+        margin-bottom: 1em;
+    }
+    .cart-item{
+        padding: .5em;
+        border: 1px solid darken(white, 15%);
+        display: block;
+        background: white;
+        margin-bottom: .5em;
+        [class^=span]{
+            padding: .75em;
+            border-right: 1px solid darken(white, 15%);
+            padding-left: .5em;
+            &:last-child{
+                border-right: 0;
+            }
+        }
+    }
+    .item-price{
+        text-align: right;
+    }
+}

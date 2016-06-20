@@ -25,7 +25,7 @@
                             <nav>
                                 <ul>
                                     <li><a href="/contact"><i class="fa fa-comment" aria-hidden="true"></i>CONTACT</a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>CART (0)</a></li>
+                                    <li><a href="/cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i>CART (0)</a></li>
                                 </ul>
                             </nav>
                         </div>

@@ -119,11 +119,6 @@
             }
         }
     }
-}
-
-
-// Responsive
-#home{
     @media screen and (max-width: 1200px) {
         #tile-hero{
             background-size: 179%;
@@ -175,6 +170,10 @@
             background: none;
         }
     }
+
+
+
+    // Responsive
     @media screen and (max-width: 900px) {
         #tile-hero{
             background-width: 200%;

@@ -1,6 +1,7 @@
 #product{
     #tile-product{
         background: white;
+        // background: url('../img/wood-background.png');
         padding-bottom: 0;
         .product-image{
             padding: 0 4em;
@@ -62,6 +63,23 @@
         .tab-content{
             display: none;
         }
+        #tab-ingredients{
+            .ingredient{
+                padding: 0 1.5em;
+                height: 15em;
+                color: lighten(black, 20%);
+                &:last-child{
+                    padding-right: 0;
+                }
+                &:first-child{
+                    padding-left: 0;
+                }
+                img{
+                    width: 100%;
+                    border: 1px solid darken(white, 30%);
+                }
+            }
+        }
         #tab-description{
             display: block;
         }
@@ -71,11 +89,41 @@
                     background: $primary;
                     color: white;
                     padding: .5em;
+                    display: block;
+                    cursor: pointer;
+                    line-height: 1.5em;
+                    @extend .ease;
+                    &:hover{
+                        background: darken($primary, 10%);
+                        @extend .ease;
+                    }
+                    &:before{
+                        @extend .fa-custom;
+                        content: '\f0da';
+                        color: white;
+                    }
                 }
                 margin-bottom: 1em;
                 &:last-child{
                     margin-bottom: 0;
                 }
+                p{
+                    padding: .25em .5em;
+                }
+                .answer{
+                    display: none;
+                }
+            }
+            [class^=span]{
+                &:first-child{
+                    padding-right: 1.5em;
+                }
+                &:last-child{
+                    padding-left: 1.5em;
+                }
+            }
+            p{
+                margin-top: 1em;
             }
         }
     }
@@ -97,6 +145,26 @@
                     }
                     a{
                         color: $secondary;
+                    }
+                }
+            }
+        }
+    }
+
+
+
+    // Responsive
+    @media screen and (max-width: 850px) {
+        #tile-product-info{
+            #tab-faq{
+                [class^=span]{
+                    width: 100%;
+                    &:first-child{
+                        padding-right: 0;
+                        margin-bottom: 1em;
+                    }
+                    &:last-child{
+                        padding-left: 0;
                     }
                 }
             }

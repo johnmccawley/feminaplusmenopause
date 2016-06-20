@@ -252,8 +252,18 @@ body {
   color: #333333;
   background: #f7f7f7; }
 
-.ease, a, a:hover, form input[type=submit], form textarea[type=submit], form input[type=submit]:hover, form textarea[type=submit]:hover, header #main-header #mobile-nav-btn, header #main-header #mobile-nav-btn:hover {
+.ease, a, a:hover, form input[type=submit], form textarea[type=submit], form input[type=submit]:hover, form textarea[type=submit]:hover, header #main-header #mobile-nav-btn, header #main-header #mobile-nav-btn:hover, #product #tile-product-info #tab-faq .question-box h4, #product #tile-product-info #tab-faq .question-box h4:hover {
   transition: all 0.25s ease; }
+
+.fa-custom, #product #tile-product-info #tab-faq .question-box h4:before {
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 1em;
+  text-align: left;
+  display: inline-block; }
 
 h1 {
   color: gray;
@@ -329,13 +339,6 @@ p {
   flex-direction: column; }
 
 .site-content {
-  min-width: 100%;
-  min-height: 100%;
-  position: relative;
-  top: 0;
-  bottom: 100%;
-  left: 0;
-  z-index: 1;
   -ms-flex: 1;
   flex: 1; }
 
@@ -374,6 +377,11 @@ p {
 
 #menu-open {
   display: inline-block; }
+
+#privacy h2, #terms h2 {
+  color: #c31da2;
+  margin-top: 1em;
+  font-size: 1.25em; }
 
 form .input-box:first-child {
   padding-right: .5em; }
@@ -650,10 +658,6 @@ footer #sub-footer {
   header #sub-header {
     display: none; } }
 
-@media screen and (max-width: 800px) {
-  #tile-hero {
-    background-size: 250%; } }
-
 @media screen and (max-width: 650px) {
   footer #main-footer [class^=span] {
     width: 100%; }
@@ -905,6 +909,17 @@ footer #sub-footer {
       margin-top: 0; }
   #product #tile-product-info .tab-content {
     display: none; }
+  #product #tile-product-info #tab-ingredients .ingredient {
+    padding: 0 1.5em;
+    height: 15em;
+    color: #333333; }
+    #product #tile-product-info #tab-ingredients .ingredient:last-child {
+      padding-right: 0; }
+    #product #tile-product-info #tab-ingredients .ingredient:first-child {
+      padding-left: 0; }
+    #product #tile-product-info #tab-ingredients .ingredient img {
+      width: 100%;
+      border: 1px solid #b3b3b3; }
   #product #tile-product-info #tab-description {
     display: block; }
   #product #tile-product-info #tab-faq .question-box {
@@ -912,9 +927,27 @@ footer #sub-footer {
     #product #tile-product-info #tab-faq .question-box h4 {
       background: #c31da2;
       color: white;
-      padding: .5em; }
+      padding: .5em;
+      display: block;
+      cursor: pointer;
+      line-height: 1.5em; }
+      #product #tile-product-info #tab-faq .question-box h4:hover {
+        background: #97167d; }
+      #product #tile-product-info #tab-faq .question-box h4:before {
+        content: '\f0da';
+        color: white; }
     #product #tile-product-info #tab-faq .question-box:last-child {
       margin-bottom: 0; }
+    #product #tile-product-info #tab-faq .question-box p {
+      padding: .25em .5em; }
+    #product #tile-product-info #tab-faq .question-box .answer {
+      display: none; }
+  #product #tile-product-info #tab-faq [class^=span]:first-child {
+    padding-right: 1.5em; }
+  #product #tile-product-info #tab-faq [class^=span]:last-child {
+    padding-left: 1.5em; }
+  #product #tile-product-info #tab-faq p {
+    margin-top: 1em; }
 
 #product #product-info-tabs {
   background: white;
@@ -929,6 +962,15 @@ footer #sub-footer {
       border-bottom: 0; }
     #product #product-info-tabs nav ul li a {
       color: #a4509e; }
+
+@media screen and (max-width: 850px) {
+  #product #tile-product-info #tab-faq [class^=span] {
+    width: 100%; }
+    #product #tile-product-info #tab-faq [class^=span]:first-child {
+      padding-right: 0;
+      margin-bottom: 1em; }
+    #product #tile-product-info #tab-faq [class^=span]:last-child {
+      padding-left: 0; } }
 
 #contact aside {
   padding-left: 2em; }
@@ -952,5 +994,27 @@ footer #sub-footer {
 #contact .form-area {
   padding-right: 2em;
   border-right: 1px dashed #cccccc; }
+
+#cart .cart-header {
+  background: #c31da2;
+  color: white;
+  padding: .5em .75em;
+  margin-bottom: 1em; }
+
+#cart .cart-item {
+  padding: .5em;
+  border: 1px solid #d9d9d9;
+  display: block;
+  background: white;
+  margin-bottom: .5em; }
+  #cart .cart-item [class^=span] {
+    padding: .75em;
+    border-right: 1px solid #d9d9d9;
+    padding-left: .5em; }
+    #cart .cart-item [class^=span]:last-child {
+      border-right: 0; }
+
+#cart .item-price {
+  text-align: right; }
 
 /*# sourceMappingURL=style.css.map */
