@@ -167,6 +167,22 @@
             }
         }
     }
+    @media screen and (max-width: 1050px) {
+        #tile-product{
+            text-align: center;
+            .product-image{
+                display: none;
+            }
+            .product-info{
+                width: 100%;
+            }
+        }
+        #product-options{
+            .product-option{
+                margin: .5em;
+            }
+        }
+    }
     @media screen and (max-width: 850px) {
         #tile-product-info{
             #tab-faq{
@@ -206,6 +222,23 @@
     @media screen and (max-width: 650px) {
         #tile-product-info{
             padding-bottom: 3em;
+        }
+    }
+    @media screen and (max-width: 500px) {
+        #product-info-tabs{
+            nav{
+                ul{
+                    li{
+                        &.current{
+                            background: $primary;
+                            border: 0;
+                            a{
+                                color: white;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

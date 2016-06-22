@@ -12,7 +12,7 @@
 <section id="tile-contact">
     <div class="container">
         <div class="row">
-            <div class="span8 form-area">
+            <div class="span7 form-area">
                 @if (count($errors) > 0)
                     <div class="alert alert-danger">
                         <ul>
@@ -45,12 +45,12 @@
                         <label for="message">Message</label>
                         <textarea id="message" name="message">{{ old('message') }}</textarea>
                     </div>
-                    <div class="row">
+                    <div class="row btn-row">
                         <input type="submit" value="SUBMIT"/>
                     </div>
                 </form>
             </div>
-            <aside class="span4">
+            <aside class="span5">
                 <div class="row">
                     <h3>ADDRESS</h3>
                     <p>
@@ -59,10 +59,10 @@
                         Chino, CA 91710
                     </p>
                 </div>
-                <div class="row">
-                    <h3></h3>
-                    <!-- <a href="tel:800-219--4599"><i class="fa fa-phone" aria-hidden="true"></i>800.219.4599</a> -->
-                    <!-- <a href="mailto:info@feminaplusmenopause.com"><i class="fa fa-envelope" aria-hidden="true"></i>info@feminaplusmenopause.com</a> -->
+                <div class="row contact-info">
+                    <h3>CONTACT</h3>
+                    <a href="tel:800-219--4599"><i class="fa fa-phone" aria-hidden="true"></i>800.219.4599</a>
+                    <a href="mailto:info@feminaplusmenopause.com"><i class="fa fa-envelope" aria-hidden="true"></i>info@feminaplusmenopause.com</a>
                 </div>
                 <div class="row">
                     <h3>SOCIAL</h3>

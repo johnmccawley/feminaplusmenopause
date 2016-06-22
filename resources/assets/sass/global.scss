@@ -495,17 +495,11 @@ header {
                     font-weight: 300;
                     margin-right: -5px;
                     &.accent-nav{
-                      overflow: visible;
+                        overflow: visible;
                         a{
                             background: darken($primary, 10%);
                             color: white;
                             font-weight: 700;
-                            &:hover{
-                                color: white;
-                            }
-                            &.active-nav{
-                                background: darken($primary, 5%);
-                            }
                         }
                     }
                     &:last-child {
@@ -514,6 +508,9 @@ header {
                     a {
                         padding: .7em .75em;
                         color: white;
+                        &.active-nav{
+                            background: darken($primary, 5%);
+                        }
                         &:hover{
                             background: darken($primary, 5%);
                         }

@@ -15,7 +15,7 @@
             <div class="span4 product-image">
                 <img src="img/bottle.png" class="full" />
             </div>
-            <div class="span8">
+            <div class="span8 product-info">
                 <div class="row">
                     <h2><span>Safe and Effective</span> <span>Femina Plus</span> <span>with Fem-Fleur</span></h2>
                     <p>Made with all natural botanical ingredients, Femina Plus with Fem-Fleur is clinically proven to be safe and effective in relieving menopausal symptoms in as few as 7-10 days.</p>

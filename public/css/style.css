@@ -627,15 +627,13 @@ header #main-header {
           background: #97167d;
           color: white;
           font-weight: 700; }
-          header #main-header #desktop-nav ul li.accent-nav a:hover {
-            color: white; }
-          header #main-header #desktop-nav ul li.accent-nav a.active-nav {
-            background: #ad1a90; }
       header #main-header #desktop-nav ul li:last-child {
         margin-right: 0; }
       header #main-header #desktop-nav ul li a {
         padding: .7em .75em;
         color: white; }
+        header #main-header #desktop-nav ul li a.active-nav {
+          background: #ad1a90; }
         header #main-header #desktop-nav ul li a:hover {
           background: #ad1a90; }
 
@@ -1052,6 +1050,16 @@ footer #sub-footer {
   #product #product-info-tabs .tabs {
     text-align: center; } }
 
+@media screen and (max-width: 1050px) {
+  #product #tile-product {
+    text-align: center; }
+    #product #tile-product .product-image {
+      display: none; }
+    #product #tile-product .product-info {
+      width: 100%; }
+  #product #product-options .product-option {
+    margin: .5em; } }
+
 @media screen and (max-width: 850px) {
   #product #tile-product-info #tab-faq [class^=span] {
     width: 100%; }
@@ -1074,6 +1082,13 @@ footer #sub-footer {
 @media screen and (max-width: 650px) {
   #product #tile-product-info {
     padding-bottom: 3em; } }
+
+@media screen and (max-width: 500px) {
+  #product #product-info-tabs nav ul li.current {
+    background: #c31da2;
+    border: 0; }
+    #product #product-info-tabs nav ul li.current a {
+      color: white; } }
 
 #clinical #tile-clinical-previews {
   background: #ededed;
@@ -1173,6 +1188,14 @@ footer #sub-footer {
     margin-bottom: .5em; }
   #contact aside .row {
     margin-bottom: 1em; }
+  #contact aside .contact-info a {
+    display: block;
+    margin-bottom: .5em;
+    color: #666666; }
+    #contact aside .contact-info a:hover {
+      color: #c31da2; }
+    #contact aside .contact-info a i {
+      padding-right: .5em; }
   #contact aside ul.social-icons li.social-icon {
     display: inline-block;
     margin-right: .5em;
@@ -1189,6 +1212,25 @@ footer #sub-footer {
 #contact .form-area {
   padding-right: 2em;
   border-right: 1px dashed #cccccc; }
+
+@media screen and (max-width: 750px) {
+  #contact #tile-contact aside, #contact #tile-contact .form-area {
+    width: 100%;
+    border: 0;
+    padding: 0; }
+  #contact #tile-contact aside {
+    margin-top: 2em;
+    text-align: center; }
+  #contact .btn-row {
+    text-align: center; } }
+
+@media screen and (max-width: 650px) {
+  #contact #tile-contact {
+    padding-bottom: 3em; } }
+
+@media screen and (max-width: 500px) {
+  #contact #tile-contact {
+    padding-bottom: 1em; } }
 
 #cart #tile-cart {
   padding-bottom: 7em; }

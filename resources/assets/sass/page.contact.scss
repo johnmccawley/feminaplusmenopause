@@ -10,6 +10,19 @@
         .row{
             margin-bottom: 1em;
         }
+        .contact-info{
+            a{
+                display: block;
+                margin-bottom: .5em;
+                color: darken(white, 60%);
+                &:hover{
+                    color: $primary;
+                }
+                i{
+                    padding-right: .5em;
+                }
+            }
+        }
         ul.social-icons{
             li.social-icon{
                 display: inline-block;
@@ -31,5 +44,32 @@
     .form-area{
         padding-right: 2em;
         border-right: 1px dashed lighten(black, 80%);
+    }
+
+    @media screen and (max-width: 750px){
+        #tile-contact{
+            aside, .form-area{
+                width: 100%;
+                border: 0;
+                padding: 0;
+            }
+            aside{
+                margin-top: 2em;
+                text-align: center;
+            }
+        }
+        .btn-row{
+            text-align: center;
+        }
+    }
+    @media screen and (max-width: 650px){
+        #tile-contact{
+            padding-bottom: 3em;
+        }
+    }
+    @media screen and (max-width: 500px){
+        #tile-contact{
+            padding-bottom: 1em;
+        }
     }
 }
