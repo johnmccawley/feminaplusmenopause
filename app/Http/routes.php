@@ -49,14 +49,10 @@ Route::get('/home', 'HomeController@index');
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/payment', function () {
-        // $user = User::with($id)->get();
         return view('payment');
     });
 
-    Route::post('/payment', 'PaymentController@create');
-
-    Route::get('order', ['as' => 'order', 'uses' => 'PagesController@getOrder']);
-    Route::post('order', ['as' => 'order-post', 'uses' => 'PagesController@postOrder']);
+    Route::post('/payment', 'PagesController@postOrder');
 });
 
 Route::get('/cart', function () {
