@@ -64,12 +64,22 @@ class PagesController extends Controller
         // $user = User::where('email', $request->email)->first();
         // $customerID = User::where('email', $email)->value('stripe_customer_id');
 
+        $user = User::findOrFail(Auth::user()->id);
         if ($request->product == 'auto-refill') {
             // DO NOTHING FOR NOW
-            // $user->newSubscription('main', 'fpclubone')->create($creditCardToken, ['email' => $user->email]);
+            // $response = $user->newSubscription('main', 'fpclubone')->create($creditCardToken, ['email' => $user->email]);
+            //
+            // if (isset($response)) {
+            //     Purchase::create([
+            //         'user_id' => $user->id,
+            //         'product' => 'fpclubone',
+            //         'amount' => $amount,
+            //         'stripe_transaction_id' => $response->id,
+            //     ]);
+            //     // $this->fullfillmentEmail();
+            // }
         } else {
             try {
-                $user = new User();
                 $response = $user->charge(($amount), ['source' => $creditCardToken]);
             } catch (Exception $e) {
                 echo $e->message();
@@ -77,12 +87,12 @@ class PagesController extends Controller
 
             if (isset($response)) {
                 Purchase::create([
-                    'user_id' => Auth::user()->id,
+                    'user_id' => $user->id,
                     'product' => $request->product,
                     'amount' => $amount,
                     'stripe_transaction_id' => $response->id,
                 ]);
-                // $this->fullfillmentEmail();
+                $this->fullfillmentEmail($user);
             }
 
         }
@@ -183,11 +193,11 @@ class PagesController extends Controller
         //     ->with('successful', 'Your purchase was successful!');
     }
 
-    private function fullfillmentEmail() {
-        Mail::send('emails.reminder', ['user' => $user], function ($m) use ($user) {
+    private function fullfillmentEmail($user) {
+        Mail::send('emails.fullfill', ['user' => $user], function ($m) use ($user) {
            $m->from('hello@app.com', 'Your Application');
 
-           $m->to($user->email, $user->name)->subject('Your Reminder!');
+           $m->to(env('FULLFILL_EMAIL_ONE'), null)->subject('FULLFILLMENT REQUEST');
        });
     }
 

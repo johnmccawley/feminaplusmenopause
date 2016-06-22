@@ -46,7 +46,7 @@ class SubscriptionBuilder
      *
      * @var bool
      */
-    protected $skipTrial = false;
+    protected $skipTrial = true;
 
     /**
      * The coupon code being applied to the customer.
