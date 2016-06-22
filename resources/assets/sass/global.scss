@@ -42,11 +42,19 @@ h2 {
     &:last-child{
         margin-bottom: 0;
     }
+    span{
+        display: inline-block;
+    }
 }
 h3 {
     font-size: 1.2em;
     font-weight: 600;
     color: $secondary;
+}
+h6 {
+    span{
+        display: inline-block;
+    }
 }
 a {
     text-decoration: none;
@@ -57,6 +65,26 @@ a {
 }
 section {
     padding: 3em;
+}
+.secondary-btn{
+    background: darken(white, 30%);
+    color: white;
+    padding: .5em .75em;
+    display: inline-block;
+    font-size: .9em;
+    &:hover{
+        background: darken(white, 40%);
+    }
+}
+.primary-btn{
+    background: $primary;
+    color: white;
+    padding: .5em .75em;
+    display: inline-block;
+    font-size: .9em;
+    &:hover{
+        background: darken($primary, 10%);
+    }
 }
 p {
     line-height: 1.75em;
@@ -97,6 +125,18 @@ p {
     background: $accent;
     &:hover{
         background: darken($accent, 15%);
+    }
+}
+.secondary-cta-btn{
+    padding: .5em 1em;
+    font-size: 1.25em;
+    font-weight: 600;
+    display: inline-block;
+    color: $primary;
+    background: white;
+    border-radius: 25px;
+    &:hover{
+        background: darken(white, 10%);
     }
 }
 // Sticky footer
@@ -195,6 +235,56 @@ p {
         color: $primary;
         margin-top: 1em;
         font-size: 1.25em;
+    }
+}
+#attachment-fpc{
+    padding: 2em;
+    color: white;
+    background: $primary;
+    background-image: url('../img/flower-pedals.png');
+    background-repeat: no-repeat;
+    background-position-y: -10em;
+    background-position-x: center;
+    position: relative;
+    font-size: .8em;
+    h5{
+        color: white;
+        font-weight: 600;
+        font-size: 1.3em;
+        margin-bottom: .5em;
+    }
+    p{
+        color: white;
+    }
+    .product-image{
+        position: absolute;
+        width: 10.5em;
+        top: -15px;
+    }
+    .offer-info{
+        padding-left: 12em;
+    }
+}
+#tile-hero{
+    background: white url('../img/orchid-background-2.png');
+    background-repeat: no-repeat;
+    background-size: 110em;
+    background-position-y: -5em;
+    .product-image{
+        padding-left: 38%;
+        display: inline-block;
+        float: left;
+        width: 39em;
+    }
+    .hero-copy{
+        font-size: .9em;
+        h2{
+            color: $primary;
+            font-weight: 600;
+            span{
+                display: inline-block;
+            }
+        }
     }
 }
 form{
@@ -536,7 +626,24 @@ footer{
         }
     }
 }
+@media screen and (max-width: 1200px) {
+    #tile-hero{
+        background-size: 179%;
+        background-position-x: -4em;
+        .product-image{
+            width: 13em;
+            padding-left: 0;
+            margin-left: 18%;
+        }
+    }
+}
 @media screen and (max-width: 900px) {
+    #tile-hero{
+        background-width: 200%;
+        .product-image{
+            margin-left: 10%;
+        }
+    }
     footer{
         #main-footer{
             [class^=span]{
@@ -572,6 +679,18 @@ footer{
         }
     }
 }
+@media screen and (max-width: 800px) {
+    #tile-hero{
+        background: url('../img/wood-background.png');
+        text-align: center;
+        .product-image{
+            display: inline-block;
+            text-align: center;
+            width: 15em;
+            margin-left: 25%;
+        }
+    }
+}
 @media screen and (max-width: 650px) {
     footer{
         #main-footer{
@@ -582,6 +701,22 @@ footer{
                 margin-top: 1em;
                 text-align: left;
             }
+        }
+    }
+    #attachment-fpc{
+        .product-image{
+            top: 8px;
+        }
+    }
+}
+@media screen and (max-width: 600px) {
+    #attachment-fpc{
+        .product-image{
+            display: none;
+        }
+        .offer-info{
+            padding: 0;
+            text-align: center;
         }
     }
 }

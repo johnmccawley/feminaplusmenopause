@@ -9,7 +9,7 @@
 
 @section('content')
 
-<section>
+<section id="tile-contact">
     <div class="container">
         <div class="row">
             <div class="span8 form-area">

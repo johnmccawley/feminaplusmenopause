@@ -35,10 +35,13 @@
                     Lorem Ipsum
                 </div>
                 <div class="span1 item-qty">
-                    1
+                    <input class="qty-input" />
                 </div>
                 <div class="span2 item-price">
                     $00.00
+                </div>
+                <div class="remove-btn">
+                    x
                 </div>
             </div>
             <div class="row cart-item">
@@ -49,15 +52,29 @@
                     Lorem Ipsum
                 </div>
                 <div class="span1 item-qty">
-                    1
+                    <input class="qty-input" />
                 </div>
                 <div class="span2 item-price">
                     $00.00
                 </div>
+                <div class="remove-btn">
+                    x
+                </div>
             </div>
         </div>
         <div class="row cart-totals">
-            
+            <div class="cart-subtotal">
+                Subtotal: $00.00
+            </div>
+        </div>
+        <div class="row cart-btns">
+            <div class="left-btns">
+                <a href="#" class="secondary-btn">CONTINUE SHOPPING</a>
+                <a href="#" class="secondary-btn">UPDATE</a>
+            </div>
+            <div class="right-btns">
+                <a href="#" class="primary-btn">CHECKOUT</a>
+            </div>
         </div>
     </div>
 </section>
