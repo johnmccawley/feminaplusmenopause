@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Purchase;
 use \Stripe\Stripe as Stripe;
 use \Stripe\Token as Token;
+use App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\PageRequest as PageRequest;
 
+use Auth;
+use Mail;
 use App\Http\Requests;
 
 class PagesController extends Controller
@@ -21,20 +25,21 @@ class PagesController extends Controller
     {
 
         $this->setApiKey();
+        // $request->product = 'auto-refill';
         $request->product = 'oneBottle';
 
         switch ($request->product) {
             case 'auto-refill':
                 $amount = 3600;
                 break;
+            case 'oneBottle':
+                $amount = 3950;
+                break;
             case 'twoBottle':
                 $amount = 7790;
                 break;
             case 'fourBottle':
                 $amount = 14990;
-                break;
-            case 'oneBottle':
-                $amount = 3950;
                 break;
             default:
                 return redirect()->route('/')
@@ -53,13 +58,34 @@ class PagesController extends Controller
             )
         ));
 
-        $user = new User();
+        // $user = Auth::id();
+        // if (!isset(Auth::user()->stripe_id))
 
-         try {
-             $response = $user->charge(($amount), ['source' => $creditCardToken]);
-         } catch (Exception $e) {
-             echo $e->message();
-         }
+        // $user = User::where('email', $request->email)->first();
+        // $customerID = User::where('email', $email)->value('stripe_customer_id');
+
+        if ($request->product == 'auto-refill') {
+            // DO NOTHING FOR NOW
+            // $user->newSubscription('main', 'fpclubone')->create($creditCardToken, ['email' => $user->email]);
+        } else {
+            try {
+                $user = new User();
+                $response = $user->charge(($amount), ['source' => $creditCardToken]);
+            } catch (Exception $e) {
+                echo $e->message();
+            }
+
+            if (isset($response)) {
+                Purchase::create([
+                    'user_id' => Auth::user()->id,
+                    'product' => $request->product,
+                    'amount' => $amount,
+                    'stripe_transaction_id' => $response->id,
+                ]);
+                // $this->fullfillmentEmail();
+            }
+
+        }
 
          return redirect('/');
 
@@ -69,7 +95,7 @@ class PagesController extends Controller
         // FUCK EVERYTHING BEYOND THIS POINT
         //
 
-        // Checking is product valid
+        // // Checking is product valid
         // $product = $request->input('product');
         // switch ($product) {
         //     case 'book':
@@ -155,6 +181,14 @@ class PagesController extends Controller
         //
         // return redirect()->route('order')
         //     ->with('successful', 'Your purchase was successful!');
+    }
+
+    private function fullfillmentEmail() {
+        Mail::send('emails.reminder', ['user' => $user], function ($m) use ($user) {
+           $m->from('hello@app.com', 'Your Application');
+
+           $m->to($user->email, $user->name)->subject('Your Reminder!');
+       });
     }
 
     private function setApiKey() {

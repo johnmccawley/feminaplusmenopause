@@ -24,7 +24,11 @@ class PageRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|string|min:2|max:32'
+            'name' => 'required|max:255',
+            'cardNumber' => 'required|min:16|max:16',
+            'expiration' => 'required|max:7',
+            'cvc' => 'required|max:4',
+            // 'product' => 'required'
         ];
     }
 }
