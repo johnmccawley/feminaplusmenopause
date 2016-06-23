@@ -1,7 +1,106 @@
 #checkout{
+    input{
+        font-size: 1em;
+    }
+    h3{
+        color: $primary;
+        margin-bottom: 1em;
+        // border-bottom: 1px solid $primary;
+        padding-bottom: .25em;
+    }
+    #tile-cart{
+        background: white;
+        .cart-items{
+            margin: 2em 0;
+            .cart-item{
+                display: block;
+                margin-bottom: 1em;
+                border-bottom: 2px solid darken(white, 10%);
+                padding-bottom: 1em;
+                .item-price{
+                    text-align: right;
+                }
+                .item-qty{
+                    text-align: right;
+                }
+            }
+        }
+    }
+    #shipping-info{
+        margin-top: 1em;
+        display: none;
+    }
+    .address-check{
+        margin-top: 1em;
+    	label {
+            display: inline;
+            cursor: pointer;
+            padding: .65em;
+    				padding-left: 0;
+            &:before {
+                @extend .fa-custom;
+                margin-right: 0.5em;
+                content: "\f096";
+            }
+        }
+        input[type=checkbox]{
+            display: none;
+            cursor: pointer;
+        }
+        input[type=checkbox]:checked + label{
+            color: #5e5e5e;
+            font-weight: 500;
+            &:before {
+                color: #5e5e5e;
+                @extend .fa-custom;
+                content: "\f046";
+            }
+        }
+    }
+    #tile-checkout-info{
+        .billing-shipping-info{
+            padding-right: 2em;
 
+            border-right: 1px solid darken(white, 20%);
+        }
+        .payment-info{
+            padding-left: 2em;
+        }
+        .input-row{
+            margin-bottom: 1em;
+            input{
+                display: inline-block;
+            }
+            [class^=span]{
+                &:first-child{
+                    padding-right: .5em;
+                }
+                &:last-child{
+                    padding-left: .5em;
+                }
+            }
+            button{
+                margin-top: 1em;
+                width: 100%;
+                text-transform: uppercase;
+                cursor: pointer;
+            }
+        }
+    }
 
     // Responsive
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: 850px) {
+        #tile-checkout-info{
+            .billing-shipping-info{
+                width: 100%;
+                padding-right: 0;
+                border-right: 0;
+                margin-bottom: 2em;
+            }
+            .payment-info{
+                width: 100%;
+                padding-left: 0;
+            }
+        }
     }
 }

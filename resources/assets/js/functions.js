@@ -33,6 +33,15 @@ $(document).ready(function() {
 		}
 	}
 
+	// Address check
+	$("#address-checkbox").click(function(){
+		if($("#address-checkbox").is(':checked')){
+			$("#shipping-info").slideUp()
+		} else {
+			$("#shipping-info").slideDown();
+		}
+	});
+
 	// FAQ
 	$(".question-box").click(function() {
 		if( $(this).find('.answer').is(":visible") ){
