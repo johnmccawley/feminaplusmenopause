@@ -7,18 +7,6 @@
             display: inline-block;
         }
     }
-    #tile-hero{
-        background: url('../img/orchid-background.png');
-        background-repeat: no-repeat;
-        background-size: 110em;
-        background-position-y: -5em;
-        .product-image{
-            padding-left: 38%;
-            display: inline-block;
-            float: left;
-            width: 39em;
-        }
-    }
     #tile-lifestyle{
         background: url('../img/yoga-girls.png') center;
         background-position: center;
@@ -81,12 +69,15 @@
             }
         }
         .main-keypoint{
+            margin-bottom: 1.5em;
             h3{
                 color: $accent;
                 font-size: 1.25em;
                 margin-bottom: .15em;
             }
-            margin-bottom: 1.5em;
+            &:last-child{
+                margin-bottom: 0;
+            }
         }
     }
     #tile-clinical-keypoints{
@@ -121,13 +112,6 @@
     }
     @media screen and (max-width: 1200px) {
         #tile-hero{
-            background-size: 179%;
-            background-position-x: -4em;
-            .product-image{
-                width: 13em;
-                padding-left: 0;
-                margin-left: 18%;
-            }
             h1{
                 font-size: 1.75em;
             }
@@ -174,18 +158,16 @@
 
 
     // Responsive
-    @media screen and (max-width: 900px) {
-        #tile-hero{
-            background-width: 200%;
-            .product-image{
-                margin-left: 10%;
-            }
-        }
-    }
+    // @media screen and (max-width: 900px) {
+    //     #tile-hero{
+    //         background-width: 200%;
+    //         .product-image{
+    //             margin-left: 10%;
+    //         }
+    //     }
+    // }
     @media screen and (max-width: 800px) {
         #tile-hero{
-            background: url('../img/wood-background.png');
-            text-align: center;
             .bullet-points{
                 margin-top: 0;
                 margin-left: 0;
@@ -193,17 +175,6 @@
                 width: 100%;
                 margin-bottom: 2em;
             }
-            .product-image{
-                display: inline-block;
-                text-align: center;
-                width: 15em;
-                margin-left: 25%;
-            }
-        }
-    }
-    @media screen and (max-width: 625px) {
-        #tile-hero{
-
         }
     }
     @media screen and (max-width: 625px) {
@@ -222,6 +193,12 @@
                 &:last-child{
                 }
             }
+        }
+    }
+    @media screen and (max-width: 600px) {
+        #tile-lifestyle{
+            padding-top: 22em;
+            background-position-x: -43em;
         }
     }
     @media screen and (max-width: 500px) {

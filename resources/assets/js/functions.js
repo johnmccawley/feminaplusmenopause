@@ -2,6 +2,7 @@ $(document).ready(function() {
 
     // Product tabs
     $(".tabs a").click(function(event) {
+		event.preventDefault(event);
         $(this).parent().addClass("current");
         $(this).parent().siblings().removeClass("current");
         var tab = $(this).attr("href");

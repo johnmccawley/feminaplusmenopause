@@ -50,6 +50,7 @@
     }
     #tile-product-info{
         border-top: 1px solid darken(white, 15%);
+        padding-bottom: 5em;
         h2{
             color: lighten(black, 40%);
         }
@@ -65,18 +66,23 @@
         }
         #tab-ingredients{
             .ingredient{
-                padding: 0 1.5em;
-                height: 15em;
+                padding: 1.5em;
+                max-height: 15em;
                 color: lighten(black, 20%);
                 &:last-child{
-                    padding-right: 0;
-                }
-                &:first-child{
-                    padding-left: 0;
+                    // padding-right: 0;
                 }
                 img{
                     width: 100%;
-                    border: 1px solid darken(white, 30%);
+                    border: 1px solid darken(white, 10%);
+                    -webkit-box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.1);
+                    -moz-box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.1);
+                    box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.1);
+                }
+                h4{
+                    text-align: center;
+                    color: $primary;
+                    margin-bottom: .5em;
                 }
             }
         }
@@ -154,6 +160,29 @@
 
 
     // Responsive
+    @media screen and (max-width: 1200px) {
+        #product-info-tabs{
+            .tabs{
+                text-align: center;
+            }
+        }
+    }
+    @media screen and (max-width: 1050px) {
+        #tile-product{
+            text-align: center;
+            .product-image{
+                display: none;
+            }
+            .product-info{
+                width: 100%;
+            }
+        }
+        #product-options{
+            .product-option{
+                margin: .5em;
+            }
+        }
+    }
     @media screen and (max-width: 850px) {
         #tile-product-info{
             #tab-faq{
@@ -165,6 +194,57 @@
                     }
                     &:last-child{
                         padding-left: 0;
+                    }
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 800px) {
+        #tile-product-info{
+            #tab-ingredients{
+                .ingredient{
+                    max-height: none;
+                    width: 100%;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 700px) {
+        #product-info-tabs{
+            .tabs{
+                li{
+                    font-size: .8em;
+                    margin-right: .25em;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 650px) {
+        #tile-product-info{
+            padding-bottom: 3em;
+        }
+    }
+    @media screen and (max-width: 500px) {
+        #tile-product{
+            #product-options{
+                .product-option{
+                    width: 100%;
+                    margin: 0;
+                    margin-bottom: 1em;
+                }
+            }
+        }
+        #product-info-tabs{
+            nav{
+                ul{
+                    li{
+                        &.current{
+                            background: $primary;
+                            border: 0;
+                            a{
+                                color: white;
+                            }
+                        }
                     }
                 }
             }

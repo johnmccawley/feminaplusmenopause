@@ -75,6 +75,24 @@
             <main class="site-content">
                 @yield('content')
             </main>
+
+            @if ($page_id != "checkout")
+            <div id="attachment-fpc">
+                <div class="container">
+                    <div class="row">
+                        <div class="product-image">
+                            <img class="product-image" src="img/bottle.png" />
+                        </div>
+                        <div class="offer-info">
+                            <h5>Join the Femina Plus Club</h5>
+                            <p>Sign up for our monthly subscription club and save off the price of an individual bottle. You’ll get your Femina Plus delivered to your door automatically without having to reorder each month, plus continued relief from your menopause symptoms. </p>
+                            <a href="#" class="secondary-cta-btn">LEARN MORE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
+
             <footer>
                 <div id="main-footer">
                     <div class="container">
@@ -94,7 +112,7 @@
                             <div id="contact-info" class="span4">
                                 <ul>
                                     <span>STAY IN TOUCH</span>
-                                    <li><a href="tel:800-219--4599"><i class="fa fa-phone" aria-hidden="true"></i>800.219.4599</a></li>
+                                    <li><a href="tel:800-219-4599"><i class="fa fa-phone" aria-hidden="true"></i>800.219.4599</a></li>
                                     <li><a href="mailto:info@feminaplusmenopause.com"><i class="fa fa-envelope" aria-hidden="true"></i>info@feminaplusmenopause.com</a></li>
                                 </ul>
                             </div>

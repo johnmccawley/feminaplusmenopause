@@ -20,18 +20,22 @@ Route::get('/product', function ()  {
     return view('product');
 });
 
+Route::get('/clinical', function () {
+    return view('clinical');
+});
+
 Route::get('/contact', function () {
     return view('contact');
 });
 
 Route::post('/contact', 'ContactController@create');
 
-Route::get('/clinical', function () {
-    return view('clinical');
-});
-
 Route::get('/cart', function () {
     return view('cart');
+});
+
+Route::get('/checkout', function () {
+    return view('checkout');
 });
 
 Route::get('/terms', function () {

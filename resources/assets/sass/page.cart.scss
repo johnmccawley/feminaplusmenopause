@@ -1,4 +1,12 @@
 #cart{
+    #tile-cart{
+        padding-bottom: 7em;
+    }
+    input{
+        width: 100%;
+        font-size: 1.05em;
+        padding: .15em;
+    }
     .cart-header{
         background: $primary;
         color: white;
@@ -10,17 +18,99 @@
         border: 1px solid darken(white, 15%);
         display: block;
         background: white;
+        position: relative;
         margin-bottom: .5em;
         [class^=span]{
-            padding: .75em;
+            height: 2.75em;
+            padding: .5em;
             border-right: 1px solid darken(white, 15%);
             padding-left: .5em;
             &:last-child{
                 border-right: 0;
             }
         }
+        .item-price{
+            border-right: 0;
+        }
+        .remove-btn{
+            position: absolute;
+            right: -18px;
+            top: 21px;
+            border-right: 0;
+            cursor: pointer;
+            &:hover{
+                color: red;
+            }
+        }
     }
     .item-price{
         text-align: right;
+    }
+    .cart-totals{
+        margin-top: 1em;
+        padding-top: 1em;
+        text-align: right;
+        border-top: 1px solid lighten(black, 80%);
+        margin-bottom: 2em;
+        div{
+            margin-bottom: .5em;
+            &.cart-total{
+                font-size: 1.25em;
+                font-weight: 600;
+            }
+        }
+    }
+
+    .left-btns{
+        float: left;
+        display: inline-block;
+    }
+    .right-btns{
+        float: right;
+        display: inline-block;
+    }
+
+    @media screen and (max-width: 800px) {
+        .item-desc{
+            display: none;
+        }
+        .item-name{
+            width: 66.66666666666666%;
+        }
+        .item-qty{
+            width: 16.666666666666664%;
+        }
+        .item-price{
+            width: 16.666666666666664%;
+        }
+    }
+    @media screen and (max-width: 600px) {
+        #tile-cart{
+            padding-bottom: 3em;
+        }
+    }
+    @media screen and (max-width: 525px) {
+        .item-name{
+            width: 50%;
+        }
+        .item-qty{
+            width: 25%;
+        }
+        .item-price{
+            width: 25%;
+        }
+    }
+    @media screen and (max-width: 500px) {
+        #tile-cart{
+            padding-bottom: 1em;
+        }
+        .left-btns, .right-btns, .secondary-btn, .primary-btn{
+            width: 100%;
+        }
+        .secondary-btn, .primary-btn{
+            margin-bottom: 1em;
+            text-align: center;
+        }
+
     }
 }
