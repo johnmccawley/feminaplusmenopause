@@ -252,7 +252,7 @@ body {
   color: #333333;
   background: #f7f7f7; }
 
-.ease, a, a:hover, form input[type=submit], form textarea[type=submit], form input[type=submit]:hover, form textarea[type=submit]:hover, header #main-header #mobile-nav-btn, header #main-header #mobile-nav-btn:hover, #product #tile-product-info #tab-faq .question-box h4, #product #tile-product-info #tab-faq .question-box h4:hover, #clinical .clinical-previews [class^=span] .clinical-preview, #clinical .clinical-previews [class^=span] .clinical-preview:hover {
+.ease, a, a:hover, form input[type=submit], form textarea[type=submit], form select[type=submit], form input[type=submit]:hover, form textarea[type=submit]:hover, form select[type=submit]:hover, header #main-header #mobile-nav-btn, header #main-header #mobile-nav-btn:hover, #product #tile-product-info #tab-faq .question-box h4, #product #tile-product-info #tab-faq .question-box h4:hover, #clinical .clinical-previews [class^=span] .clinical-preview, #clinical .clinical-previews [class^=span] .clinical-preview:hover {
   transition: all 0.25s ease; }
 
 .fa-custom, #product #tile-product-info #tab-faq .question-box h4:before, #checkout .address-check label:before, #checkout .address-check input[type=checkbox]:checked + label:before {
@@ -476,7 +476,7 @@ form label {
   color: gray;
   text-transform: uppercase; }
 
-form input, form textarea {
+form input, form textarea, form select {
   padding: .5em;
   font-size: 1.25em;
   width: 100%;
@@ -486,7 +486,7 @@ form input, form textarea {
   outline: 0;
   border: 1px solid #cccccc;
   border-radius: 3px; }
-  form input[type=submit], form textarea[type=submit] {
+  form input[type=submit], form textarea[type=submit], form select[type=submit] {
     background: #a4509e;
     color: white;
     border: none;
@@ -498,7 +498,7 @@ form input, form textarea {
     min-width: initial;
     max-width: initial;
     cursor: pointer; }
-    form input[type=submit]:hover, form textarea[type=submit]:hover {
+    form input[type=submit]:hover, form textarea[type=submit]:hover, form select[type=submit]:hover {
       background: #823f7d; }
 
 form textarea {
@@ -526,10 +526,8 @@ select {
   font-size: 1.2em;
   border-radius: 0;
   outline: 0;
-  background: none;
-  color: #999999;
+  color: #cccccc;
   border: 0;
-  border-bottom: 2px solid #999999;
   background-image: url("../img/dropdown-icon.png");
   background-position: 95% center;
   background-repeat: no-repeat;
@@ -1329,8 +1327,11 @@ footer #sub-footer {
     margin-bottom: 1em;
     text-align: center; } }
 
-#checkout input {
+#checkout input, #checkout select {
   font-size: 1em; }
+
+#checkout select {
+  background-color: white; }
 
 #checkout h3 {
   color: #c31da2;

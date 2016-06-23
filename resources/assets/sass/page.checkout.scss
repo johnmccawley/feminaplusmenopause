@@ -1,6 +1,13 @@
 #checkout{
-    input{
+    input, select{
         font-size: 1em;
+    }
+    select{
+        background-color: white;
+        option{
+            &.null{
+            }
+        }
     }
     h3{
         color: $primary;

@@ -308,7 +308,7 @@ form{
         color: lighten(black, 50%);
         text-transform: uppercase;
     }
-    input, textarea{
+    input, textarea, select{
         padding: .5em;
         font-size: 1.25em;
         width: 100%;
@@ -368,10 +368,8 @@ select {
     font-size: 1.2em;
     border-radius: 0;
     outline: 0;
-    background: none;
-    color: darken(white, 40%);
+    color: darken(white, 20%);
     border: 0;
-    border-bottom: 2px solid lighten(black, 60%);
     background-image: url("../img/dropdown-icon.png");
     background-position: 95% center;
     background-repeat: no-repeat;
