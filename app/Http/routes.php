@@ -52,11 +52,11 @@ Route::get('/home', 'HomeController@index');
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/payment', function () {
-        return view('payment');
+    Route::get('/checkout', function () {
+        return view('checkout');
     });
 
-    Route::post('/payment', 'PagesController@postOrder');
+    Route::post('/checkout', 'PagesController@postOrder');
 });
 
 Route::get('/cart', function () {

@@ -69,11 +69,11 @@
         </div>
         <div class="row cart-btns">
             <div class="left-btns">
-                <a href="#" class="secondary-btn">CONTINUE SHOPPING</a>
+                <a href="/product" class="secondary-btn">CONTINUE SHOPPING</a>
                 <a href="#" class="secondary-btn">UPDATE</a>
             </div>
             <div class="right-btns">
-                <a href="#" class="primary-btn">CHECKOUT</a>
+                <a href="/checkout" class="primary-btn">CHECKOUT</a>
             </div>
         </div>
     </div>
