@@ -50,6 +50,8 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
+Route::put('/cart/{product}/add', 'CartController@store');
+
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/checkout', function () {
