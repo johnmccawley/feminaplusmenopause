@@ -61,7 +61,7 @@
                 </div>
                 <div class="row contact-info">
                     <h3>CONTACT</h3>
-                    <a href="tel:800-219--4599"><i class="fa fa-phone" aria-hidden="true"></i>800.219.4599</a>
+                    <a href="tel:800-219-4599"><i class="fa fa-phone" aria-hidden="true"></i>800.219.4599</a>
                     <a href="mailto:info@feminaplusmenopause.com"><i class="fa fa-envelope" aria-hidden="true"></i>info@feminaplusmenopause.com</a>
                 </div>
                 <div class="row">

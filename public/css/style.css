@@ -1084,6 +1084,10 @@ footer #sub-footer {
     padding-bottom: 3em; } }
 
 @media screen and (max-width: 500px) {
+  #product #tile-product #product-options .product-option {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 1em; }
   #product #product-info-tabs nav ul li.current {
     background: #c31da2;
     border: 0; }
