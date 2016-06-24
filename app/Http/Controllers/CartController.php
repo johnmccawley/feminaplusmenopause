@@ -6,6 +6,7 @@ use DB as DB;
 use App\Cart;
 use \Stripe\Stripe as Stripe;
 use \Stripe\Product as Product;
+use \Stripe\SKU as SKU;
 use \Stripe\Plan as Plan;
 use Illuminate\Cookie\CookieJar;
 use Illuminate\Http\Request;
@@ -44,12 +45,17 @@ class CartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $item, $itemType)
+    public function store(Request $request, $id, $itemType)
     {
         if ($itemType == 'product') {
-            $item = Product::retrieve($item);
+            $sku = SKU::retrieve($id);
+            $product = Product::retrieve('feminaplus');
+
+            $item = (object)['id' => $sku->id, 'type' => 'product', 'name' => $product->name, 'description' => $product->description, 'price' => $sku->price];
         } else if ($itemType == 'plan') {
-            $item = Plan::retrieve($item);
+            $plan = Plan::retrieve('fpClub');
+
+            $item = (object)['id' => $plan->id, 'type' => 'plan', 'name' => $plan->name, 'description' => $plan->statement_descriptor, 'price' => $plan->amount];
         }
 
         $token = $request->session()->get('_token');
@@ -61,7 +67,7 @@ class CartController extends Controller
             $cart->sku = json_encode($sku);
             $cart->save();
         } else {
-            $sku[] = $item;
+            $sku = array($item);
             Cart::create([
                 'token' => $token,
                 'sku' => json_encode($sku)

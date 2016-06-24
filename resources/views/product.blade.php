@@ -39,19 +39,19 @@
                         <button type="submit" class="product-option">AUTO-REFILL<span>$36.00</span></button>
                     </form>
 
-                    <form action="{{ url('/cart/fpOneBottle/product') }}" method="POST">
+                    <form action="{{ url('/cart/oneBottle/product') }}" method="POST">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <button type="submit" class="product-option">SINGLE BOTTLE<span>$39.50</span></button>
                     </form>
 
-                    <form action="{{ url('/cart/fpTwoBottle/product') }}" method="POST">
+                    <form action="{{ url('/cart/twoBottle/product') }}" method="POST">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <button type="submit" class="product-option">TWO-PACK<span>$77.90</span></button>
                     </form>
 
-                    <form action="{{ url('/cart/fpFourBottle/product') }}" method="POST">
+                    <form action="{{ url('/cart/fourBottle/product') }}" method="POST">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <button type="submit" class="product-option">FOUR-PACK<span>$149.90</span></button>

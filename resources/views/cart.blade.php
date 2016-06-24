@@ -37,9 +37,10 @@
                             {{ $item->description }}
                         </div>
                         <div class="span1 item-qty">
-                            <input class="qty-input" />
+                            <input class="qty-input" value="1"/>
                         </div>
                         <div class="span2 item-price">
+                            {{ $item->price }}
                             {{-- {{ money_format('$', floatval($item->skus->data[0]->price)) }} --}}
                         </div>
                         <div class="remove-btn">
