@@ -6,9 +6,19 @@
         .product-image{
             padding: 0 4em;
         }
+
         #product-options{
             margin-top: 2em;
             margin-bottom: 2em;
+            form{
+                display: inline-block;
+                margin-right: .5em;
+                button{
+                    font-size: 1em;
+                    background: white;
+                    cursor: pointer;
+                }
+            }
             .product-option{
                 border: 1px solid $primary;
                 padding: .5em .75em;
@@ -205,6 +215,18 @@
                 .ingredient{
                     max-height: none;
                     width: 100%;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 775px) {
+        #tile-product{
+            #product-options{
+                form{
+                    width: 100%;
+                    button{
+                        width: 100%;
+                    }
                 }
             }
         }

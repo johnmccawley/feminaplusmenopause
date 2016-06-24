@@ -947,6 +947,13 @@ footer #sub-footer {
   #product #tile-product #product-options {
     margin-top: 2em;
     margin-bottom: 2em; }
+    #product #tile-product #product-options form {
+      display: inline-block;
+      margin-right: .5em; }
+      #product #tile-product #product-options form button {
+        font-size: 1em;
+        background: white;
+        cursor: pointer; }
     #product #tile-product #product-options .product-option {
       border: 1px solid #c31da2;
       padding: .5em .75em;
@@ -1071,6 +1078,12 @@ footer #sub-footer {
   #product #tile-product-info #tab-ingredients .ingredient {
     max-height: none;
     width: 100%; } }
+
+@media screen and (max-width: 775px) {
+  #product #tile-product #product-options form {
+    width: 100%; }
+    #product #tile-product #product-options form button {
+      width: 100%; } }
 
 @media screen and (max-width: 700px) {
   #product #product-info-tabs .tabs li {
