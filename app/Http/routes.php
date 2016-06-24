@@ -22,6 +22,8 @@ Route::get('/product', function ()  {
     return view('product');
 });
 
+// Route::get('auth/login', 'Auth\AuthController@getLogin');
+
 Route::get('/clinical', function () {
     return view('clinical');
 });
@@ -46,6 +48,10 @@ Route::get('/terms', function () {
 
 Route::get('/privacy', function () {
     return view('privacy');
+});
+
+Route::get('/confirm', function () {
+    return view('/');
 });
 
 Route::auth();
