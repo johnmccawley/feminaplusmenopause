@@ -29,15 +29,32 @@
                     </ul> -->
                 </div>
                 <div id="product-options" class="row">
-                    <a href="#" class="product-option">AUTO-REFILL<span>$36.00</span></a>
+                    {{-- <a href="#" class="product-option">AUTO-REFILL<span>$36.00</span></a>
                     <a href="#" class="product-option">TWO-PACK<span>$77.90</span></a>
                     <a href="#" class="product-option">FOUR-PACK<span>$149.90</span></a>
-                    {{-- <a href="#" class="product-option">SINGLE BOTTLE<span>$39.50</span></a> --}}
-                    {{-- <a href="/cart/fpOneBottle/add" class="product-option" method="POST">SINGLE BOTTLE<span>$39.50</span></a> --}}
-                    <form action="{{ url('/cart/fpOneBottle/add') }}" method="POST">
+                    <a href="#" class="product-option">SINGLE BOTTLE<span>$39.50</span></a> --}}
+                    <form action="{{ url('/cart/fpClub/plan') }}" method="POST">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
-                        <button type="submit" class="btn btn-success">SINGLE BOTTLE<span>$39.50</span></button>
+                        <button type="submit" class="product-option">AUTO-REFILL<span>$36.00</span></button>
+                    </form>
+
+                    <form action="{{ url('/cart/fpOneBottle/product') }}" method="POST">
+                        {{ csrf_field() }}
+                        {{ method_field('PUT') }}
+                        <button type="submit" class="product-option">SINGLE BOTTLE<span>$39.50</span></button>
+                    </form>
+
+                    <form action="{{ url('/cart/fpTwoBottle/product') }}" method="POST">
+                        {{ csrf_field() }}
+                        {{ method_field('PUT') }}
+                        <button type="submit" class="product-option">TWO-PACK<span>$77.90</span></button>
+                    </form>
+
+                    <form action="{{ url('/cart/fpFourBottle/product') }}" method="POST">
+                        {{ csrf_field() }}
+                        {{ method_field('PUT') }}
+                        <button type="submit" class="product-option">FOUR-PACK<span>$149.90</span></button>
                     </form>
                 </div>
             </div>

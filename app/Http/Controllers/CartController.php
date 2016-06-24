@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Cart;
 use \Stripe\Stripe as Stripe;
 use \Stripe\Product as Product;
+use \Stripe\Plan as Plan;
 use Illuminate\Cookie\CookieJar;
 use Illuminate\Http\Request;
 
@@ -42,17 +43,19 @@ class CartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $product)
+    public function store(Request $request, $item, $itemType)
     {
-        $product = Product::retrieve('feminaplus');
+        if ($itemType == 'product') {
+            $item = Product::retrieve($item);
+        } else if ($itemType == 'plan') {
+            $item = Plan::retrieve($item);
+        }
 
-        $sku = $product->skus->data[0];
-        // $sku = (object)['id' => $product->skus->data[0]->id, 'currency' => $product->skus->data[0]->currency, 'price' => $product->skus->data[0]->price];
         $token = $request->session()->get('_token');
 
         Cart::create([
             'token' => $token,
-            'sku' => json_encode($sku)
+            'sku' => json_encode($item)
         ]);
 
         return redirect('/product');
