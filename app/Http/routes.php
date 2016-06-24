@@ -10,7 +10,9 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+use DB as DB;
 use App\User;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('home');
@@ -61,6 +63,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/checkout', 'PagesController@postOrder');
 });
 
-Route::get('/cart', function () {
-    return view('cart');
+Route::get('/cart', function (Request $request) {
+    $token = $request->session()->get('_token');
+    $cart = DB::table('carts')->where('token', $token)->first();
+    if ($cart) {
+        $cartItems = json_decode($cart->sku);
+    } else {
+        $cartItems = null;
+    }
+
+    return view('cart', ['cartItems' => $cartItems]);
 });

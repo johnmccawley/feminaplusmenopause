@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB as DB;
 use App\Cart;
 use \Stripe\Stripe as Stripe;
 use \Stripe\Product as Product;
@@ -52,11 +53,20 @@ class CartController extends Controller
         }
 
         $token = $request->session()->get('_token');
-
-        Cart::create([
-            'token' => $token,
-            'sku' => json_encode($item)
-        ]);
+        $cartDbEntry = DB::table('carts')->where('token', $token)->first();
+        if ($cartDbEntry) {
+            $cart = Cart::find($cartDbEntry->id);
+            $sku = json_decode($cart->sku);
+            $sku[] = $item;
+            $cart->sku = json_encode($sku);
+            $cart->save();
+        } else {
+            $sku[] = $item;
+            Cart::create([
+                'token' => $token,
+                'sku' => json_encode($sku)
+            ]);
+        }
 
         return redirect('/product');
     }

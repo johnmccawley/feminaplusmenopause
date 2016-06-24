@@ -27,40 +27,27 @@
         </div>
         <div class="row cart-items">
             <!-- Loop foreach cart-item -->
-            <div class="row cart-item">
-                <div class="span3 item-name">
-                    Single Bottle
-                </div>
-                <div class="span6 item-desc">
-                    Lorem Ipsum
-                </div>
-                <div class="span1 item-qty">
-                    <input class="qty-input" />
-                </div>
-                <div class="span2 item-price">
-                    $00.00
-                </div>
-                <div class="remove-btn">
-                    x
-                </div>
-            </div>
-            <div class="row cart-item">
-                <div class="span3 item-name">
-                    Single Bottle
-                </div>
-                <div class="span6 item-desc">
-                    Lorem Ipsum
-                </div>
-                <div class="span1 item-qty">
-                    <input class="qty-input" />
-                </div>
-                <div class="span2 item-price">
-                    $00.00
-                </div>
-                <div class="remove-btn">
-                    x
-                </div>
-            </div>
+            @if($cartItems)
+                @foreach($cartItems as $item)
+                    <div class="row cart-item">
+                        <div class="span3 item-name">
+                            {{ $item->name }}
+                        </div>
+                        <div class="span6 item-desc">
+                            {{ $item->description }}
+                        </div>
+                        <div class="span1 item-qty">
+                            <input class="qty-input" />
+                        </div>
+                        <div class="span2 item-price">
+                            {{-- {{ money_format('$', floatval($item->skus->data[0]->price)) }} --}}
+                        </div>
+                        <div class="remove-btn">
+                            x
+                        </div>
+                    </div>
+                @endforeach
+            @endif
         </div>
         <div class="row cart-totals">
             <div class="cart-subtotal">

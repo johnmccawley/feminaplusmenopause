@@ -15,7 +15,7 @@ class CreateCartTable extends Migration
         Schema::create('carts', function ($table) {
             $table->increments('id');
             $table->string('token');
-            $table->string('sku', 1000);
+            $table->text('sku');
             $table->timestamps();
         });
     }
