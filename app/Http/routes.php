@@ -74,9 +74,10 @@ Route::get('/cart', function (Request $request) {
     $cart = DB::table('carts')->where('token', $token)->first();
     if ($cart) {
         $cartItems = json_decode($cart->sku);
+        $total = $cart->total/100;
     } else {
         $cartItems = null;
+        $total = 0;
     }
-    $total = $cart->total/100;
     return view('cart', ['cartItems' => $cartItems, 'total' => $total]);
 });
