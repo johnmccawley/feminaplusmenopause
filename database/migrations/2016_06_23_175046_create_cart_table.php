@@ -16,6 +16,7 @@ class CreateCartTable extends Migration
             $table->increments('id');
             $table->string('token');
             $table->text('sku');
+            $table->integer('total');
             $table->timestamps();
         });
     }

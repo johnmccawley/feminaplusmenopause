@@ -77,6 +77,6 @@ Route::get('/cart', function (Request $request) {
     } else {
         $cartItems = null;
     }
-
-    return view('cart', ['cartItems' => $cartItems]);
+    $total = $cart->total/100;
+    return view('cart', ['cartItems' => $cartItems, 'total' => $total]);
 });

@@ -40,8 +40,7 @@
                             <input class="qty-input" value="1"/>
                         </div>
                         <div class="span2 item-price">
-                            {{ $item->price }}
-                            {{-- {{ money_format('$', floatval($item->skus->data[0]->price)) }} --}}
+                            {{ $item->display_price }}
                         </div>
                         <div class="remove-btn">
                             x
@@ -52,7 +51,7 @@
         </div>
         <div class="row cart-totals">
             <div class="cart-subtotal">
-                Subtotal: $00.00
+                {{ "$". $total }}
             </div>
         </div>
         <div class="row cart-btns">

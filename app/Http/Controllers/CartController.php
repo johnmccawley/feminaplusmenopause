@@ -51,11 +51,13 @@ class CartController extends Controller
             $sku = SKU::retrieve($id);
             $product = Product::retrieve('feminaplus');
 
-            $item = (object)['id' => $sku->id, 'type' => 'product', 'name' => $product->name, 'description' => $product->description, 'price' => $sku->price];
+            $displayPrice = '$' . $sku->price / 100;
+            $item = (object)['id' => $sku->id, 'type' => 'product', 'name' => $product->name, 'description' => $product->description, 'price' => $sku->price, 'display_price' => $displayPrice];
         } else if ($itemType == 'plan') {
             $plan = Plan::retrieve('fpClub');
 
-            $item = (object)['id' => $plan->id, 'type' => 'plan', 'name' => $plan->name, 'description' => $plan->statement_descriptor, 'price' => $plan->amount];
+            $displayPrice = '$' . $plan->amount / 100;
+            $item = (object)['id' => $plan->id, 'type' => 'plan', 'name' => $plan->name, 'description' => $plan->statement_descriptor, 'price' => $plan->amount, 'display_price' => $displayPrice];
         }
 
         $token = $request->session()->get('_token');
@@ -65,16 +67,19 @@ class CartController extends Controller
             $sku = json_decode($cart->sku);
             $sku[] = $item;
             $cart->sku = json_encode($sku);
+            $cart->total = $this->calculateTotal($sku);
             $cart->save();
         } else {
+            $total = $item->price;
             $sku = array($item);
             Cart::create([
                 'token' => $token,
-                'sku' => json_encode($sku)
+                'sku' => json_encode($sku),
+                'total' => $total
             ]);
         }
 
-        return redirect('/product');
+        return redirect('/cart');
     }
 
     /**
@@ -120,6 +125,15 @@ class CartController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function calculateTotal($sku) {
+        $total = 0;
+        foreach ($sku as $item) {
+            $total += $item->price;
+        }
+
+        return $total;
     }
 
     private function setApiKey() {

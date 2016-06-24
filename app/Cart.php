@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cart extends Model
 {
-    protected $fillable = array('token', 'sku');
+    protected $fillable = array('token', 'sku', 'total');
 }
