@@ -77,7 +77,7 @@
                 @yield('content')
             </main>
 
-            @if ($page_id != "checkout")
+            @if ($page_id != "checkout" || $page_id != "confirm")
             <div id="attachment-fpc">
                 <div class="container">
                     <div class="row">

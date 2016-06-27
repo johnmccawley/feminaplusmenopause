@@ -77,9 +77,9 @@
     <section id="tile-cta">
         <div class="container">
             <div class="row">
-                <h3>Fast Relief in 7 Days <br />Feel Better Faster</h3>
+                <h3>Fast Relief in 7-10 days <br />Feel Better Faster</h3>
                 <a class="main-cta-btn" href="#">BUY NOW!</a>
-                <span>FREE GIFT WITH FEMINA PLUS CLUB</span>
+                <span>FREE BOTTLE WITH AUTO-REFILL</span>
             </div>
         </div>
     </section>
