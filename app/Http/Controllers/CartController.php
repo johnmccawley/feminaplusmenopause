@@ -51,12 +51,13 @@ class CartController extends Controller
             $sku = SKU::retrieve($id);
             $product = Product::retrieve('feminaplus');
 
-            $displayPrice = '$' . $sku->price / 100;
+            $displayPrice = $this->formatDisplayPrice($sku->price);
+            echo $displayPrice;
             $item = (object)['id' => $sku->id, 'type' => 'product', 'name' => $product->name, 'description' => $product->description, 'price' => $sku->price, 'display_price' => $displayPrice];
         } else if ($itemType == 'plan') {
             $plan = Plan::retrieve('fpClub');
 
-            $displayPrice = '$' . $plan->amount / 100;
+            $displayPrice = $this->formatDisplayPrice($plan->amount);
             $item = (object)['id' => $plan->id, 'type' => 'plan', 'name' => $plan->name, 'description' => $plan->statement_descriptor, 'price' => $plan->amount, 'display_price' => $displayPrice];
         }
 
@@ -64,18 +65,18 @@ class CartController extends Controller
         $cartDbEntry = DB::table('carts')->where('token', $token)->first();
         if ($cartDbEntry) {
             $cart = Cart::find($cartDbEntry->id);
-            $sku = json_decode($cart->sku);
-            $sku[] = $item;
-            $cart->sku = json_encode($sku);
-            $cart->total = $this->calculateTotal($sku);
+            $itemsJson = json_decode($cart->items);
+            $itemsJson[] = $item;
+            $cart->items = json_encode($itemsJson);
+            $cart->total = $this->calculateTotal($itemsJson);
             $cart->save();
         } else {
             $total = $item->price;
-            $sku = array($item);
+            $itemsJson = array($item);
             Cart::create([
                 'token' => $token,
-                'sku' => json_encode($sku),
-                'total' => $total
+                'items' => json_encode($itemsJson),
+                'total' => $this->formatDisplayPrice($total)
             ]);
         }
 
@@ -127,13 +128,23 @@ class CartController extends Controller
         //
     }
 
-    private function calculateTotal($sku) {
+    private function formatDisplayPrice($amount) {
+        $displayPrice = '$' . $amount / 100;
+        $explodedPrice = explode('.', $displayPrice);
+        if (strlen($explodedPrice[1]) == 1) {
+            $displayPrice .= '0';
+        }
+
+        return $displayPrice;
+    }
+
+    private function calculateTotal($itemsJson) {
         $total = 0;
-        foreach ($sku as $item) {
+        foreach ($itemsJson as $item) {
             $total += $item->price;
         }
 
-        return $total;
+        return $this->formatDisplayPrice($total);
     }
 
     private function setApiKey() {

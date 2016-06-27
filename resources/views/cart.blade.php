@@ -51,7 +51,7 @@
         </div>
         <div class="row cart-totals">
             <div class="cart-subtotal">
-                {{ "$". $total }}
+                {{ $total }}
             </div>
         </div>
         <div class="row cart-btns">
