@@ -47,11 +47,17 @@
                         </div>
                     </div>
                 @endforeach
+            @else
+                <div style="margin-left: 1em">
+                    <p>You have no items in your cart</p>
+                </div>
             @endif
         </div>
         <div class="row cart-totals">
             <div class="cart-subtotal">
-                {{ $total }}
+                @if($total)
+                    {{ $total }}
+                @endif
             </div>
         </div>
         <div class="row cart-btns">
