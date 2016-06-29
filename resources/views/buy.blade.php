@@ -12,7 +12,7 @@
 <section id="tile-buy">
     <div class="container">
         <div class="row">
-            <div class="product-option">
+            <!-- <div class="product-option">
                 OPTION 1
             </div>
             <div class="product-option">
@@ -20,7 +20,7 @@
             </div>
             <div class="product-option">
                 OPTION 3
-            </div>
+            </div> -->
         </div>
     </div>
 </section>
