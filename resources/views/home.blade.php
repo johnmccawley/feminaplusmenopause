@@ -45,30 +45,29 @@
                 <div class="span6">
                     <div class="main-keypoint">
                         <h3>CLINICALLY PROVEN</h3>
-                        <p>Outstanding FDA reviewed studies. Relief for 85% of participants!</p>
+                        <p>Outstanding FDA reviewed studies significant relief for 85% of women.</p>
                     </div>
-                    <div class="main-keypoint">
-                        <h3>HOT FLASHES</h3>
-                        <p>Night sweats, Insomnia, fatigue, liver protective, and more!</p>
-                    </div>
-                    <div class="main-keypoint">
-                        <h3>VAGINAL DRYNESS</h3>
-                        <p>Stimulates your natural moisture and hydrates dry skin and eyes.</p>
-                    </div>
-                </div>
-                <div class="span6">
                     <div class="main-keypoint">
                         <h3>FAST ACTING</h3>
-                        <p>Provides relief in as few as 7-days. 6x faster than black cohosh.</p>
-                    </div>
-                    <div class="main-keypoint">
-                        <h3>INSOMNIA</h3>
-                        <p>The hormone balancing effect promotes restful, deep sleep for increased energy.</p>
+                        <p>Provides relief in as few as 7-10 days 6X faster than black cohosh.</p>
                     </div>
                     <div class="main-keypoint">
                         <h3>ZERO SIDE EFFECTS</h3>
-                        <p>Hormones are linked to cancer, Black cohosh to liver toxicity.</p>
+                        <p>Hormones are linked to cancer black cohosh to liver toxicity.</p>
                     </div>
+                </div>
+                <div class="span6">
+                    <h3>Proven relief from</h3>
+                    <ul>
+                        <li>HOT FLASHES</li>
+                        <li>NIGHT SWEATS</li>
+                        <li>INSOMNIA</li>
+                        <li>VAGINAL DRYNESS</li>
+                        <li>JOINT DISCOMFORT</li>
+                        <li>MOOD SWINGS</li>
+                        <li>NERVOUSNESS</li>
+                        <li>FATIGUE</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -79,7 +78,7 @@
             <div class="row">
                 <h3>Fast Relief in 7-10 days <br />Feel Better Faster</h3>
                 <a class="main-cta-btn" href="#">BUY NOW!</a>
-                <span>FREE BOTTLE WITH AUTO-REFILL</span>
+                <span>FREE BOTTLE WITH FEMINA PLUS CLUB</span>
             </div>
         </div>
     </section>

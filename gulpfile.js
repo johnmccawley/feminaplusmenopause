@@ -16,6 +16,7 @@ elixir(function(mix) {
     mix.scripts([
         'jquery.js',
         'input-mask.js',
-        'functions.js'
+        'functions.js',
+        'unslider.js'
     ]);
 });

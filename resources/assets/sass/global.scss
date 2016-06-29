@@ -238,10 +238,11 @@ p {
     }
 }
 #attachment-fpc{
-    padding: 2em;
+    padding: 3em;
     color: white;
-    background: $primary;
-    background-image: url('../img/flower-pedals.png');
+    // background: $primary;
+    background: lighten(black, 30%);
+    // background-image: url('../img/flower-pedals.png');
     background-repeat: no-repeat;
     background-position-y: -10em;
     background-position-x: center;
@@ -268,7 +269,7 @@ p {
 #tile-hero{
     background: white url('../img/orchid-background-2.png');
     background-repeat: no-repeat;
-    background-size: 110em;
+    background-size: 105em;
     background-position-y: -5em;
     .product-image{
         padding-left: 38%;
@@ -495,9 +496,15 @@ header {
                     &.accent-nav{
                         overflow: visible;
                         a{
-                            background: darken($primary, 10%);
-                            color: white;
+
+                            color: $accent;
+                            background: white;
                             font-weight: 700;
+
+                            &:hover{
+                                background: darken(white, 3%);
+                                color: darken($primary, 10%);
+                            }
                         }
                     }
                     &:last-child {
@@ -506,11 +513,12 @@ header {
                     a {
                         padding: .7em .75em;
                         color: white;
-                        &.active-nav{
-                            background: darken($primary, 5%);
-                        }
+
                         &:hover{
                             background: darken($primary, 5%);
+                        }
+                        &.active-nav{
+                            background: darken($primary, 10%);
                         }
                     }
                 }
@@ -522,7 +530,8 @@ header {
 footer{
     #main-footer{
         padding: 2em;
-        background: lighten(black, 30%);
+        background: $primary;
+        // background: lighten(black, 30%);
         #contact-info{
             float: right;
             span{

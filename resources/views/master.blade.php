@@ -69,7 +69,7 @@
                                         <li><a class="<?=($page_id == 'home') ? 'active-nav' : '';?>" href="/">HOME</a></li>
                                         <li><a class="<?=($page_id == 'product') ? 'active-nav' : '';?>" href="/product">PRODUCT</a></li>
                                         <li><a class="<?=($page_id == 'clinical') ? 'active-nav' : '';?>" href="/clinical">CLINICALS</a></li>
-                                        <li class="accent-nav"><a href="#">BUY NOW!</a></li>
+                                        <li class="accent-nav"><a href="/buy">BUY NOW!</a></li>
                                     </ul>
                                 </nav>
                                 <nav id="mobile-nav">
@@ -83,7 +83,7 @@
                                         <li><a class="<?=($page_id == 'product') ? 'active-nav' : '';?>" href="/product">PRODUCT</a></li>
                                         <li><a class="<?=($page_id == 'clinical') ? 'active-nav' : '';?>" href="/clinical">CLINICALS</a></li>
                                         <li><a class="<?=($page_id == 'contact') ? 'active-nav' : '';?>" href="/contact">CONTACT</a></li>
-                                        <li class="accent-nav"><a href="#">BUY NOW!</a></li>
+                                        <li class="accent-nav"><a href="/buy">BUY NOW!</a></li>
                                     </ul>
                                 </nav>
                                 <button id="mobile-nav-btn">
@@ -100,7 +100,7 @@
                 @yield('content')
             </main>
 
-            @if ($page_id != "checkout" || $page_id != "confirm")
+            @if ($page_id != "cart" AND $page_id != "checkout" AND $page_id != "buy" AND $page_id != "home")
             <div id="attachment-fpc">
                 <div class="container">
                     <div class="row">
@@ -108,9 +108,9 @@
                             <img class="product-image" src="img/bottle.png" />
                         </div>
                         <div class="offer-info">
-                            <h5>Join the Femina Plus Club</h5>
-                            <p>Sign up for our monthly subscription club and save off the price of an individual bottle. You’ll get your Femina Plus delivered to your door automatically without having to reorder each month, plus continued relief from your menopause symptoms. </p>
-                            <a href="#" class="secondary-cta-btn">LEARN MORE</a>
+                            <h5>Join the Femina Plus Club!</h5>
+                            <p>You will recieve one bottle per month, delievered monthly for 12 months and receive the 13th bottle for free. </p>
+                            <a href="/buy" class="secondary-cta-btn">BUY NOW</a>
                         </div>
                     </div>
                 </div>
@@ -127,8 +127,9 @@
                                         <li><a href="/">Home</a></li>
                                         <li><a href="/product">Product</a></li>
                                         <li><a href="/clinical">Clinicals</a></li>
-                                        <li><a href="#">Femina Plus Club</a></li>
-                                        <li><a href="/product/faq">F.A.Q.</a></li>
+                                        <li><a href="/buy">Buy Now</a></li>
+                                        <!-- <li><a href="#">Femina Plus Club</a></li> -->
+                                        <li><a href="/product">F.A.Q.</a></li>
                                         <li><a href="/contact">Contact</a></li>
                                     </ul>
                                 </nav>

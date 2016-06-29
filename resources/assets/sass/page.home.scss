@@ -11,11 +11,12 @@
         background: url('../img/yoga-girls.png') center;
         background-position: center;
         background-repeat: no-repeat;
-        padding: 25em 0em 3em 0em;
+        padding: 40em 0em 3em 0em;
         h1{
             color: white;
-            background: $primary;
+            // background: $primary;
             padding: .25em;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.65);
         }
     }
     #tile-cta{
@@ -56,9 +57,12 @@
         }
     }
     #tile-clinical-keypoints, #tile-main-keypoints{
-        background: rgba(255, 255, 255, .7);
+        // background: rgba(255, 255, 255, .7);
     }
     #tile-main-keypoints{
+        p{
+            color: $secondary;
+        }
         [class^="span"]{
             &:first-child{
                 padding-right: 2em;
@@ -66,6 +70,21 @@
             }
             &:last-child{
                 padding-left: 2em;
+                text-align: left;
+            }
+        }
+        ul{
+            margin-top: 1em;
+            li{
+                margin-bottom: .65em;
+                font-weight: 600;
+                color: $accent;
+                // &:before{
+                //     @extend .fa-custom;
+                //     content: "\f00c";
+                //     padding-right: .5em;
+                //     color: $accent;
+                // }
             }
         }
         .main-keypoint{
@@ -81,6 +100,9 @@
         }
     }
     #tile-clinical-keypoints{
+        p{
+            color: $secondary;
+        }
         .clinical-keypoint{
             text-align: center;
             img.icon-tulip{
@@ -97,8 +119,9 @@
                 color: $secondary;
             }
             padding: 0 2em;
-            border-left: 1px dashed lighten(black, 80%);
-            border-right: 1px dashed lighten(black, 80%);
+            // border-left: 1px dashed lighten(black, 80%);
+            // border-right: 1px dashed lighten(black, 80%);
+            border-left: 1px solid $primary;
             &:first-child{
                 padding-left: 0;
                 border-right: 0;
@@ -187,6 +210,8 @@
                 }
                 &:last-child{
                     padding-left: 0;
+                    margin-top: 1.5em;
+                    text-align: center;
                 }
             }
             .main-keypoint{
@@ -197,8 +222,8 @@
     }
     @media screen and (max-width: 600px) {
         #tile-lifestyle{
-            padding-top: 22em;
-            background-position-x: -43em;
+            padding-top: 37em;
+            padding-bottom: 1em;
         }
     }
     @media screen and (max-width: 500px) {

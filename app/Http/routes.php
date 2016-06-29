@@ -50,6 +50,10 @@ Route::get('/privacy', function () {
     return view('privacy');
 });
 
+Route::get('/buy', function () {
+    return view('buy');
+});
+
 Route::get('/confirm', function () {
     return view('confirm');
 });
