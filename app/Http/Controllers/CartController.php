@@ -58,7 +58,7 @@ class CartController extends Controller
                 'items' => null,
                 'total' => null
             ]);
-            $cartItems = [];
+            $cartItems = (object)[];
         }
 
         if (array_key_exists($id, $cartItems)) {
