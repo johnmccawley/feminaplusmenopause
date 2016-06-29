@@ -51,7 +51,7 @@ Route::get('/privacy', function () {
 });
 
 Route::get('/confirm', function () {
-    return view('/');
+    return view('confirm');
 });
 
 Route::auth();

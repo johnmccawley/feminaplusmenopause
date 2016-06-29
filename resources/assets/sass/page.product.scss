@@ -6,7 +6,13 @@
         .product-image{
             padding: 0 4em;
         }
-
+        .cart-message{
+            margin-top: 1em;
+            background: $primary;
+            color: white;
+            padding: .5em;
+            display: none;
+        }
         #product-options{
             margin-top: 2em;
             margin-bottom: 2em;
@@ -98,6 +104,16 @@
         }
         #tab-description{
             display: block;
+            ul{
+                columns: 3;
+                -webkit-columns: 3;
+                -moz-columns: 3;
+                li{
+                    margin-bottom: .5em;
+                    color: $primary;
+                    font-weight: 600;
+                }
+            }
         }
         #tab-faq{
             .question-box{

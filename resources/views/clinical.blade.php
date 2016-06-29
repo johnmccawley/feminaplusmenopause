@@ -51,7 +51,7 @@
             <div class="span4">
                 <div class="clinical-preview">
                     <a href="/clinical-studies/feminaplus-clinical-study-1.pdf" target="_blank">
-                        <img class="icon-tulip" src="img/icon-tulip.png" />
+                        <img src="img/angelica2.png" />
                         <h4>CLINICAL STUDY #1</h4>
                         <button class="main-cta-btn">DOWNLOAD</button>
                     </a>
@@ -60,7 +60,7 @@
             <div class="span4">
                 <div class="clinical-preview">
                     <a href="/clinical-studies/feminaplus-clinical-study-2.pdf" target="_blank">
-                        <img class="icon-tulip" src="img/icon-tulip.png" />
+                        <img src="img/cynanchum2.png" />
                         <h4>CLINICAL STUDY #2</h4>
                         <button class="main-cta-btn">DOWNLOAD</button>
                     </a>
@@ -69,7 +69,7 @@
             <div class="span4">
                 <div class="clinical-preview">
                     <a href="/clinical-studies/feminaplus-clinical-study-3.pdf" target="_blank">
-                        <img class="icon-tulip" src="img/icon-tulip.png" />
+                        <img src="img/phlomis2.png" />
                         <h4>CLINICAL STUDY #3</h4>
                         <button class="main-cta-btn">DOWNLOAD</button>
                     </a>

@@ -19,6 +19,7 @@
                 <div class="row">
                     <h2><span>Safe and Effective</span> <span>Femina Plus</span> <span>with Fem-Fleur</span></h2>
                     <p>Made with all natural botanical ingredients, Femina Plus with Fem-Fleur is clinically proven to be safe and effective in relieving menopausal symptoms in as few as 7-10 days.</p>
+                    <a href="/clinical" class="secondary-btn">READ MORE</a>
                     <!-- <h2>Feel Better Faster with <br /> Femina<sup>&reg;</sup> Plus with Fem-Fleur<sup>&trade;</sup></h2> -->
                     <!-- <ul>
                         <li>No natural or synthetic estrogens, making it safer for daily use.</li>
@@ -56,6 +57,10 @@
                         {{ method_field('PUT') }}
                         <button type="submit" class="product-option">FOUR-PACK<span>$149.90</span></button>
                     </form>
+
+                    <div class="cart-message">
+                        CART ITEM has been added to your cart.
+                    </div>
                 </div>
             </div>
         </div>
@@ -80,7 +85,16 @@
             <div id="tab-description" class="tab-content">
                 <h2>Description</h2>
                 <h3>Feel Better Faster</h3>
-                <p>After taking Femina Plus for <strong>as few as 7-10 days</strong>, women of varying ages have reported significant relief from the following menopausal symptoms</p>
+                <p>After taking Femina Plus for <strong>as few as 7-10 days</strong>, women of varying ages have reported significant relief from the following menopausal symptoms:</p>
+                <ul>
+                    <li>HOT FLASHES</li>
+                    <li>NIGHT SWEATS</li>
+                    <li>INSOMNIA</li>
+                    <li>VAGINAL DRYNESS</li>
+                    <li>JOINT DISCOMFORT</li>
+                    <li>MOOD SWINGS</li>
+                    <li>NERVOUSNESS & FATIGUE</li>
+                </ul>
                 <!-- <h3>Find Your Balance with Femina Plus<sup>&reg;</sup></h3> -->
                 <!-- <p>Finding a healthy balance for both body and mind is especially important during menopause, when hormonal changes can make you feel like you’ve lost control of many aspects of your life. Many women turn to therapies that introduce additional hormones into their system – or use some herbal remedies that can do more harm than good – causing potentially dangerous or unpleasant side effects.</p>
                 <p>Femina Plus is a groundbreaking supplement that offers women a new menopause experience. It is natural, effective and safe relief with no risk of side effects. The exclusive botanical blend, Fem-Fleur™, is shown to significantly relieve many of the most common symptoms of menopause. Femina Plus even relieves symptoms six times faster than black cohosh, one of the more common herbal supplements taken by women in menopause.</p> -->
