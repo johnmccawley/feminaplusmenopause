@@ -37,7 +37,7 @@
                             {{ $item->description }}
                         </div>
                         <div class="span1 item-qty">
-                            <input class="qty-input" value="1"/>
+                            <input class="qty-input" value="{{$item->amount}}"/>
                         </div>
                         <div class="span2 item-price">
                             {{ $item->display_price }}

@@ -47,38 +47,42 @@ class CartController extends Controller
      */
     public function store(Request $request, $id, $itemType)
     {
-        if ($itemType == 'product') {
-            $sku = SKU::retrieve($id);
-            $product = Product::retrieve('feminaplus');
-
-            $displayPrice = $this->formatDisplayPrice($sku->price);
-            echo $displayPrice;
-            $item = (object)['id' => $sku->id, 'type' => 'product', 'name' => $product->name, 'description' => $product->description, 'price' => $sku->price, 'display_price' => $displayPrice];
-        } else if ($itemType == 'plan') {
-            $plan = Plan::retrieve('fpClub');
-
-            $displayPrice = $this->formatDisplayPrice($plan->amount);
-            $item = (object)['id' => $plan->id, 'type' => 'plan', 'name' => $plan->name, 'description' => $plan->statement_descriptor, 'price' => $plan->amount, 'display_price' => $displayPrice];
-        }
-
         $token = $request->session()->get('_token');
         $cartDbEntry = DB::table('carts')->where('token', $token)->first();
         if ($cartDbEntry) {
             $cart = Cart::find($cartDbEntry->id);
-            $itemsJson = json_decode($cart->items);
-            $itemsJson[] = $item;
-            $cart->items = json_encode($itemsJson);
-            $cart->total = $this->calculateTotal($itemsJson);
-            $cart->save();
+            $cartItems = json_decode($cart->items);
         } else {
-            $total = $item->price;
-            $itemsJson = array($item);
-            Cart::create([
+            $cart = Cart::create([
                 'token' => $token,
-                'items' => json_encode($itemsJson),
-                'total' => $this->formatDisplayPrice($total)
+                'items' => null,
+                'total' => null
             ]);
+            $cartItems = [];
         }
+
+        if (array_key_exists($id, $cartItems)) {
+            $cartItems->$id->amount++;
+            $cartItems->$id->price = ($cartItems->$id->price * $cartItems->$id->amount);
+            $cartItems->$id->display_price = $this->formatDisplayPrice($cartItems->$id->price);
+        } else {
+            if ($itemType == 'product') {
+                $sku = SKU::retrieve($id);
+                $product = Product::retrieve('feminaplus');
+
+                $displayPrice = $this->formatDisplayPrice($sku->price);
+                $cartItems->$id = (object)['amount' => 1, 'type' => 'product', 'name' => $product->name, 'description' => $product->description, 'price' => $sku->price, 'display_price' => $displayPrice];
+            } else if ($itemType == 'plan') {
+                $plan = Plan::retrieve('fpClub');
+
+                $displayPrice = $this->formatDisplayPrice($plan->amount);
+                $cartItems->$id = (object)['amount' => 1, 'type' => 'plan', 'name' => $plan->name, 'description' => $plan->statement_descriptor, 'price' => $plan->amount, 'display_price' => $displayPrice];
+            }
+        }
+
+        $cart->items = json_encode($cartItems);
+        $cart->total = $this->calculateTotal($cartItems);
+        $cart->save();
 
         return redirect('/cart');
     }
@@ -130,17 +134,21 @@ class CartController extends Controller
 
     private function formatDisplayPrice($amount) {
         $displayPrice = '$' . $amount / 100;
-        $explodedPrice = explode('.', $displayPrice);
-        if (strlen($explodedPrice[1]) == 1) {
-            $displayPrice .= '0';
+        if (strpos($displayPrice, '.')) {
+            $explodedPrice = explode('.', $displayPrice);
+            if (strlen($explodedPrice[1]) == 1) {
+                $displayPrice .= '0';
+            }
+        } else {
+            $displayPrice .= '.00';
         }
 
         return $displayPrice;
     }
 
-    private function calculateTotal($itemsJson) {
+    private function calculateTotal($cartItems) {
         $total = 0;
-        foreach ($itemsJson as $item) {
+        foreach ($cartItems as $item) {
             $total += $item->price;
         }
 
