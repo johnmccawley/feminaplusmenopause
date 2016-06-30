@@ -418,6 +418,73 @@ p {
   margin-top: 1em;
   font-size: 1.25em; }
 
+.unslider {
+  overflow: auto;
+  margin: 0;
+  padding: 0; }
+
+.unslider-wrap {
+  position: relative; }
+
+.unslider-wrap.unslider-carousel > li {
+  float: left; }
+
+.unslider-vertical > ul {
+  height: 100%; }
+
+.unslider-vertical li {
+  float: none;
+  width: 100%; }
+
+.unslider-fade {
+  position: relative; }
+
+.unslider-fade .unslider-wrap li {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 8; }
+
+.unslider-fade .unslider-wrap li.unslider-active {
+  z-index: 10; }
+
+.unslider li, .unslider ol, .unslider ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: none; }
+
+.unslider-arrow {
+  position: absolute;
+  left: 20px;
+  z-index: 2;
+  cursor: pointer; }
+
+.unslider-arrow.next {
+  left: auto;
+  right: 20px; }
+
+.unslider-nav ol {
+  list-style: none;
+  text-align: center; }
+
+.unslider-nav ol li {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin: 0 4px;
+  background: transparent;
+  border-radius: 5px;
+  overflow: hidden;
+  text-indent: -999em;
+  border: 2px solid #fff;
+  cursor: pointer; }
+
+.unslider-nav ol li.unslider-active {
+  background: #fff;
+  cursor: default; }
+
 #attachment-fpc {
   padding: 3em;
   color: white;
@@ -961,30 +1028,40 @@ footer #sub-footer {
     width: 42em; }
 
 #product #tile-testimonials {
+  position: relative;
   background: #c31da2;
   color: white;
-  text-align: center; }
+  text-align: center;
+  font-size: .9em;
+  padding: 2em; }
+  #product #tile-testimonials:before, #product #tile-testimonials:after {
+    font-family: 'Times New Roman';
+    font-size: 5em;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 700;
+    position: absolute; }
+  #product #tile-testimonials:before {
+    content: "“";
+    left: 50px;
+    top: 10px; }
+  #product #tile-testimonials:after {
+    content: "”";
+    right: 50px;
+    top: 10px; }
   #product #tile-testimonials h2 {
     color: white; }
   #product #tile-testimonials span {
-    float: right; }
+    margin-top: 1em;
+    float: right;
+    font: .9em; }
   #product #tile-testimonials p {
     color: white;
     position: relative;
     margin-bottom: 0; }
-    #product #tile-testimonials p:before, #product #tile-testimonials p:after {
-      font-family: 'Times New Roman';
-      font-size: 5em;
-      color: rgba(255, 255, 255, 0.5);
-      font-weight: 700;
-      position: absolute; }
-    #product #tile-testimonials p:before {
-      content: "“";
-      left: -50px;
-      top: 10px; }
-    #product #tile-testimonials p:after {
-      content: "”";
-      right: -50px; }
+  #product #tile-testimonials li {
+    padding-top: 2em; }
+    #product #tile-testimonials li:first-child {
+      padding-top: 0; }
 
 #product h2 {
   color: #c31da2;
@@ -1085,15 +1162,16 @@ footer #sub-footer {
     margin-right: 2%;
     width: 23.5%;
     text-align: center; }
-    #product #tile-product-options .product-option .atc-btn {
+    #product #tile-product-options .product-option form button.atc-btn {
       display: inline-block;
       margin-top: 1em;
       color: white;
       background: #c31da2;
       padding: .5em 1em;
       border-radius: 25px;
-      font-weight: 600; }
-      #product #tile-product-options .product-option .atc-btn:hover {
+      font-weight: 600;
+      font-size: 1em; }
+      #product #tile-product-options .product-option form button.atc-btn:hover {
         background: #ad1a90; }
     #product #tile-product-options .product-option .product-wrapper {
       background: white;
@@ -1210,8 +1288,6 @@ footer #sub-footer {
 
 #clinical #tile-clinical-previews {
   padding: 1em 3em; }
-  #clinical #tile-clinical-previews .clinical-preview {
-    box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.1); }
 
 #clinical h2 {
   color: #c31da2;
@@ -1250,7 +1326,7 @@ footer #sub-footer {
 
 #clinical .clinical-mainpoint-bar {
   padding: 2em 3em;
-  padding-bottom: 5em;
+  padding-bottom: 4em;
   text-align: center;
   color: #c31da2;
   font-size: 1.1em;

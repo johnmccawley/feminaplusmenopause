@@ -48,17 +48,21 @@
             <!-- <h2>Testimonials</h2> -->
             <ul>
                 <li>
+                    <p>WOW!  Nothing better than a good nights sleep!  Thanks to "Femina Plus", dependable sleep is available for me!  For at least 6 years, I suffered with regular DR.s rolling their eyes and saying "hummm", when I said I had HOT FLASHES.  I would wake every two hours from a sound sleep and then the HOT FLASH arrived.  It left in a few minutes, but so did my sound sleep.  My DR would recommend NOTHING.  I was fortunate enough to find FEMINA PLUS and I am the happiest 76 years old WOMAN on the planet. If you are having HOT FLASHES here is A guaranteed answer.  I take two in the evenings before retiring and sleep like a baby.  I have been taking them for 2 years.  I highly recommend FEMINA PLUS. Thank you!</p>
+                    <span class="quote-author">-Dot Dougherty, retired teacher</span>
+                </li>
+                <li>
                     <p>At 50 years old, I was heading to the World Cup in New Zealand when I experienced a horrific day.  Hot flashes and headaches, followed by unbelievable night sweats and head spins. So I tried Femina Plus and in just two short weeks all my symptoms were gone! Thank you Femina Plus!!! </p>
                     <span class="quote-author">-Sheri Hunt, PhD</span>
                 </li>
-                <!-- <li>
+                <li>
                     <p>When it comes to herbal help for menopausal symptoms, I recommend Femina Plus. Made with a combination of three herbs, water extracted, all natural, with three double-blind placebo-controlled studies that show it is extremely effective at alleviating the uncomfortable symptoms of menopause including hot flashes, mood swings, insomnia and vaginal dryness. All in as few as 7-10 days</p>
                     <span class="quote-author">-Christine Horner, MD</span>
                 </li>
                 <li>
-                    <p>WOW!  Nothing better than a good nights sleep!  Thanks to "Femina Plus", dependable sleep is available for me!  For at least 6 years, I suffered with regular DR.s rolling their eyes and saying "hummm", when I said I had HOT FLASHES.  I would wake every two hours from a sound sleep and then the HOT FLASH arrived.  It left in a few minutes, but so did my sound sleep.  My DR would recommend NOTHING.  I was fortunate enough to find FEMINA PLUS and I am the happiest 76 years old WOMAN on the planet. If you are having HOT FLASHES here is A guaranteed answer.  I take two in the evenings before retiring and sleep like a baby.  I have been taking them for 2 years.  I highly recommend FEMINA PLUS. Thank you!</p>
-                    <span class="quote-author">-Dot Dougherty, retired teacher</span>
-                </li> -->
+                    <p>I started taking Femina for hot flashes and it did so much more for me. I am sleeping well, my skin & hair look better since I began taking it and hot flashes are gone. I feel like myself again! Femina is a great natural product that I recommend to my friends all of the time. The benefits are amazing and life changing!</p>
+                    <span class="quote-author">Amy McCawley, Creator/Principal Designer</span>
+                </li>
             </ul>
 
         </div>
@@ -87,7 +91,11 @@
                             <a href="#">13TH BOTTLE FREE!</a>
                         </div>
                     </div>
-                    <a href="/cart" class="atc-btn">ADD TO CART</a>
+                    <form action="{{ url('/cart/fpClub/plan') }}" method="POST">
+                        {{ csrf_field() }}
+                        {{ method_field('PUT') }}
+                        <button type="submit" class="atc-btn">ADD TO CART</button>
+                    </form>
                 </div>
 
                 <div class="product-option">
@@ -109,7 +117,11 @@
                             <a href="#">More info</a>
                         </div>
                     </div>
-                    <a href="/cart" class="atc-btn">ADD TO CART</a>
+                    <form action="{{ url('/cart/twoBottle/product') }}" method="POST">
+                        {{ csrf_field() }}
+                        {{ method_field('PUT') }}
+                        <button type="submit" class="atc-btn">ADD TO CART</button>
+                    </form>
                 </div>
 
                 <div class="product-option">
@@ -131,7 +143,11 @@
                             <a href="#">More info</a>
                         </div>
                     </div>
-                    <a href="/cart" class="atc-btn">ADD TO CART</a>
+                    <form action="{{ url('/cart/fourBottle/product') }}" method="POST">
+                        {{ csrf_field() }}
+                        {{ method_field('PUT') }}
+                        <button type="submit" class="atc-btn">ADD TO CART</button>
+                    </form>
                 </div>
 
                 <div class="product-option">
@@ -153,7 +169,11 @@
                             <a href="#">More info</a>
                         </div>
                     </div>
-                    <a href="/cart" class="atc-btn">ADD TO CART</a>
+                    <form action="{{ url('/cart/oneBottle/product') }}" method="POST">
+                        {{ csrf_field() }}
+                        {{ method_field('PUT') }}
+                        <button type="submit" class="atc-btn">ADD TO CART</button>
+                    </form>
                 </div>
 
             </div>
@@ -454,5 +474,16 @@
         </div>
     </section>
 </div>
+
+<script>
+	jQuery(document).ready(function($) {
+		$('.my-slider').unslider({
+            nav: false,
+            autoplay: true,
+            arrows: false,
+            delay: 8000
+        });
+	});
+</script>
 
 @endsection
