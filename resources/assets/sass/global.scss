@@ -755,7 +755,7 @@ footer{
 }
 @media screen and (max-width: 800px) {
     #tile-hero{
-        background: url('../img/wood-background.png');
+        background: url('../img/wood-background.png') !important;
         text-align: center;
         .product-image{
             display: inline-block;
