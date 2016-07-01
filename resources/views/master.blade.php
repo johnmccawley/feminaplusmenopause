@@ -9,7 +9,7 @@
     <title>@yield('page_title') | Femina Plus</title>
     <link href="css/style.css" rel="stylesheet">
     <script type="text/javascript" src="js/all.js"></script>
-    
+
     <link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
@@ -100,7 +100,7 @@
                 @yield('content')
             </main>
 
-            @if ($page_id != "cart" AND $page_id != "checkout" AND $page_id != "buy" AND $page_id != "home")
+            @if ($page_id != "cart" AND $page_id != "checkout" AND $page_id != "home")
             <div id="attachment-fpc">
                 <div class="container">
                     <div class="row">
@@ -108,9 +108,11 @@
                             <img class="product-image" src="img/bottle.png" />
                         </div>
                         <div class="offer-info">
-                            <h5>Join the Femina Plus Club!</h5>
+                            <h5>Join the Femina Plus<sup>&reg;</sup> Auto-Refill Club!</h5>
                             <p>You will recieve one bottle per month, delievered monthly for 12 months and receive the 13th bottle for free. </p>
+                            @if ($page_id != "buy")
                             <a href="/buy" class="secondary-cta-btn">BUY NOW</a>
+                            @endif
                         </div>
                     </div>
                 </div>

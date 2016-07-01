@@ -2,7 +2,7 @@
     h1{
         color: $secondary;
         text-align: center;
-        font-weight: 600;
+        font-weight: 700;
         span{
             display: inline-block;
         }
@@ -11,11 +11,12 @@
         background: url('../img/yoga-girls.png') center;
         background-position: center;
         background-repeat: no-repeat;
-        padding: 40em 0em 3em 0em;
+        padding: 33em 0em 4em 0em;
         h1{
             color: white;
             // background: $primary;
             padding: .25em;
+            font-size: 3.5em;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.65);
         }
     }
@@ -60,8 +61,12 @@
         // background: rgba(255, 255, 255, .7);
     }
     #tile-main-keypoints{
+        .container{
+            padding: 0 0 0 10em;
+        }
         p{
             color: $secondary;
+            font-weight: 600;
         }
         [class^="span"]{
             &:first-child{
@@ -102,6 +107,7 @@
     #tile-clinical-keypoints{
         p{
             color: $secondary;
+            font-weight: 600;
         }
         .clinical-keypoint{
             text-align: center;
@@ -118,10 +124,16 @@
                 margin-top: .5em;
                 color: $secondary;
             }
+            p{
+                strong{
+                    font-weight: 700;
+                }
+            }
             padding: 0 2em;
             // border-left: 1px dashed lighten(black, 80%);
             // border-right: 1px dashed lighten(black, 80%);
             border-left: 1px solid $primary;
+            border-right: 1px solid $primary;
             &:first-child{
                 padding-left: 0;
                 border-right: 0;
@@ -130,6 +142,7 @@
             &:last-child{
                 padding-right: 0;
                 border-right: 0;
+                border-left: 0;
             }
         }
     }
@@ -141,6 +154,13 @@
         }
         .bullet-points{
             margin-top: 5em;
+        }
+    }
+    @media screen and (max-width: 1100px) {
+        #tile-main-keypoints{
+            .container{
+                padding-left: 3em;
+            }
         }
     }
     @media screen and (max-width: 960px) {
@@ -199,6 +219,11 @@
                 margin-bottom: 2em;
             }
         }
+        #tile-main-keypoints{
+            .container{
+                padding-left: 0;
+            }
+        }
     }
     @media screen and (max-width: 625px) {
         #tile-main-keypoints{
@@ -218,6 +243,9 @@
                 &:last-child{
                 }
             }
+        }
+        #tile-lifestyle{
+            background-position-x: -30em;
         }
     }
     @media screen and (max-width: 600px) {

@@ -1,10 +1,197 @@
 #buy{
-    #tile-buy{
+    #attachment-fpc{
+        padding-bottom: 6em;
+    }
+    .guarantee-banner{
+        padding: .75em;
+        color: white;
+        background: $primary;
+        text-align: center;
+        font-size: 1.75em;
+        font-weight: 600;
+        margin-top: 2em;
+    }
+    #tile-product-options{
+        padding-top: 6em;
         .product-option{
-            margin: 1em;
-            padding: 1em;
-            float: left;
             display: inline-block;
+            float: left;
+            margin-right: 2%;
+            width: 23.5%;
+            text-align: center;
+
+            form{
+                button.atc-btn{
+                    display: inline-block;
+                    margin-top: 1em;
+                    color: white;
+                    background: $primary;
+                    padding: .5em 1em;
+                    border-radius: 25px;
+                    font-weight: 600;
+                    font-size: 1em;
+                    &:hover{
+                        background: darken($primary, 5%);
+                    }
+                }
+            }
+            .product-wrapper{
+                background: white;
+                position: relative;
+                padding: 5em 0 1em;
+                color: darken(white, 60%);
+                -webkit-box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.1);
+                -moz-box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.1);
+                box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.1);
+            }
+            &:last-child{
+                margin-right: 0;
+            }
+            .product-image{
+                position: absolute;
+                top: -3.55em;
+                left: 0;
+                right: 0;
+                margin-left: auto;
+                margin-right: auto;
+                img{
+                    height: 8em;
+                }
+            }
+            .product-name{
+                font-weight: 600;
+            }
+            .product-price{
+                padding: .5em 1.5em .25em 1.5em;
+                font-size: 2em;
+            }
+            .product-banner{
+                background: $primary;
+                padding: .5em;
+                color: white;
+                margin: 1em 0;
+                &.no-banner{
+                    background: none;
+                    color: darken(white, 60%);
+                }
+            }
+            .product-more{
+                font-size: .9em;
+                a{
+                    color: darken(white, 40%);
+                    text-decoration: underline;
+                    &:hover{
+                        color: darken(white, 30%);
+                    }
+                }
+            }
         }
     }
+
+    @media screen and (max-width: 1200px) {
+        #tile-product-options{
+            .product-option{
+                width: 49%;
+                &:nth-child(2), &:last-child{
+                    margin-right: 0;
+                }
+                &:nth-child(3), &:last-child{
+                    margin-top: 5em;
+                }
+            }
+        }
+        #product-info-tabs{
+            .tabs{
+                text-align: center;
+            }
+        }
+        #tile-hero{
+            .product-image{
+                width: 13em;
+                display: block;
+                margin-left: 35%;
+            }
+            .hero-copy{
+                width: 100%;
+                display: block;
+                margin-top: 2em;
+            }
+        }
+    }
+    @media screen and (max-width: 1050px) {
+        #tile-product{
+            text-align: center;
+            .product-image{
+                display: none;
+            }
+            .product-info{
+                width: 100%;
+            }
+        }
+        #product-options{
+            .product-option{
+                &:nth-child(2), &:last-child{
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 950px) {
+        #tile-product-info{
+            ul{
+                margin-left: 0;
+            }
+        }
+    }
+    @media screen and (max-width: 850px) {
+        #tile-tab-info{
+            #tab-faq{
+                [class^=span]{
+                    width: 100%;
+                    &:first-child{
+                        padding-right: 0;
+                        margin-bottom: 1em;
+                    }
+                    &:last-child{
+                        padding-left: 0;
+                    }
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 800px) {
+        #tile-product-options{
+            .product-option{
+                width: 100%;
+                margin-top: 5em;
+                &:first-child{
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 775px) {
+        #tile-product{
+            #product-options{
+                form{
+                    width: 100%;
+                    button{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 500px) {
+        #tile-product{
+            #product-options{
+                .product-option{
+                    width: 100%;
+                    margin: 0;
+                    margin-bottom: 1em;
+                }
+            }
+        }
+    }
+
 }
