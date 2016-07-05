@@ -18,7 +18,7 @@
                     <div class="bullet-icon">
                         <i class="fa fa-hourglass-half fa-lg" aria-hidden="true"></i>
                     </div>
-                    Works in as few as 7-10 days.<sup>*</sup>
+                    Works in as few as <strong>7-10 days</strong>.<sup>*</sup>
                 </li>
                 <li>
                     <div class="bullet-icon">
@@ -45,19 +45,19 @@
                 <div class="span6">
                     <div class="main-keypoint">
                         <h3>CLINICALLY PROVEN</h3>
-                        <p>Outstanding FDA reviewed studies significant relief for 85% of women.</p>
+                        <p>Outstanding FDA reviewed studies. <br />Significant relief for 85% of women.</p>
                     </div>
                     <div class="main-keypoint">
                         <h3>FAST ACTING</h3>
-                        <p>Provides relief in as few as 7-10 days 6X faster than black cohosh.</p>
+                        <p>Provides relief in as few as <strong>7-10 days</strong>, taken daily. 6X faster than black cohosh.</p>
                     </div>
                     <div class="main-keypoint">
                         <h3>ZERO SIDE EFFECTS</h3>
-                        <p>Hormones are linked to cancer black cohosh to liver toxicity.</p>
+                        <p>Hormones are linked to cancer, <br />black cohosh to liver toxicity.</p>
                     </div>
                 </div>
                 <div class="span6">
-                    <h3>Proven relief from</h3>
+                    <h3>PROVEN RELIEF FROM</h3>
                     <ul>
                         <li>HOT FLASHES</li>
                         <li>NIGHT SWEATS</li>
@@ -76,7 +76,7 @@
     <section id="tile-cta">
         <div class="container">
             <div class="row">
-                <h3>Fast Relief in 7-10 days <br />Feel Better Faster</h3>
+                <h3>Fast Relief in <strong>7-10 days</strong> <br />Feel Better Faster</h3>
                 <a class="main-cta-btn" href="#">BUY NOW!</a>
                 <span>FREE BOTTLE WITH FEMINA PLUS CLUB</span>
             </div>
@@ -89,17 +89,17 @@
                 <div class="span4 clinical-keypoint">
                     <img class="icon-tulip" src="img/icon-tulip.png" />
                     <h4>FDA REVIEWED</h4>
-                    <p>Three FDA “Gold Medal Standard” trials show Femina Plus with the Herbal Blend, Fem-Fleur effectivley relieves the 10 most common symptoms of peri-menopause and menpause.</p>
+                    <p>Three FDA “Gold Medal Standard” trials show Femina Plus<sup>&reg;</sup> with the Herbal Blend, Fem-Fleur<sup>&#8482;</sup> effectivley relieves the 10 most common symptoms of peri-menopause and menopause.</p>
                 </div>
                 <div class="span4 clinical-keypoint">
                     <img class="icon-tulip" src="img/icon-tulip.png" />
                     <h4>FAST RELIEF</h4>
-                    <p>In as few as 7-10 days the majority of women saw significant improvement in 10 of the toughest symptoms of menopause . Women felt better faster with Femina Plus.</p>
+                    <p>In as few as <strong>7-10 days</strong> the majority of women saw significant improvement in 10 of the toughest symptoms of menopause. Women felt better faster with Femina Plus<sup>&reg;</sup>.</p>
                 </div>
                 <div class="span4 clinical-keypoint">
                     <img class="icon-tulip" src="img/icon-tulip.png" />
                     <h4>CLINICAL EVIDENCE</h4>
-                    <p>Femina plus has proven , patented, in-depth science. Three double blind, randomized , placebo controlled Human studies validated that femina plus performs safely and quickly.</p>
+                    <p>Femina Plus<sup>&reg;</sup> has proven, patented, in-depth science. Three double blind, randomized, placebo controlled Human studies validated that Femina Plus<sup>&reg;</sup> performs safely and quickly.</p>
                 </div>
             </div>
         </div>
@@ -109,7 +109,7 @@
 <section id="tile-lifestyle">
     <h1>
         <div class="container">
-            <span>THE FASTEST, SAFEST, MOST EFFECTIVE</span> <span>HERBAL MENOPAUSE RELIEF</span> <span>IN THE WORLD.</span>
+            <span>THE FASTEST, SAFEST,</span> <span>MOST EFFECTIVE HERBAL</span> <span>MENOPAUSE RELIEF IN THE WORLD.</span>
         </div>
     </h1>
 </section>

@@ -357,7 +357,7 @@ p {
 
 .secondary-cta-btn {
   padding: .5em 1em;
-  font-size: 1.25em;
+  font-size: 1.6em;
   font-weight: 600;
   display: inline-block;
   color: #c31da2;
@@ -497,9 +497,10 @@ p {
   #attachment-fpc h5 {
     color: white;
     font-weight: 600;
-    font-size: 1.3em;
+    font-size: 1.5em;
     margin-bottom: .5em; }
   #attachment-fpc p {
+    font-size: 1.2em;
     color: white; }
   #attachment-fpc .product-image {
     position: absolute;
@@ -511,8 +512,9 @@ p {
 #tile-hero {
   background: white url("../img/orchid-background-2.png");
   background-repeat: no-repeat;
-  background-size: 105em;
-  background-position-y: -5em; }
+  background-size: 112em;
+  background-position-y: -1em;
+  background-position-x: -2em; }
   #tile-hero .product-image {
     padding-left: 38%;
     display: inline-block;
@@ -522,7 +524,7 @@ p {
     font-size: .9em; }
     #tile-hero .hero-copy h2 {
       color: #c31da2;
-      font-weight: 600; }
+      font-weight: 700; }
       #tile-hero .hero-copy h2 span {
         display: inline-block; }
 
@@ -698,7 +700,7 @@ header #main-header {
       header #main-header #desktop-nav ul li:last-child {
         margin-right: 0; }
       header #main-header #desktop-nav ul li a {
-        padding: .7em .75em;
+        padding: .65em .75em;
         color: white; }
         header #main-header #desktop-nav ul li a:hover {
           background: #ad1a90; }
@@ -815,7 +817,7 @@ footer #sub-footer {
 
 @media screen and (max-width: 800px) {
   #tile-hero {
-    background: url("../img/wood-background.png");
+    background: url("../img/wood-background.png") !important;
     text-align: center; }
     #tile-hero .product-image {
       display: inline-block;
@@ -863,7 +865,7 @@ footer #sub-footer {
 #home h1 {
   color: #a4509e;
   text-align: center;
-  font-weight: 600; }
+  font-weight: 700; }
   #home h1 span {
     display: inline-block; }
 
@@ -871,10 +873,11 @@ footer #sub-footer {
   background: url("../img/yoga-girls.png") center;
   background-position: center;
   background-repeat: no-repeat;
-  padding: 40em 0em 3em 0em; }
+  padding: 33em 0em 4em 0em; }
   #home #tile-lifestyle h1 {
     color: white;
     padding: .25em;
+    font-size: 3.5em;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.65); }
 
 #home #tile-cta {
@@ -908,8 +911,12 @@ footer #sub-footer {
     #home .bullet-points li:last-child {
       margin-bottom: 0; }
 
+#home #tile-main-keypoints .container {
+  padding: 0 0 0 10em; }
+
 #home #tile-main-keypoints p {
-  color: #a4509e; }
+  color: #a4509e;
+  font-weight: 600; }
 
 #home #tile-main-keypoints [class^="span"]:first-child {
   padding-right: 2em;
@@ -936,12 +943,14 @@ footer #sub-footer {
     margin-bottom: 0; }
 
 #home #tile-clinical-keypoints p {
-  color: #a4509e; }
+  color: #a4509e;
+  font-weight: 600; }
 
 #home #tile-clinical-keypoints .clinical-keypoint {
   text-align: center;
   padding: 0 2em;
-  border-left: 1px solid #c31da2; }
+  border-left: 1px solid #c31da2;
+  border-right: 1px solid #c31da2; }
   #home #tile-clinical-keypoints .clinical-keypoint img.icon-tulip {
     width: 2em;
     margin: 0 auto;
@@ -953,19 +962,26 @@ footer #sub-footer {
     margin-bottom: .5em;
     margin-top: .5em;
     color: #a4509e; }
+  #home #tile-clinical-keypoints .clinical-keypoint p strong {
+    font-weight: 700; }
   #home #tile-clinical-keypoints .clinical-keypoint:first-child {
     padding-left: 0;
     border-right: 0;
     border-left: 0; }
   #home #tile-clinical-keypoints .clinical-keypoint:last-child {
     padding-right: 0;
-    border-right: 0; }
+    border-right: 0;
+    border-left: 0; }
 
 @media screen and (max-width: 1200px) {
   #home #tile-hero h1 {
     font-size: 1.75em; }
   #home .bullet-points {
     margin-top: 5em; } }
+
+@media screen and (max-width: 1100px) {
+  #home #tile-main-keypoints .container {
+    padding-left: 3em; } }
 
 @media screen and (max-width: 960px) {
   #home #tile-clinical-keypoints .clinical-keypoint {
@@ -997,7 +1013,9 @@ footer #sub-footer {
     margin-left: 0;
     text-align: center;
     width: 100%;
-    margin-bottom: 2em; } }
+    margin-bottom: 2em; }
+  #home #tile-main-keypoints .container {
+    padding-left: 0; } }
 
 @media screen and (max-width: 625px) {
   #home #tile-main-keypoints [class^=span] {
@@ -1008,7 +1026,9 @@ footer #sub-footer {
     #home #tile-main-keypoints [class^=span]:last-child {
       padding-left: 0;
       margin-top: 1.5em;
-      text-align: center; } }
+      text-align: center; }
+  #home #tile-lifestyle {
+    background-position-x: -30em; } }
 
 @media screen and (max-width: 600px) {
   #home #tile-lifestyle {
@@ -1022,10 +1042,17 @@ footer #sub-footer {
     margin-left: 15%; } }
 
 #product #tile-hero {
+  background: url("../img/orchid-background-3.png");
   background-size: 110em;
-  padding-bottom: 1em; }
+  padding-bottom: 3.5em; }
   #product #tile-hero .product-image {
     width: 42em; }
+  #product #tile-hero sup {
+    font-size: .65em; }
+  #product #tile-hero .hero-copy {
+    font-weight: 600; }
+    #product #tile-hero .hero-copy strong {
+      font-weight: 900; }
 
 #product #tile-testimonials {
   position: relative;
@@ -1068,7 +1095,7 @@ footer #sub-footer {
   font-weight: 600; }
 
 #product #tile-product-info ul {
-  margin-left: 2em;
+  margin-left: 9em;
   columns: 2;
   -webkit-columns: 2;
   -moz-columns: 2; }
@@ -1239,6 +1266,10 @@ footer #sub-footer {
   #product #product-options .product-option:nth-child(2), #product #product-options .product-option:last-child {
     margin-right: 0; } }
 
+@media screen and (max-width: 950px) {
+  #product #tile-product-info ul {
+    margin-left: 0; } }
+
 @media screen and (max-width: 850px) {
   #product #tile-tab-info #tab-faq [class^=span] {
     width: 100%; }
@@ -1296,7 +1327,7 @@ footer #sub-footer {
 
 #clinical #tile-clinical-info ul {
   margin: 1.5em 0;
-  margin-left: 2em;
+  margin-left: 11em;
   columns: 2;
   -webkit-columns: 2;
   -moz-columns: 2; }
@@ -1306,11 +1337,16 @@ footer #sub-footer {
     color: #c31da2; }
 
 #clinical section#tile-hero {
-  padding-bottom: 1em;
+  padding-bottom: 3em;
+  background: url("../img/orchid-background-3.png");
   border-bottom: 1px solid #ededed;
   background-size: 110em; }
   #clinical section#tile-hero .product-image {
     width: 42em; }
+  #clinical section#tile-hero .hero-copy {
+    font-weight: 600; }
+    #clinical section#tile-hero .hero-copy strong {
+      font-weight: 900; }
 
 #clinical .clinical-previews [class^=span] {
   padding: 1em; }
@@ -1339,11 +1375,13 @@ footer #sub-footer {
   #clinical section#tile-hero .product-image {
     width: 12em;
     display: block;
-    margin-left: 35%; }
+    margin-left: 25%; }
   #clinical section#tile-hero .hero-copy {
     width: 100%;
     display: block;
-    margin-top: 2em; } }
+    margin-top: 2em; }
+  #clinical #tile-clinical-info ul {
+    margin-left: 0; } }
 
 @media screen and (max-width: 900px) {
   #clinical #tile-clinical-info ul {
@@ -1352,7 +1390,7 @@ footer #sub-footer {
     -moz-columns: 2; }
   #clinical .clinical-previews [class^=span] {
     width: 100%;
-    padding: 0;
+    padding: 0 5em;
     margin-bottom: 1.5em; }
     #clinical .clinical-previews [class^=span]:last-child {
       margin-bottom: 0; } }
@@ -1364,7 +1402,10 @@ footer #sub-footer {
       display: none; } }
 
 @media screen and (max-width: 600px) {
+  #clinical .clinical-previews [class^=span] {
+    padding: 0; }
   #clinical #tile-clinical-info ul {
+    margin-left: 0;
     columns: 1;
     -webkit-columns: 1;
     -moz-columns: 1;
@@ -1375,11 +1416,134 @@ footer #sub-footer {
     #clinical #tile-clinical-info ul li:last-child {
       margin-bottom: 0; } }
 
-#buy #tile-buy .product-option {
-  margin: 1em;
-  padding: 1em;
-  float: left;
-  display: inline-block; }
+#buy #attachment-fpc {
+  padding-bottom: 6em; }
+
+#buy .guarantee-banner {
+  padding: .75em;
+  color: white;
+  background: #c31da2;
+  text-align: center;
+  font-size: 1.75em;
+  font-weight: 600;
+  margin-top: 2em; }
+
+#buy #tile-product-options {
+  padding-top: 6em; }
+  #buy #tile-product-options .product-option {
+    display: inline-block;
+    float: left;
+    margin-right: 2%;
+    width: 23.5%;
+    text-align: center; }
+    #buy #tile-product-options .product-option form button.atc-btn {
+      display: inline-block;
+      margin-top: 1em;
+      color: white;
+      background: #c31da2;
+      padding: .5em 1em;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 1em; }
+      #buy #tile-product-options .product-option form button.atc-btn:hover {
+        background: #ad1a90; }
+    #buy #tile-product-options .product-option .product-wrapper {
+      background: white;
+      position: relative;
+      padding: 5em 0 1em;
+      color: #666666;
+      box-shadow: 0px 3px 6px -1px rgba(0, 0, 0, 0.1); }
+    #buy #tile-product-options .product-option:last-child {
+      margin-right: 0; }
+    #buy #tile-product-options .product-option .product-image {
+      position: absolute;
+      top: -3.55em;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto; }
+      #buy #tile-product-options .product-option .product-image img {
+        height: 8em; }
+    #buy #tile-product-options .product-option .product-name {
+      font-weight: 600; }
+    #buy #tile-product-options .product-option .product-price {
+      padding: .5em 1.5em .25em 1.5em;
+      font-size: 2em; }
+    #buy #tile-product-options .product-option .product-banner {
+      background: #c31da2;
+      padding: .5em;
+      color: white;
+      margin: 1em 0; }
+      #buy #tile-product-options .product-option .product-banner.no-banner {
+        background: none;
+        color: #666666; }
+    #buy #tile-product-options .product-option .product-more {
+      font-size: .9em; }
+      #buy #tile-product-options .product-option .product-more a {
+        color: #999999;
+        text-decoration: underline; }
+        #buy #tile-product-options .product-option .product-more a:hover {
+          color: #b3b3b3; }
+
+@media screen and (max-width: 1200px) {
+  #buy #tile-product-options .product-option {
+    width: 49%; }
+    #buy #tile-product-options .product-option:nth-child(2), #buy #tile-product-options .product-option:last-child {
+      margin-right: 0; }
+    #buy #tile-product-options .product-option:nth-child(3), #buy #tile-product-options .product-option:last-child {
+      margin-top: 5em; }
+  #buy #product-info-tabs .tabs {
+    text-align: center; }
+  #buy #tile-hero .product-image {
+    width: 13em;
+    display: block;
+    margin-left: 35%; }
+  #buy #tile-hero .hero-copy {
+    width: 100%;
+    display: block;
+    margin-top: 2em; } }
+
+@media screen and (max-width: 1050px) {
+  #buy #tile-product {
+    text-align: center; }
+    #buy #tile-product .product-image {
+      display: none; }
+    #buy #tile-product .product-info {
+      width: 100%; }
+  #buy #product-options .product-option:nth-child(2), #buy #product-options .product-option:last-child {
+    margin-right: 0; } }
+
+@media screen and (max-width: 950px) {
+  #buy #tile-product-info ul {
+    margin-left: 0; } }
+
+@media screen and (max-width: 850px) {
+  #buy #tile-tab-info #tab-faq [class^=span] {
+    width: 100%; }
+    #buy #tile-tab-info #tab-faq [class^=span]:first-child {
+      padding-right: 0;
+      margin-bottom: 1em; }
+    #buy #tile-tab-info #tab-faq [class^=span]:last-child {
+      padding-left: 0; } }
+
+@media screen and (max-width: 800px) {
+  #buy #tile-product-options .product-option {
+    width: 100%;
+    margin-top: 5em; }
+    #buy #tile-product-options .product-option:first-child {
+      margin-top: 0; } }
+
+@media screen and (max-width: 775px) {
+  #buy #tile-product #product-options form {
+    width: 100%; }
+    #buy #tile-product #product-options form button {
+      width: 100%; } }
+
+@media screen and (max-width: 500px) {
+  #buy #tile-product #product-options .product-option {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 1em; } }
 
 #contact #tile-contact {
   padding-bottom: 5em; }

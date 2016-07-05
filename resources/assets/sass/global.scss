@@ -90,6 +90,8 @@ p {
     line-height: 1.75em;
     margin-bottom: 1em;
     color: lighten(black, 40%);
+    strong{
+    }
     &:last-child {
         margin-bottom: 0;
     }
@@ -129,7 +131,7 @@ p {
 }
 .secondary-cta-btn{
     padding: .5em 1em;
-    font-size: 1.25em;
+    font-size: 1.6em;
     font-weight: 600;
     display: inline-block;
     color: $primary;
@@ -317,10 +319,11 @@ p {
     h5{
         color: white;
         font-weight: 600;
-        font-size: 1.3em;
+        font-size: 1.5em;
         margin-bottom: .5em;
     }
     p{
+        font-size: 1.2em;
         color: white;
     }
     .product-image{
@@ -335,8 +338,9 @@ p {
 #tile-hero{
     background: white url('../img/orchid-background-2.png');
     background-repeat: no-repeat;
-    background-size: 105em;
-    background-position-y: -5em;
+    background-size: 112em;
+    background-position-y: -1em;
+    background-position-x: -2em;
     .product-image{
         padding-left: 38%;
         display: inline-block;
@@ -347,7 +351,7 @@ p {
         font-size: .9em;
         h2{
             color: $primary;
-            font-weight: 600;
+            font-weight: 700;
             span{
                 display: inline-block;
             }
@@ -577,7 +581,7 @@ header {
                         margin-right: 0;
                     }
                     a {
-                        padding: .7em .75em;
+                        padding: .65em .75em;
                         color: white;
 
                         &:hover{
@@ -751,7 +755,7 @@ footer{
 }
 @media screen and (max-width: 800px) {
     #tile-hero{
-        background: url('../img/wood-background.png');
+        background: url('../img/wood-background.png') !important;
         text-align: center;
         .product-image{
             display: inline-block;

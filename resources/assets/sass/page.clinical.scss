@@ -16,7 +16,7 @@
     #tile-clinical-info{
         ul{
             margin: 1.5em 0;
-            margin-left: 2em;
+            margin-left: 11em;
             columns: 2;
             -webkit-columns: 2;
             -moz-columns: 2;
@@ -28,11 +28,18 @@
         }
     }
     section#tile-hero{
-        padding-bottom: 1em;
+        padding-bottom: 3em;
+        background: url('../img/orchid-background-3.png');
         border-bottom: 1px solid darken(white, 7%);
         background-size: 110em;
         .product-image{
             width: 42em;
+        }
+        .hero-copy{
+            font-weight: 600;
+            strong{
+                font-weight: 900;
+            }
         }
     }
     .clinical-previews{
@@ -72,12 +79,17 @@
             .product-image{
                 width: 12em;
                 display: block;
-                margin-left: 35%;
+                margin-left: 25%;
             }
             .hero-copy{
                 width: 100%;
                 display: block;
                 margin-top: 2em;
+            }
+        }
+        #tile-clinical-info{
+            ul{
+                margin-left: 0;
             }
         }
     }
@@ -92,7 +104,7 @@
         .clinical-previews{
             [class^=span]{
                 width: 100%;
-                padding: 0;
+                padding: 0 5em;
                 margin-bottom: 1.5em;
                 &:last-child{
                     margin-bottom: 0;
@@ -109,8 +121,14 @@
         }
     }
     @media screen and (max-width: 600px){
+        .clinical-previews{
+            [class^=span]{
+                padding: 0;
+            }
+        }
         #tile-clinical-info{
             ul{
+                margin-left: 0;
                 columns: 1;
                 -webkit-columns: 1;
                 -moz-columns: 1;
