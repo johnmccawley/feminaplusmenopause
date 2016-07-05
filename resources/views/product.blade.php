@@ -26,7 +26,7 @@
         <div class="container">
             <div class="row">
                 <h2>Feel Better Faster</h2>
-                <p>After taking Femina Plus<sup>&reg;</sup> for as few as <strong>7-10 days</strong> women of varying ages have reported significant relief from the following menopauseal symptoms:</p>
+                <p>After taking Femina Plus<sup>&reg;</sup> for as few as <strong>7-10 days</strong> women of varying ages have reported significant relief from the following menopausal symptoms:</p>
                 <ul>
                     <li>HOT FLASHES</li>
                     <li>NIGHT SWEATS</li>
