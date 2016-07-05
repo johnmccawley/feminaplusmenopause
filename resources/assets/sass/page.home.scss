@@ -28,11 +28,19 @@
             font-size: .8em;
             font-weight: 700;
         }
+        .main-cta-btn{
+            padding: 1.25em;
+            font-size: 1.75em;
+        }
+        h3{
+            display: inline-block;
+            text-align: left;
+        }
     }
     .bullet-points{
         float: left;
         display: inline-block;
-        margin-top: 7em;
+        margin-top: 6em;
         .bullet-icon{
             background: white;
             color: $secondary;
@@ -48,7 +56,7 @@
             box-shadow: -3px 5px 5px 0px rgba(0,0,0,0.17);
         }
         li{
-            margin-bottom: 1em;
+            margin-bottom: 1.5em;
             font-weight: 600;
             color: $secondary;
             font-size: 1.2em;
@@ -83,6 +91,7 @@
             li{
                 margin-bottom: .65em;
                 font-weight: 600;
+                font-size: 1.25em;
                 color: $accent;
                 // &:before{
                 //     @extend .fa-custom;
@@ -112,13 +121,13 @@
         .clinical-keypoint{
             text-align: center;
             img.icon-tulip{
-                width: 2em;
+                width: 2.75em;
                 margin: 0 auto;
                 text-align: center;
             }
             h4{
                 text-align: center;
-                font-size: 1.2em;
+                font-size: 1.5em;
                 font-weight: 700;
                 margin-bottom: .5em;
                 margin-top: .5em;

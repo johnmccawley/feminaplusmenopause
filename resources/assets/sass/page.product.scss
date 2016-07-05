@@ -15,6 +15,9 @@
                 font-weight: 900;
             }
         }
+        h2{
+            line-height: 1.25em;
+        }
     }
     #tile-testimonials{
         position: relative;
@@ -263,6 +266,11 @@
             }
             .product-more{
                 font-size: .9em;
+                &.special{
+                    a{
+                        color: darken(white, 60%);
+                    }
+                }
                 a{
                     color: darken(white, 40%);
                     text-decoration: underline;

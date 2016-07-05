@@ -28,7 +28,7 @@
                         <div class="product-banner">
                             FREE SHIPPING
                         </div>
-                        <div class="product-more">
+                        <div class="product-more special">
                             <a href="#"><strong>13TH BOTTLE FREE!</strong></a>
                         </div>
                     </div>
