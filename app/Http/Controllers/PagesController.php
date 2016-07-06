@@ -92,7 +92,7 @@ class PagesController extends Controller
                     'amount' => $amount,
                     'stripe_transaction_id' => $response->id,
                 ]);
-                $this->fullfillmentEmail($user);
+                $this->fullfillmentEmail($user, $request->product);
             }
 
         }
@@ -193,11 +193,11 @@ class PagesController extends Controller
         //     ->with('successful', 'Your purchase was successful!');
     }
 
-    private function fullfillmentEmail($user) {
-        Mail::send('emails.fullfill', ['user' => $user], function ($m) use ($user) {
-           $m->from('hello@app.com', 'Your Application');
-
-           $m->to(env('FULLFILL_EMAIL_ONE'), null)->subject('FULLFILLMENT REQUEST');
+    private function fullfillmentEmail($user, $product) {
+        Mail::send('emails.fullfill', ['user' => $user, 'product' => $product], function ($message) use ($user, $product) {
+           $message->from('fullfillment@mg.feminaplus.com', 'Femina Plus');
+           $message->to(env('FULLFILL_EMAIL_ONE'), null)->subject('FULLFILLMENT REQUEST');
+           $message->cc(env('FULLFILL_EMAIL_TWO'), null)->subject('FULLFILLMENT REQUEST');
        });
     }
 
