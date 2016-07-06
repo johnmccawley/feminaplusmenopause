@@ -93,9 +93,19 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $token = $request->session()->get('_token');
+        $cart = DB::table('carts')->where('token', $token)->first();
+        if ($cart) {
+            $cartItems = json_decode($cart->items);
+            $total = $cart->total;
+        } else {
+            $cartItems = null;
+            $total = 0;
+        }
+
+        return view('cart', ['cartItems' => $cartItems, 'total' => $total]);
     }
 
     /**
@@ -116,7 +126,7 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
     }

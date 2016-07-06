@@ -34,9 +34,10 @@ Route::get('/contact', function () {
 
 Route::post('/contact', 'ContactController@create');
 
-Route::get('/cart', function () {
-    return view('cart');
-});
+// Cart routes
+Route::get('/cart', 'CartController@show');
+Route::post('/cart/{cartItems}', 'CartController@update');
+Route::put('/cart/{item}/{itemType}', 'CartController@store');
 
 Route::get('/checkout', function () {
     return view('checkout');
@@ -62,8 +63,6 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-Route::put('/cart/{item}/{itemType}', 'CartController@store');
-
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/checkout', function () {
@@ -71,17 +70,4 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::post('/checkout', 'PagesController@postOrder');
-});
-
-Route::get('/cart', function (Request $request) {
-    $token = $request->session()->get('_token');
-    $cart = DB::table('carts')->where('token', $token)->first();
-    if ($cart) {
-        $cartItems = json_decode($cart->items);
-        $total = $cart->total;
-    } else {
-        $cartItems = null;
-        $total = 0;
-    }
-    return view('cart', ['cartItems' => $cartItems, 'total' => $total]);
 });
