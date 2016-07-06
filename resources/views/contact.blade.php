@@ -54,9 +54,9 @@
                 <div class="row">
                     <h3>ADDRESS</h3>
                     <p>
-                        Femina Plus LLC<br />
-                        13840 Magnolia Ave.<br />
-                        Chino, CA 91710
+                        320 Paseo de Peralta <br />
+                        Suite C <br />
+                        Santa Fe, NM 87501
                     </p>
                 </div>
                 <div class="row contact-info">
@@ -76,5 +76,3 @@
         </div>
     </div>
 </section>
-
-@endsection

@@ -15,7 +15,7 @@
             <img class="product-image" src="img/bottle.png" />
             <div class="hero-copy">
                 <h2><span>Natural Relief</span> with <span>Proven Results</span></h2>
-                <p>Femina Plus<sup>®</sup> contains the proprietary blend of three botanical root extracts, known as Fem-Fleur<sup>™*</sup>. It has been scientifically developed for the purpose of providing relief from the symptoms of menopause. This exclusive herbal formula has been FDA reviewed and clinically tested. Fem-Fluer<sup>&#8482;</sup> is shown to be safe and effective in as few as <strong>7-10 days</strong>, relieving some of the toughest symptoms in menopausal women of varying ages.</p>
+                <p>Femina Plus<sup>®</sup> contains the proprietary blend of three botanical root extracts, known as Fem-Fleur<sup>™*</sup>. It has been scientifically developed for the purpose of providing relief from the symptoms of menopause. This exclusive herbal formula has been FDA reviewed and clinically tested. Fem-Fleur<sup>&#8482;</sup> is shown to be safe and effective in as few as <strong>7-10 days</strong>, relieving some of the toughest symptoms in menopausal women of varying ages.</p>
             </div>
         </div>
     </div>
