@@ -128,7 +128,13 @@ class CartController extends Controller
      */
     public function update(Request $request)
     {
-        //
+        $updatedCartData = $request->input('cartData');
+        if ($updatedCartData) {
+            $return = 'Data found';
+        } else {
+            $return = 'No data found';
+        }
+        return $return;
     }
 
     /**

@@ -71,17 +71,32 @@
         </div>
     </div>
     <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         $('.updateButton').on('click', function() {
             var productName, productAmount, updatedCart = [];
             $('.qty-input').each(function(element) {
                 productName = $(this).data('product');
                 productAmount = $(this).attr('value');
-                // console.log('productName: ' + productName);
-                // console.log('productAmount: ' + productAmount);
+
                 updatedCart.push({productName:productName, productAmount:productAmount});
             });
-            // console.log('foreach done');
-            // console.log(updatedCart[0]);
+
+            $.ajax({
+                type: "POST",
+                url: "./cartUpdate",
+                data: {cartData: updatedCart},
+                success: function() {
+                    console.log('Ajax call succeeded');
+                },
+                error: function() {
+                    console.log('Ajax call failed');
+                }
+            });
         });
     </script>
 </section>

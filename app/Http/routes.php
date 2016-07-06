@@ -36,7 +36,7 @@ Route::post('/contact', 'ContactController@create');
 
 // Cart routes
 Route::get('/cart', 'CartController@show');
-Route::post('/cart/{cartItems}', 'CartController@update');
+Route::post('/cartUpdate', 'CartController@update');
 Route::put('/cart/{item}/{itemType}', 'CartController@store');
 
 Route::get('/checkout', function () {
