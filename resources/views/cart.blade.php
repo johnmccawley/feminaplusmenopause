@@ -28,7 +28,7 @@
         <div class="row cart-items">
             <!-- Loop foreach cart-item -->
             @if($cartItems)
-                @foreach($cartItems as $item)
+                @foreach($cartItems as $key => $item)
                     <div class="row cart-item">
                         <div class="span3 item-name">
                             {{ $item->name }}
@@ -37,13 +37,10 @@
                             {{ $item->description }}
                         </div>
                         <div class="span1 item-qty">
-                            <input class="qty-input" value="{{$item->amount}}"/>
+                            <input class="qty-input" autocomplete="off" data-product="{{ $key }}" value="{{ $item->amount }}"/>
                         </div>
                         <div class="span2 item-price">
                             {{ $item->display_price }}
-                        </div>
-                        <div class="remove-btn">
-                            x
                         </div>
                     </div>
                 @endforeach
@@ -63,13 +60,42 @@
         <div class="row cart-btns">
             <div class="left-btns">
                 <a href="/product" class="secondary-btn">CONTINUE SHOPPING</a>
-                <a href="#" class="secondary-btn">UPDATE</a>
+                <button type="button" class="secondary-btn updateButton">UPDATE</a>
             </div>
             <div class="right-btns">
                 <a href="/checkout" class="primary-btn">CHECKOUT</a>
             </div>
         </div>
     </div>
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('.updateButton').on('click', function() {
+            var productName, productAmount, updatedCart = [];
+            $('.qty-input').each(function(element) {
+                productName = $(this).data('product');
+                productAmount = $(this).val();
+
+                updatedCart.push({productName:productName, productAmount:productAmount});
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "./cartUpdate",
+                data: {cartData: updatedCart},
+                success: function(result,status,xhr) {
+                    location.reload();
+                },
+                error: function(xhr,status,error) {
+                    console.log(error);
+                }
+            });
+        });
+    </script>
 </section>
 
 @endsection

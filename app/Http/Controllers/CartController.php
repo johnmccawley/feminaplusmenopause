@@ -93,9 +93,19 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $token = $request->session()->get('_token');
+        $cart = DB::table('carts')->where('token', $token)->first();
+        if ($cart) {
+            $cartItems = json_decode($cart->items);
+            $total = $cart->total;
+        } else {
+            $cartItems = null;
+            $total = 0;
+        }
+
+        return view('cart', ['cartItems' => $cartItems, 'total' => $total]);
     }
 
     /**
@@ -116,9 +126,29 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $updatedCartData = $request->input('cartData');
+        $token = $request->session()->get('_token');
+        $cartDbEntry = DB::table('carts')->where('token', $token)->first();
+        $cart = Cart::find($cartDbEntry->id);
+        $cartItems = json_decode($cart->items);
+
+        foreach($updatedCartData as $item) {
+            $productName = $item['productName'];
+            $productAmount = intval($item['productAmount']);
+            if ($productAmount <= 0) {
+                unset($cartItems->$productName);
+            } else {
+                $cartItems->$productName->amount = intval($item['productAmount']);
+            }
+        }
+
+        $cart->items = json_encode($cartItems);
+        $cart->total = $this->calculateTotal($cartItems);
+        $cart->save();
+
+        return $updatedCartData;
     }
 
     /**
@@ -149,7 +179,7 @@ class CartController extends Controller
     private function calculateTotal($cartItems) {
         $total = 0;
         foreach ($cartItems as $item) {
-            $total += $item->price;
+            $total += $item->amount * $item->price;
         }
 
         return $this->formatDisplayPrice($total);
