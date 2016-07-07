@@ -11,7 +11,7 @@
         background: url('../img/yoga-girls.png') center;
         background-position: center;
         background-repeat: no-repeat;
-        padding: 30em 0em 4em 0em;
+        padding: 24em 0em 2em 0em;
         h1{
             color: white;
             // background: $primary;
@@ -193,6 +193,7 @@
             border-bottom: 1px solid darken(white, 15%);
         }
         #tile-lifestyle{
+            padding-top: 26em;
             h1{
                 padding: .5em;
                 font-size: 1.5em;

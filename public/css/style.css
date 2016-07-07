@@ -873,7 +873,7 @@ footer #sub-footer {
   background: url("../img/yoga-girls.png") center;
   background-position: center;
   background-repeat: no-repeat;
-  padding: 30em 0em 4em 0em; }
+  padding: 24em 0em 2em 0em; }
   #home #tile-lifestyle h1 {
     color: white;
     padding: .25em;
@@ -1005,12 +1005,14 @@ footer #sub-footer {
   #home #tile-cta {
     border-top: 1px solid #d9d9d9;
     border-bottom: 1px solid #d9d9d9; }
-  #home #tile-lifestyle h1 {
-    padding: .5em;
-    font-size: 1.5em;
-    line-height: 1.25em; }
-    #home #tile-lifestyle h1 span {
-      display: inline-block; }
+  #home #tile-lifestyle {
+    padding-top: 26em; }
+    #home #tile-lifestyle h1 {
+      padding: .5em;
+      font-size: 1.5em;
+      line-height: 1.25em; }
+      #home #tile-lifestyle h1 span {
+        display: inline-block; }
   #home .background-area {
     background: none; } }
 

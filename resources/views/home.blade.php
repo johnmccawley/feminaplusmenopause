@@ -45,7 +45,7 @@
                 <div class="span6">
                     <div class="main-keypoint">
                         <h3>CLINICALLY PROVEN</h3>
-                        <p>Outstanding FDA reviewed studies. <br />Significant relief for 85% of women.</p>
+                        <p>Outstanding FDA reviewed studies. <br />Significant relief for 96% of women.</p>
                     </div>
                     <div class="main-keypoint">
                         <h3>FAST ACTING</h3>
