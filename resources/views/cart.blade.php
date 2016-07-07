@@ -37,13 +37,10 @@
                             {{ $item->description }}
                         </div>
                         <div class="span1 item-qty">
-                            <input class="qty-input" data-product="{{ $key }}" value="{{$item->amount}}"/>
+                            <input class="qty-input" autocomplete="off" data-product="{{ $key }}" value="{{ $item->amount }}"/>
                         </div>
                         <div class="span2 item-price">
                             {{ $item->display_price }}
-                        </div>
-                        <div class="remove-btn">
-                            x
                         </div>
                     </div>
                 @endforeach

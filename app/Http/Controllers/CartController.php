@@ -136,7 +136,12 @@ class CartController extends Controller
 
         foreach($updatedCartData as $item) {
             $productName = $item['productName'];
-            $cartItems->$productName->amount = intval($item['productAmount']);
+            $productAmount = intval($item['productAmount']);
+            if ($productAmount <= 0) {
+                unset($cartItems->$productName);
+            } else {
+                $cartItems->$productName->amount = intval($item['productAmount']);
+            }
         }
 
         $cart->items = json_encode($cartItems);
