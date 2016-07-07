@@ -129,12 +129,21 @@ class CartController extends Controller
     public function update(Request $request)
     {
         $updatedCartData = $request->input('cartData');
-        if ($updatedCartData) {
-            $return = 'Data found';
-        } else {
-            $return = 'No data found';
+        $token = $request->session()->get('_token');
+        $cartDbEntry = DB::table('carts')->where('token', $token)->first();
+        $cart = Cart::find($cartDbEntry->id);
+        $cartItems = json_decode($cart->items);
+
+        foreach($updatedCartData as $item) {
+            $productName = $item['productName'];
+            $cartItems->$productName->amount = intval($item['productAmount']);
         }
-        return $return;
+
+        $cart->items = json_encode($cartItems);
+        $cart->total = $this->calculateTotal($cartItems);
+        $cart->save();
+
+        return $updatedCartData;
     }
 
     /**
@@ -165,7 +174,7 @@ class CartController extends Controller
     private function calculateTotal($cartItems) {
         $total = 0;
         foreach ($cartItems as $item) {
-            $total += $item->price;
+            $total += $item->amount * $item->price;
         }
 
         return $this->formatDisplayPrice($total);

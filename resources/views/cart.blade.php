@@ -81,7 +81,7 @@
             var productName, productAmount, updatedCart = [];
             $('.qty-input').each(function(element) {
                 productName = $(this).data('product');
-                productAmount = $(this).attr('value');
+                productAmount = $(this).val();
 
                 updatedCart.push({productName:productName, productAmount:productAmount});
             });
@@ -90,11 +90,11 @@
                 type: "POST",
                 url: "./cartUpdate",
                 data: {cartData: updatedCart},
-                success: function() {
-                    console.log('Ajax call succeeded');
+                success: function(result,status,xhr) {
+                    location.reload();
                 },
-                error: function() {
-                    console.log('Ajax call failed');
+                error: function(xhr,status,error) {
+                    console.log(error);
                 }
             });
         });
