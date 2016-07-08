@@ -13,28 +13,19 @@
     <div class="container">
         <h3>Cart</h3>
         <div class="row cart-items">
-            <div class="row cart-item">
-                <div class="span4 item-name">
-                    Product #1
+            @foreach($cartItems as $item)
+                <div class="row cart-item">
+                    <div class="span4 item-name">
+                        {{ $item->name }}
+                    </div>
+                    <div class="span4 item-qty">
+                        Qty: {{ $item->amount }}
+                    </div>
+                    <div class="span4 item-price">
+                        {{ $item->display_price }}
+                    </div>
                 </div>
-                <div class="span4 item-qty">
-                    Qty: 2
-                </div>
-                <div class="span4 item-price">
-                    $00.00
-                </div>
-            </div>
-            <div class="row cart-item">
-                <div class="span4 item-name">
-                    Product #1
-                </div>
-                <div class="span4 item-qty">
-                    Qty: 2
-                </div>
-                <div class="span4 item-price">
-                    $00.00
-                </div>
-            </div>
+            @endforeach
         </div>
         <a href="/cart" class="secondary-btn">EDIT CART</a>
     </div>

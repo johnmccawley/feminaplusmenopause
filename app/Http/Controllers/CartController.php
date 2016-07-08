@@ -50,7 +50,11 @@ class CartController extends Controller
         $cartDbEntry = $this->retrieveCartDatabaseEntry($request);
         if ($cartDbEntry) {
             $cart = Cart::find($cartDbEntry->id);
-            $cartItems = json_decode($cart->items);
+            if (is_null($cart->items)) {
+                $cartItems = (object)[];
+            } else {
+                $cartItems = json_decode($cart->items);
+            }
         } else {
             $cart = Cart::create([
                 'token' => $request->session()->get('_token'),
@@ -162,7 +166,7 @@ class CartController extends Controller
     }
 
     private function saveCart($cart, $cartItems) {
-        $cart->items = json_encode($cartItems);
+        $cart->items = (json_encode($cartItems) == "{}") ? null : json_encode($cartItems);
         $cart->total = $this->calculateTotal($cartItems);
         $cart->save();
 
