@@ -47,14 +47,13 @@ class CartController extends Controller
      */
     public function store(Request $request, $id, $itemType)
     {
-        $token = $request->session()->get('_token');
-        $cartDbEntry = DB::table('carts')->where('token', $token)->first();
+        $cartDbEntry = $this->retrieveCartDatabaseEntry($request);
         if ($cartDbEntry) {
             $cart = Cart::find($cartDbEntry->id);
             $cartItems = json_decode($cart->items);
         } else {
             $cart = Cart::create([
-                'token' => $token,
+                'token' => $request->session()->get('_token'),
                 'items' => null,
                 'total' => null
             ]);
@@ -80,9 +79,7 @@ class CartController extends Controller
             }
         }
 
-        $cart->items = json_encode($cartItems);
-        $cart->total = $this->calculateTotal($cartItems);
-        $cart->save();
+        $this->saveCart($cart, $cartItems);
 
         return redirect('/cart');
     }
@@ -95,11 +92,11 @@ class CartController extends Controller
      */
     public function show(Request $request)
     {
-        $token = $request->session()->get('_token');
-        $cart = DB::table('carts')->where('token', $token)->first();
-        if ($cart) {
-            $cartItems = json_decode($cart->items);
-            $total = $cart->total;
+        $cartDbEntry = $this->retrieveCartDatabaseEntry($request);
+
+        if ($cartDbEntry) {
+            $cartItems = json_decode($cartDbEntry->items);
+            $total = $cartDbEntry->total;
         } else {
             $cartItems = null;
             $total = 0;
@@ -129,8 +126,7 @@ class CartController extends Controller
     public function update(Request $request)
     {
         $updatedCartData = $request->input('cartData');
-        $token = $request->session()->get('_token');
-        $cartDbEntry = DB::table('carts')->where('token', $token)->first();
+        $cartDbEntry = $this->retrieveCartDatabaseEntry($request);
         $cart = Cart::find($cartDbEntry->id);
         $cartItems = json_decode($cart->items);
 
@@ -144,9 +140,7 @@ class CartController extends Controller
             }
         }
 
-        $cart->items = json_encode($cartItems);
-        $cart->total = $this->calculateTotal($cartItems);
-        $cart->save();
+        $this->saveCart($cart, $cartItems);
 
         return $updatedCartData;
     }
@@ -160,6 +154,19 @@ class CartController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function retrieveCartDatabaseEntry($request) {
+        $token = $request->session()->get('_token');
+        return DB::table('carts')->where('token', $token)->first();
+    }
+
+    private function saveCart($cart, $cartItems) {
+        $cart->items = json_encode($cartItems);
+        $cart->total = $this->calculateTotal($cartItems);
+        $cart->save();
+
+        return $cart;
     }
 
     private function formatDisplayPrice($amount) {
