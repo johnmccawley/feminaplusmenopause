@@ -33,7 +33,7 @@
 <section id="tile-checkout-info">
     <div class="container">
         <div class="row">
-            <form action="{{ action('PagesController@postOrder') }}" id="payment-form" method="POST">
+            <form action="{{ action('CheckoutController@create') }}" id="payment-form" method="POST">
                 <div class="span6 billing-shipping-info">
                     <div id="billing-info">
                         <h3>Billing Information</h3>

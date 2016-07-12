@@ -14,9 +14,9 @@ class Purchase extends Migration
     {
         Schema::create('purchases', function ($table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('product');
+            $table->text('items');
             $table->integer('amount');
             $table->string('stripe_transaction_id');
             $table->timestamps();

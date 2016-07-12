@@ -3,9 +3,18 @@
 namespace App\Http\Controllers;
 
 use DB as DB;
+use App\User;
+use App\Cart;
+use App\Purchase;
 use \Stripe\Stripe as Stripe;
+use \Stripe\Token as Token;
+use \Stripe\Charge as Charge;
+use App\Http\Controllers;
 use Illuminate\Http\Request;
+use App\Http\Requests\CheckoutRequest as CheckoutRequest;
 
+use Auth;
+use Mail;
 use App\Http\Requests;
 
 class CheckoutController extends Controller
@@ -30,9 +39,74 @@ class CheckoutController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(CheckoutRequest $request)
     {
-        //
+        $cartDbEntry = $this->retrieveCartDatabaseEntry($request);
+        $cart = Cart::findOrFail($cartDbEntry->id);
+        $cartItems = json_decode($cart->items);
+
+        $amount = 0;
+        foreach($cartItems as $key => $item) {
+            $amount += $item->price;
+            $itemsPurchased[] = ['product' => $key, 'amount' => $item->amount, 'price' => $item->price];
+        }
+
+        $expiration = explode('/', $request->expiration);
+        $creditCardToken = Token::create(array(
+            'card' => array(
+                'name' => $request->name,
+                'number' => $request->cardNumber,
+                'exp_month' => $expiration[0],
+                'exp_year' => $expiration[1],
+                'cvc' => $request->cvc
+            )
+        ));
+
+        if (Auth::user()) {
+            $user = User::findOrFail(Auth::user()->id);
+            $userId = $user->id;
+        } else {
+            $userId = null;
+        }
+
+        if ($request->product == 'auto-refill') {
+            // DO NOTHING FOR NOW
+            // $response = $user->newSubscription('main', 'fpclubone')->create($creditCardToken, ['email' => $user->email]);
+            //
+            // if (isset($response)) {
+            //     Purchase::create([
+            //         'user_id' => $user->id,
+            //         'product' => 'fpclubone',
+            //         'amount' => $amount,
+            //         'stripe_transaction_id' => $response->id,
+            //     ]);
+            //     // $this->fullfillmentEmail();
+            // }
+        } else {
+            try {
+                $response = Charge::create(array(
+                  'amount' => $amount,
+                  'currency' => 'usd',
+                  'source' => $creditCardToken
+                ));
+                // $response = $user->charge(($amount), ['source' => $creditCardToken]);
+            } catch (Exception $e) {
+                echo $e->message();
+            }
+
+            if (isset($response)) {
+                Purchase::create([
+                    'user_id' => $userId,
+                    'items' => json_encode($itemsPurchased),
+                    'amount' => $amount,
+                    'stripe_transaction_id' => $response->id,
+                ]);
+                // $this->fullfillmentEmail($request);
+            }
+
+        }
+
+         return redirect('/');
     }
 
     /**
@@ -64,8 +138,6 @@ class CheckoutController extends Controller
         } else {
             return redirect('/cart');
         }
-
-
     }
 
     /**
@@ -100,6 +172,14 @@ class CheckoutController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function fullfillmentEmail($userInfo) {
+        Mail::send('emails.fullfill', ['userInfo' => $userInfo], function ($message) use ($userInfo) {
+           $message->from('fullfillment@mg.feminaplus.com', 'Femina Plus');
+           $message->to(env('FULLFILL_EMAIL_ONE'), null)->subject('FULLFILLMENT REQUEST');
+           $message->cc(env('FULLFILL_EMAIL_TWO'), null)->subject('FULLFILLMENT REQUEST');
+       });
     }
 
     private function retrieveCartDatabaseEntry($request) {

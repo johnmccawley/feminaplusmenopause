@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Purchase extends Model
 {
-    protected $fillable = array('user_id', 'product', 'amount', 'stripe_transaction_id');
+    protected $fillable = array('user_id', 'items', 'amount', 'stripe_transaction_id');
 }

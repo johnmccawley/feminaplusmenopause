@@ -39,7 +39,9 @@ Route::get('/cart', 'CartController@show');
 Route::post('/cartUpdate', 'CartController@update');
 Route::put('/cart/{item}/{itemType}', 'CartController@store');
 
+// Checkout routes
 Route::get('/checkout', 'CheckoutController@show');
+Route::post('/checkout', 'CheckoutController@create');
 
 Route::get('/terms', function () {
     return view('terms');
@@ -61,7 +63,6 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-Route::group(['middleware' => 'auth'], function () {
-
-    Route::post('/checkout', 'PagesController@postOrder');
-});
+// Route::group(['middleware' => 'auth'], function () {
+//
+// });
