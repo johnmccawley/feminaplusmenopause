@@ -66,7 +66,7 @@
                         </div>
                         <div class="row input-row">
                             <div class="span8">
-                                <select name="shipping-state">
+                                <select name="billing-state">
 									<option class="null" value="" disabled selected>State</option>
 									<option value="AL" >Alabama</option>
 									<option value="AK" >Alaska</option>

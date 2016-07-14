@@ -43,8 +43,11 @@ class CheckoutController extends Controller
     {
         $cartDbEntry = $this->retrieveCartDatabaseEntry($request);
         $cart = Cart::findOrFail($cartDbEntry->id);
-        $cartItems = json_decode($cart->items);
+        if (is_null($cart->items)) {
+            return redirect('/cart');
+        }
 
+        $cartItems = json_decode($cart->items);
         $amount = 0;
         foreach($cartItems as $key => $item) {
             $amount += $item->price;
@@ -101,6 +104,9 @@ class CheckoutController extends Controller
                     'amount' => $amount,
                     'stripe_transaction_id' => $response->id,
                 ]);
+                $cart->items = null;
+                $cart->total = null;
+                $cart->save();
                 // $this->fullfillmentEmail($request);
             }
 

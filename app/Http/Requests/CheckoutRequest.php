@@ -24,11 +24,20 @@ class CheckoutRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
+            'billing-name-first' => 'required',
+            'billing-name-last' => 'required',
+            'billing-email' => 'required',
+            'billing-phone' => 'required|max:14',
+            'billing-address-1' => 'required',
+            'billing-city' => 'required',
+            'billing-state' => 'required',
+            'billing-zip' => 'required|min:5|max:10',
+            'shipping-phone' => 'max:14',
+            'shipping-zip' => 'min:5|max:10',
+            'name' => 'required',
             'cardNumber' => 'required|min:16|max:16',
             'expiration' => 'required|max:7',
             'cvc' => 'required|max:4'
-            // 'product' => 'required'
         ];
     }
 }
