@@ -107,7 +107,9 @@ class CheckoutController extends Controller
                 $cart->items = null;
                 $cart->total = null;
                 $cart->save();
-                // $this->fullfillmentEmail($request);
+
+                $userData = $this->setUserData($request);
+                $this->fullfillmentEmail($userData, $cartItems);
             }
 
         }
@@ -180,8 +182,35 @@ class CheckoutController extends Controller
         //
     }
 
-    private function fullfillmentEmail($userInfo) {
-        Mail::send('emails.fullfill', ['userInfo' => $userInfo], function ($message) use ($userInfo) {
+    private function setUserData($request) {
+        $userData = (object)[];
+        if ($request->input('billing-same')) {
+            $userData->firstName = $request->input('billing-name-first');
+            $userData->lastName = $request->input('billing-name-last');
+            $userData->email = $request->input('billing-email');
+            $userData->phone = $request->input('billing-phone');
+            $userData->addressOne = $request->input('billing-address-1');
+            $userData->addressTwo = ($request->input('billing-address-2')) ? $request->input('billing-address-2') : null;
+            $userData->city = $request->input('billing-city');
+            $userData->state = $request->input('billing-state');
+            $userData->zip = $request->input('billing-zip');
+        } else {
+            $userData->firstName = $request->input('shipping-name-first');
+            $userData->lastName = $request->input('shipping-name-last');
+            $userData->email = $request->input('shipping-email');
+            $userData->phone = $request->input('shipping-phone');
+            $userData->addressOne = $request->input('shipping-address-1');
+            $userData->addressTwo = ($request->input('shipping-address-2')) ? $request->input('shipping-address-2') : null;
+            $userData->city = $request->input('shipping-city');
+            $userData->state = $request->input('shipping-state');
+            $userData->zip = $request->input('shipping-zip');
+        }
+
+        return $userData;
+    }
+
+    private function fullfillmentEmail($userData, $purchased) {
+        Mail::send('emails.fullfill', ['userData' => $userData, 'purchased' => $purchased], function ($message) use ($userData, $purchased) {
            $message->from('fullfillment@mg.feminaplus.com', 'Femina Plus');
            $message->to(env('FULLFILL_EMAIL_ONE'), null)->subject('FULLFILLMENT REQUEST');
            $message->cc(env('FULLFILL_EMAIL_TWO'), null)->subject('FULLFILLMENT REQUEST');

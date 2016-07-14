@@ -1,11 +1,24 @@
-<p>Name: {{ $user->name }}</p>
-<p>Email: {{ $user->email }}</p>
-<p>Adress: {{ $user->address }}</p>
-@if($user->apartment_suite_number)
-    <p>Apartment/Suite Number: {{ $user->apartment_suite_number }}</p>
+CUSTOMER SHIPPING INFORMATION
+<br/>
+<hr>
+<p>Name: {{ $userData->firstName }} {{ $userData->lastName }}</p>
+<p>Email: {{ $userData->email }}</p>
+<p>Phone: {{ $userData->phone }}</p>
+<p>Adress: {{ $userData->addressOne }}</p>
+@if($userData->addressTwo)
+    <p>Apartment/Suite Number: {{ $userData->addressTwo }}</p>
 @endif
-<p>City: {{ $user->city }}</p>
-<p>State: {{ $user->state }}</p>
-<p>Zip: {{ $user->zip }}</p>
-
-<p>User purchased {{ $product }}</p>
+<p>City: {{ $userData->city }}</p>
+<p>State: {{ $userData->state }}</p>
+<p>Zip: {{ $userData->zip }}</p>
+<br/>
+<br/>
+ITEMS PURCHASED
+<br/>
+<hr>
+@foreach($purchased as $key => $item)
+    <p>Product: {{ $key }}</p>
+    <p>Name: {{ $item->name }}</p>
+    <p>Quantity: {{ $item->amount }}</p>
+    <br />
+@endforeach
