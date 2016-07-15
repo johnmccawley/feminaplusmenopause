@@ -40,10 +40,10 @@ class CheckoutRequest extends Request
             'shipping-city' => 'required_without:billing-same',
             'shipping-state' => 'required_without:billing-same',
             'shipping-zip' => 'required_without:billing-same|min:5|max:10',
-            'name' => 'required',
+            'cardName' => 'required',
             'cardNumber' => 'required|min:16|max:16',
-            'expiration' => 'required|max:7',
-            'cvc' => 'required|max:4'
+            'cardExpiration' => 'required|max:7',
+            'cardCvc' => 'required|max:4'
         ];
     }
 }

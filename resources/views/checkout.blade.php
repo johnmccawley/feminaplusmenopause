@@ -228,17 +228,17 @@
                     {{ csrf_field() }}
                     <h3>Payment Information</h3>
                     <div class="row input-row">
-                        <input type="text" class="form-control" name="name" placeholder="Name"/>
+                        <input type="text" class="form-control" name="cardName" placeholder="Name"/>
                     </div>
                     <div class="row input-row">
                         <input type="text" class="form-control" name="cardNumber" maxlength="16" placeholder="Card number"/>
                     </div>
                     <div class="row input-row">
                         <div class="span8">
-                            <input id="payment-exp" type="text" class="form-control" name="expiration" placeholder="MM / YYYY"/>
+                            <input id="payment-exp" type="text" class="form-control" name="cardExpiration" placeholder="MM / YYYY"/>
                         </div>
                         <div class="span4">
-                            <input type="text" class="form-control" name="cvc" maxlength="6" placeholder="CVC"/>
+                            <input type="text" class="form-control" name="cardCvc" maxlength="6" placeholder="CVC"/>
                         </div>
                     </div>
                     <div class="input-row">

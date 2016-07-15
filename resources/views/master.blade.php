@@ -48,7 +48,7 @@
                         <div class="row">
                             <nav>
                                 <ul>
-                                    <li><a href="/login"><i class="fa fa-user" aria-hidden="true"></i></i>MY ACCOUNT</a></li>
+                                    <li><a href="/home"><i class="fa fa-user" aria-hidden="true"></i></i>MY ACCOUNT</a></li>
                                     <li><a href="/contact"><i class="fa fa-comment" aria-hidden="true"></i>CONTACT</a></li>
                                     <li><a href="/cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i>CART</a></li>
                                 </ul>

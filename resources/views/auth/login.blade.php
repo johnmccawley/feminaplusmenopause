@@ -8,6 +8,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
+                    @if(isset($required))
+                        <div class="alert alert-danger">
+                            <strong>You must have an account to buy Femina Plus Club</strong>
+                        </div>
+                    @endif
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}
 

@@ -9,6 +9,7 @@ use App\Purchase;
 use \Stripe\Stripe as Stripe;
 use \Stripe\Token as Token;
 use \Stripe\Charge as Charge;
+use \Stripe\Subscription as Subscription;
 use App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CheckoutRequest as CheckoutRequest;
@@ -19,9 +20,12 @@ use App\Http\Requests;
 
 class CheckoutController extends Controller
 {
+    private $user, $userId;
 
     function __construct() {
         $this->setApiKey();
+        $this->user = (Auth::user()) ? User::findOrFail(Auth::user()->id) : null;
+        $this->userId = (Auth::user()) ? Auth::user()->id : null;
     }
 
     /**
@@ -41,77 +45,66 @@ class CheckoutController extends Controller
      */
     public function create(CheckoutRequest $request)
     {
+        // Retrieves cart
         $cartDbEntry = $this->retrieveCartDatabaseEntry($request);
         $cart = Cart::findOrFail($cartDbEntry->id);
         if (is_null($cart->items)) {
             return redirect('/cart');
         }
 
+        // Gets cart items
         $cartItems = json_decode($cart->items);
-        $amount = 0;
+        $amount = (object)['total' => 0, 'product' => 0, 'plan' => 0];
         foreach($cartItems as $key => $item) {
-            $amount += $item->price;
-            $itemsPurchased[] = ['product' => $key, 'amount' => $item->amount, 'price' => $item->price];
+            $itemsPurchased[$key] = ['product' => $key, 'amount' => $item->amount, 'price' => $item->price];
+
+            $amount->total += $item->price;
+            if ($item->type == 'product') {
+                $amount->product += $item->price;
+            } else if ($item->type == 'plan') {
+                $amount->plan += $item->price;
+            }
         }
 
-        $expiration = explode('/', $request->expiration);
+        // Creates credit card token
+        $cardExpiration = explode('/', $request->cardExpiration);
+        // CAN'T USE THE STRIPE TOKEN TWICE
         $creditCardToken = Token::create(array(
             'card' => array(
-                'name' => $request->name,
-                'number' => $request->cardNumber,
-                'exp_month' => $expiration[0],
-                'exp_year' => $expiration[1],
-                'cvc' => $request->cvc
+                'name'          => $request->cardName,
+                'number'        => $request->cardNumber,
+                'exp_month'     => $cardExpiration[0],
+                'exp_year'      => $cardExpiration[1],
+                'cvc'           => $request->cardCvc,
+                'address_line1' => $request->input('billing-address-1'),
+                'address_line2' => $request->input('billing-address-2'),
+                'address_city'  => $request->input('billing-city'),
+                'address_state' => $request->input('billing-state'),
+                'address_zip'   => $request->input('billing-zip')
             )
         ));
 
-        if (Auth::user()) {
-            $user = User::findOrFail(Auth::user()->id);
-            $userId = $user->id;
-        } else {
-            $userId = null;
+        // Determines if a subscription or product is being bought
+        if (isset($itemsPurchased['fpClub'])) {
+            $response = $this->user->newSubscription('primary', 'fpClub')->create($creditCardToken->id, ['email' => $request->input('billing-email')]);
         }
 
-        if ($request->product == 'auto-refill') {
-            // DO NOTHING FOR NOW
-            // $response = $user->newSubscription('main', 'fpclubone')->create($creditCardToken, ['email' => $user->email]);
-            //
-            // if (isset($response)) {
-            //     Purchase::create([
-            //         'user_id' => $user->id,
-            //         'product' => 'fpclubone',
-            //         'amount' => $amount,
-            //         'stripe_transaction_id' => $response->id,
-            //     ]);
-            //     // $this->fullfillmentEmail();
-            // }
-        } else {
-            try {
-                $response = Charge::create(array(
-                  'amount' => $amount,
-                  'currency' => 'usd',
-                  'source' => $creditCardToken
-                ));
-                // $response = $user->charge(($amount), ['source' => $creditCardToken]);
-            } catch (Exception $e) {
-                echo $e->message();
-            }
+        if ($amount->product > 0) {
+            // $response = $user->charge(($amount->product), ['source' => $creditCardToken]);
+            $response = Charge::create(array(
+              'amount' => $amount->product,
+              'currency' => 'usd',
+              'source' => $creditCardToken->id
+            ));
+        }
 
-            if (isset($response)) {
-                Purchase::create([
-                    'user_id' => $userId,
-                    'items' => json_encode($itemsPurchased),
-                    'amount' => $amount,
-                    'stripe_transaction_id' => $response->id,
-                ]);
-                $cart->items = null;
-                $cart->total = null;
-                $cart->save();
+        if (isset($response)) {
+            $this->createPurchase($response, $itemsPurchased, $amount);
+            $cart->items = null;
+            $cart->total = null;
+            $cart->save();
 
-                $userData = $this->setUserData($request);
-                $this->fullfillmentEmail($userData, $cartItems);
-            }
-
+            $this->fullfillmentEmail($request, $cartItems);
         }
 
          return redirect('/');
@@ -141,6 +134,12 @@ class CheckoutController extends Controller
         if ($cartDbEntry) {
             $cartItems = json_decode($cartDbEntry->items);
             $total = $cartDbEntry->total;
+
+            foreach ($cartItems as $key => $item) {
+                if ($item->type == 'plan' && !Auth::user()) {
+                    return view('auth.login', ['required' => true]);
+                }
+            }
 
             return view('checkout', ['cartItems' => $cartItems, 'total' => $total]);
         } else {
@@ -209,7 +208,20 @@ class CheckoutController extends Controller
         return $userData;
     }
 
-    private function fullfillmentEmail($userData, $purchased) {
+    private function createPurchase($response, $itemsPurchased, $amount) {
+        if (isset($response)) {
+            Purchase::create([
+                'user_id' => $this->userId,
+                'items' => json_encode($itemsPurchased),
+                'amount' => $amount->total,
+                'stripe_transaction_id' => $response->id,
+            ]);
+        }
+    }
+
+    private function fullfillmentEmail($request, $purchased) {
+        $userData = $this->setUserData($request);
+
         Mail::send('emails.fullfill', ['userData' => $userData, 'purchased' => $purchased], function ($message) use ($userData, $purchased) {
            $message->from('fullfillment@mg.feminaplus.com', 'Femina Plus');
            $message->to(env('FULLFILL_EMAIL_ONE'), null)->subject('FULLFILLMENT REQUEST');
