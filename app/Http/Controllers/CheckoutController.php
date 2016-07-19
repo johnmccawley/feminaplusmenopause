@@ -70,15 +70,18 @@ class CheckoutController extends Controller
         if (isset($itemsPurchased['fpClub'])) {
             $source = $this->getSource($request);
             $response = $this->user->newSubscription('primary', 'fpClub')->create($source->id, ['email' => $request->input('billing-email')]);
+            $purchased = (object)['fpClub' => $itemsPurchased['fpClub']];
+            $this->createPurchase($response->stripe_id, $purchased, $amount->plan);
         }
 
         if ($amount->product > 0) {
             $source = $this->getSource($request);
             $response = $this->user->charge(($amount->product), ['source' => $source]);
+            unset($itemsPurchased['fpClub']);
+            $this->createPurchase($response->id, $itemsPurchased, $amount->product);
         }
 
         if (isset($response)) {
-            $this->createPurchase($response, $itemsPurchased, $amount);
             $cart->items = null;
             $cart->total = null;
             $cart->save();
@@ -205,14 +208,14 @@ class CheckoutController extends Controller
         ));
     }
 
-    private function createPurchase($response, $itemsPurchased, $amount) {
+    private function createPurchase($transactionId, $itemsPurchased, $amount) {
         // Local database log entry of purchases
-        if (isset($response)) {
+        if (isset($transactionId)) {
             Purchase::create([
                 'user_id' => $this->userId,
                 'items' => json_encode($itemsPurchased),
-                'amount' => $amount->total,
-                'stripe_transaction_id' => $response->id,
+                'amount' => $amount,
+                'stripe_transaction_id' => $transactionId,
             ]);
         }
     }
