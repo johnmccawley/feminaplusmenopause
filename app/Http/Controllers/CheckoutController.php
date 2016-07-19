@@ -66,36 +66,15 @@ class CheckoutController extends Controller
             }
         }
 
-        // Creates credit card token
-        $cardExpiration = explode('/', $request->cardExpiration);
-        // CAN'T USE THE STRIPE TOKEN TWICE
-        $creditCardToken = Token::create(array(
-            'card' => array(
-                'name'          => $request->cardName,
-                'number'        => $request->cardNumber,
-                'exp_month'     => $cardExpiration[0],
-                'exp_year'      => $cardExpiration[1],
-                'cvc'           => $request->cardCvc,
-                'address_line1' => $request->input('billing-address-1'),
-                'address_line2' => $request->input('billing-address-2'),
-                'address_city'  => $request->input('billing-city'),
-                'address_state' => $request->input('billing-state'),
-                'address_zip'   => $request->input('billing-zip')
-            )
-        ));
-
         // Determines if a subscription or product is being bought
         if (isset($itemsPurchased['fpClub'])) {
-            $response = $this->user->newSubscription('primary', 'fpClub')->create($creditCardToken->id, ['email' => $request->input('billing-email')]);
+            $source = $this->getSource($request);
+            $response = $this->user->newSubscription('primary', 'fpClub')->create($source->id, ['email' => $request->input('billing-email')]);
         }
 
         if ($amount->product > 0) {
-            // $response = $user->charge(($amount->product), ['source' => $creditCardToken]);
-            $response = Charge::create(array(
-              'amount' => $amount->product,
-              'currency' => 'usd',
-              'source' => $creditCardToken->id
-            ));
+            $source = $this->getSource($request);
+            $response = $this->user->charge(($amount->product), ['source' => $source]);
         }
 
         if (isset($response)) {
@@ -208,7 +187,26 @@ class CheckoutController extends Controller
         return $userData;
     }
 
+    private function getSource($request) {
+        $cardExpiration = explode('/', $request->cardExpiration);
+        return Token::create(array(
+            'card' => array(
+                'name'          => $request->cardName,
+                'number'        => $request->cardNumber,
+                'exp_month'     => $cardExpiration[0],
+                'exp_year'      => $cardExpiration[1],
+                'cvc'           => $request->cardCvc,
+                'address_line1' => $request->input('billing-address-1'),
+                'address_line2' => $request->input('billing-address-2'),
+                'address_city'  => $request->input('billing-city'),
+                'address_state' => $request->input('billing-state'),
+                'address_zip'   => $request->input('billing-zip')
+            )
+        ));
+    }
+
     private function createPurchase($response, $itemsPurchased, $amount) {
+        // Local database log entry of purchases
         if (isset($response)) {
             Purchase::create([
                 'user_id' => $this->userId,
