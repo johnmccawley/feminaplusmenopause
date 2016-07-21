@@ -1,7 +1,7 @@
 @if (count($errors) > 0)
     <!-- Form Error List -->
     <div class="alert alert-danger">
-        <strong>Missing required information</strong>
+        <strong>Please fix the following...</strong>
 
         <ul>
             @foreach ($errors->all() as $error)

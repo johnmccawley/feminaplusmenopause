@@ -45,51 +45,55 @@ class CheckoutController extends Controller
      */
     public function create(CheckoutRequest $request)
     {
-        // Retrieves cart
-        $cartDbEntry = $this->retrieveCartDatabaseEntry($request);
-        $cart = Cart::findOrFail($cartDbEntry->id);
-        if (is_null($cart->items)) {
-            return redirect('/cart');
-        }
-
-        // Gets cart items
-        $cartItems = json_decode($cart->items);
-        $amount = (object)['total' => 0, 'product' => 0, 'plan' => 0];
-        foreach($cartItems as $key => $item) {
-            $itemsPurchased[$key] = ['product' => $key, 'amount' => $item->amount, 'price' => $item->price];
-
-            $amount->total += $item->price;
-            if ($item->type == 'product') {
-                $amount->product += $item->price;
-            } else if ($item->type == 'plan') {
-                $amount->plan += $item->price;
+        try {
+            // Retrieves cart
+            $cartDbEntry = $this->retrieveCartDatabaseEntry($request);
+            $cart = Cart::findOrFail($cartDbEntry->id);
+            if (is_null($cart->items)) {
+                return redirect('/cart');
             }
-        }
 
-        // Determines if a subscription or product is being bought
-        if (isset($itemsPurchased['fpClub'])) {
-            $source = $this->getSource($request);
-            $response = $this->user->newSubscription('primary', 'fpClub')->create($source->id, ['email' => $request->input('billing-email')]);
-            $purchased = (object)['fpClub' => $itemsPurchased['fpClub']];
-            $this->createPurchase($response->stripe_id, $purchased, $amount->plan);
-        }
+            // Gets cart items
+            $cartItems = json_decode($cart->items);
+            $amount = (object)['total' => 0, 'product' => 0, 'plan' => 0];
+            foreach($cartItems as $key => $item) {
+                $itemsPurchased[$key] = ['product' => $key, 'amount' => $item->amount, 'price' => $item->price];
 
-        if ($amount->product > 0) {
-            $source = $this->getSource($request);
-            $response = $this->user->charge(($amount->product), ['source' => $source]);
-            unset($itemsPurchased['fpClub']);
-            $this->createPurchase($response->id, $itemsPurchased, $amount->product);
-        }
+                $amount->total += $item->price;
+                if ($item->type == 'product') {
+                    $amount->product += $item->price;
+                } else if ($item->type == 'plan') {
+                    $amount->plan += $item->price;
+                }
+            }
 
-        if (isset($response)) {
-            $cart->items = null;
-            $cart->total = null;
-            $cart->save();
+            // Determines if a subscription or product is being bought
+            if (isset($itemsPurchased['fpClub'])) {
+                $source = $this->getSource($request);
+                $response = $this->user->newSubscription('primary', 'fpClub')->create($source->id, ['email' => $request->input('billing-email')]);
+                $purchased = (object)['fpClub' => $itemsPurchased['fpClub']];
+                $this->createPurchase($response->stripe_id, $purchased, $amount->plan);
+            }
 
-            $this->fullfillmentEmail($request, $cartItems);
-        }
+            if ($amount->product > 0) {
+                $source = $this->getSource($request);
+                $response = $this->user->charge(($amount->product), ['source' => $source]);
+                unset($itemsPurchased['fpClub']);
+                $this->createPurchase($response->id, $itemsPurchased, $amount->product);
+            }
 
-         return redirect('/');
+            if (isset($response)) {
+                $cart->items = null;
+                $cart->total = null;
+                $cart->save();
+
+                $this->fullfillmentEmail($request, $cartItems);
+            }
+
+             return redirect('/');
+        } catch (\Exception $e) {
+            return back()->withErrors($e->getMessage())->withInput();
+        }        
     }
 
     /**

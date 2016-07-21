@@ -5,6 +5,60 @@
 
 <?php
     $page_id = "checkout";
+    $billingState = old('billing-state');
+    $states = [
+        'AL' => 'Alabama',
+        'AK' => 'Alaska',
+        'AZ' => 'Arizona',
+        'AR' => 'Arkansas',
+        'CA' => 'California',
+        'CO' => 'Colorado',
+        'CT' => 'Connecticut',
+        'DE' => 'Delaware',
+        'DC' => 'District Of Columbia',
+        'FL' => 'Florida',
+        'GA' => 'Georgia',
+        'HI' => 'Hawaii',
+        'ID' => 'Idaho',
+        'IL' => 'Illinois',
+        'IN' => 'Indiana',
+        'IA' => 'Iowa',
+        'KS' => 'Kansas',
+        'KY' => 'Kentucky',
+        'LA' => 'Louisiana',
+        'ME' => 'Maine',
+        'MD' => 'Maryland',
+        'MA' => 'Massachusetts',
+        'MI' => 'Michigan',
+        'MN' => 'Minnesota',
+        'MS' => 'Mississippi',
+        'MO' => 'Missouri',
+        'MT' => 'Montana',
+        'NE' => 'Nebraska',
+        'NV' => 'Nevada',
+        'NH' => 'New Hampshire',
+        'NJ' => 'New Jersey',
+        'NM' => 'New Mexico',
+        'NY' => 'New York',
+        'NC' => 'North Carolina',
+        'ND' => 'North Dakota',
+        'OH' => 'Ohio',
+        'OK' => 'Oklahoma',
+        'OR' => 'Oregon',
+        'PA' => 'Pennsylvania',
+        'RI' => 'Rhode Island',
+        'SC' => 'South Carolina',
+        'SD' => 'South Dakota',
+        'TN' => 'Tennessee',
+        'TX' => 'Texas',
+        'UT' => 'Utah',
+        'VT' => 'Vermont',
+        'VA' => 'Virginia',
+        'WA' => 'Washington',
+        'WV' => 'West Virginia',
+        'WI' => 'Wisconsin',
+        'WY' => 'Wyoming'
+    ];
 ?>
 
 @section('content')
@@ -34,95 +88,52 @@
     <div class="container">
         <div class="row">
             <form action="{{ action('CheckoutController@create') }}" id="payment-form" method="POST">
+                @include('errors.errors')
                 <div class="span6 billing-shipping-info">
                     <div id="billing-info">
                         <h3>Billing Information</h3>
                         <div class="row input-row">
                             <div class="span6">
-                                <input type="text" class="form-control" name="billing-name-first" placeholder="First Name"/>
+                                <input type="text" class="form-control" name="billing-name-first" placeholder="First Name" value="{{ old('billing-name-first') }}"/>
                             </div>
                             <div class="span6">
-                                <input type="text" class="form-control" name="billing-name-last" placeholder="Last Name"/>
-                            </div>
-                        </div>
-                        <div class="row input-row">
-                            <div class="span6">
-                                <input type="text" class="form-control" name="billing-email" placeholder="Email"/>
-                            </div>
-                            <div class="span6">
-                                <input id="billing-phone" type="text" class="form-control" name="billing-phone" placeholder="Phone"/>
+                                <input type="text" class="form-control" name="billing-name-last" placeholder="Last Name" value="{{ old('billing-name-last') }}"/>
                             </div>
                         </div>
                         <div class="row input-row">
-                            <input type="text" class="form-control" name="billing-address-1" placeholder="Address"/>
+                            <div class="span6">
+                                <input type="text" class="form-control" name="billing-email" placeholder="Email" value="{{ old('billing-email') }}"/>
+                            </div>
+                            <div class="span6">
+                                <input id="billing-phone" type="text" class="form-control" name="billing-phone" placeholder="Phone" value="{{ old('billing-phone') }}"/>
+                            </div>
+                        </div>
+                        <div class="row input-row">
+                            <input type="text" class="form-control" name="billing-address-1" placeholder="Address" value="{{ old('billing-address-1') }}"/>
                         </div>
                         <div class="row input-row">
                             <div class="span6">
-                                <input type="text" class="form-control" name="billing-address-2" placeholder="Address 2"/>
+                                <input type="text" class="form-control" name="billing-address-2" placeholder="Address 2" value="{{ old('billing-address-2') }}"/>
                             </div>
                             <div class="span6">
-                                <input type="text" class="form-control" name="billing-city" placeholder="City"/>
+                                <input type="text" class="form-control" name="billing-city" placeholder="City" value="{{ old('billing-city') }}"/>
                             </div>
                         </div>
                         <div class="row input-row">
                             <div class="span8">
                                 <select name="billing-state">
-									<option class="null" value="" disabled selected>State</option>
-									<option value="AL" >Alabama</option>
-									<option value="AK" >Alaska</option>
-									<option value="AZ" >Arizona</option>
-									<option value="AR" >Arkansas</option>
-									<option value="CA" >California</option>
-									<option value="CO" >Colorado</option>
-									<option value="CT" >Connecticut</option>
-									<option value="DE" >Delaware</option>
-									<option value="DC" >District Of Columbia</option>
-									<option value="FL" >Florida</option>
-									<option value="GA" >Georgia</option>
-									<option value="HI" >Hawaii</option>
-									<option value="ID" >Idaho</option>
-									<option value="IL" >Illinois</option>
-									<option value="IN" >Indiana</option>
-									<option value="IA" >Iowa</option>
-									<option value="KS" >Kansas</option>
-									<option value="KY" >Kentucky</option>
-									<option value="LA" >Louisiana</option>
-									<option value="ME" >Maine</option>
-									<option value="MD" >Maryland</option>
-									<option value="MA" >Massachusetts</option>
-									<option value="MI" >Michigan</option>
-									<option value="MN" >Minnesota</option>
-									<option value="MS" >Mississippi</option>
-									<option value="MO" >Missouri</option>
-									<option value="MT" >Montana</option>
-									<option value="NE" >Nebraska</option>
-									<option value="NV" >Nevada</option>
-									<option value="NH" >New Hampshire</option>
-									<option value="NJ" >New Jersey</option>
-									<option value="NM" >New Mexico</option>
-									<option value="NY" >New York</option>
-									<option value="NC" >North Carolina</option>
-									<option value="ND" >North Dakota</option>
-									<option value="OH" >Ohio</option>
-									<option value="OK" >Oklahoma</option>
-									<option value="OR" >Oregon</option>
-									<option value="PA" >Pennsylvania</option>
-									<option value="RI" >Rhode Island</option>
-									<option value="SC" >South Carolina</option>
-									<option value="SD" >South Dakota</option>
-									<option value="TN" >Tennessee</option>
-									<option value="TX" >Texas</option>
-									<option value="UT" >Utah</option>
-									<option value="VT" >Vermont</option>
-									<option value="VA" >Virginia</option>
-									<option value="WA" >Washington</option>
-									<option value="WV" >West Virginia</option>
-									<option value="WI" >Wisconsin</option>
-									<option value="WY" >Wyoming</option>
+                                    <option class="null" value="" disabled selected>State</option>
+                                    @foreach($states as $key => $value)
+                                        @if($billingState == $key)
+                                            <option value="{{$key}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$key}}" >{{$value}}</option>
+                                        @endif
+                                    @endforeach
 								</select>
                             </div>
                             <div class="span4">
-                                <input type="text" class="form-control" name="billing-zip" placeholder="Zip"/>
+                                <input type="text" class="form-control" name="billing-zip" placeholder="Zip" value="{{ old('billing-zip') }}"/>
                             </div>
                         </div>
                     </div>
@@ -135,110 +146,65 @@
                         <h3>Shipping Information</h3>
                         <div class="row input-row">
                             <div class="span6">
-                                <input type="text" class="form-control" name="shipping-name-first" placeholder="First Name"/>
+                                <input type="text" class="form-control" name="shipping-name-first" placeholder="First Name" value="{{ old('shipping-name-first') }}"/>
                             </div>
                             <div class="span6">
-                                <input type="text" class="form-control" name="shipping-name-last" placeholder="Last Name"/>
-                            </div>
-                        </div>
-                        <div class="row input-row">
-                            <div class="span6">
-                                <input type="text" class="form-control" name="shipping-email" placeholder="Email"/>
-                            </div>
-                            <div class="span6">
-                                <input id="shipping-phone" type="text" class="form-control" name="shipping-phone" placeholder="Phone"/>
+                                <input type="text" class="form-control" name="shipping-name-last" placeholder="Last Name" value="{{ old('shipping-name-last') }}"/>
                             </div>
                         </div>
                         <div class="row input-row">
-                            <input type="text" class="form-control" name="shipping-address-1" placeholder="Address"/>
+                            <div class="span6">
+                                <input type="text" class="form-control" name="shipping-email" placeholder="Email" value="{{ old('shipping-email') }}"/>
+                            </div>
+                            <div class="span6">
+                                <input id="shipping-phone" type="text" class="form-control" name="shipping-phone" placeholder="Phone" value="{{ old('shipping-phone') }}"/>
+                            </div>
+                        </div>
+                        <div class="row input-row">
+                            <input type="text" class="form-control" name="shipping-address-1" placeholder="Address" value="{{ old('shipping-address-1') }}"/>
                         </div>
                         <div class="row input-row">
                             <div class="span6">
-                                <input type="text" class="form-control" name="shipping-address-2" placeholder="Address 2"/>
+                                <input type="text" class="form-control" name="shipping-address-2" placeholder="Address 2" value="{{ old('shipping-address-2') }}"/>
                             </div>
                             <div class="span6">
-                                <input type="text" class="form-control" name="shipping-city" placeholder="City"/>
+                                <input type="text" class="form-control" name="shipping-city" placeholder="City" value="{{ old('shipping-city') }}"/>
                             </div>
                         </div>
                         <div class="row input-row">
                             <div class="span8">
                                 <select name="shipping-state">
-									<option class="null" value="" disabled selected>State</option>
-									<option value="AL" >Alabama</option>
-									<option value="AK" >Alaska</option>
-									<option value="AZ" >Arizona</option>
-									<option value="AR" >Arkansas</option>
-									<option value="CA" >California</option>
-									<option value="CO" >Colorado</option>
-									<option value="CT" >Connecticut</option>
-									<option value="DE" >Delaware</option>
-									<option value="DC" >District Of Columbia</option>
-									<option value="FL" >Florida</option>
-									<option value="GA" >Georgia</option>
-									<option value="HI" >Hawaii</option>
-									<option value="ID" >Idaho</option>
-									<option value="IL" >Illinois</option>
-									<option value="IN" >Indiana</option>
-									<option value="IA" >Iowa</option>
-									<option value="KS" >Kansas</option>
-									<option value="KY" >Kentucky</option>
-									<option value="LA" >Louisiana</option>
-									<option value="ME" >Maine</option>
-									<option value="MD" >Maryland</option>
-									<option value="MA" >Massachusetts</option>
-									<option value="MI" >Michigan</option>
-									<option value="MN" >Minnesota</option>
-									<option value="MS" >Mississippi</option>
-									<option value="MO" >Missouri</option>
-									<option value="MT" >Montana</option>
-									<option value="NE" >Nebraska</option>
-									<option value="NV" >Nevada</option>
-									<option value="NH" >New Hampshire</option>
-									<option value="NJ" >New Jersey</option>
-									<option value="NM" >New Mexico</option>
-									<option value="NY" >New York</option>
-									<option value="NC" >North Carolina</option>
-									<option value="ND" >North Dakota</option>
-									<option value="OH" >Ohio</option>
-									<option value="OK" >Oklahoma</option>
-									<option value="OR" >Oregon</option>
-									<option value="PA" >Pennsylvania</option>
-									<option value="RI" >Rhode Island</option>
-									<option value="SC" >South Carolina</option>
-									<option value="SD" >South Dakota</option>
-									<option value="TN" >Tennessee</option>
-									<option value="TX" >Texas</option>
-									<option value="UT" >Utah</option>
-									<option value="VT" >Vermont</option>
-									<option value="VA" >Virginia</option>
-									<option value="WA" >Washington</option>
-									<option value="WV" >West Virginia</option>
-									<option value="WI" >Wisconsin</option>
-									<option value="WY" >Wyoming</option>
+                                    <option class="null" value="" disabled selected>State</option>
+                                    @foreach($states as $key => $value)
+                                        @if($billingState == $key)
+                                            <option value="{{$key}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$key}}" >{{$value}}</option>
+                                        @endif
+                                    @endforeach
 								</select>
                             </div>
                             <div class="span4">
-                                <input type="text" class="form-control" name="shipping-zip" placeholder="Zip"/>
+                                <input type="text" class="form-control" name="shipping-zip" placeholder="Zip" value="{{ old('shipping-zip') }}"/>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="span6 payment-info">
-                    @include('errors.errors')
                     {{ csrf_field() }}
                     <h3>Payment Information</h3>
                     <div class="row input-row">
-                        <input type="text" class="form-control" name="cardName" placeholder="Name"/>
+                        <input type="text" class="form-control" name="cardName" placeholder="Name" value="{{ old('cardName') }}"/>
                     </div>
                     <div class="row input-row">
-                        <input type="text" class="form-control" name="cardNumber" maxlength="16" placeholder="Card number"/>
+                        <input type="text" class="form-control" name="cardNumber" maxlength="16" placeholder="Card number" value="{{ old('cardNumber') }}"/>
                     </div>
                     <div class="row input-row">
                         <div class="span8">
-                            <input id="payment-exp" type="text" class="form-control" name="cardExpiration" placeholder="MM / YYYY"/>
+                            <input id="payment-exp" type="text" class="form-control" name="cardExpiration" placeholder="MM / YYYY" value="{{ old('cardExpiration') }}"/>
                         </div>
                         <div class="span4">
-                            <input type="text" class="form-control" name="cardCvc" maxlength="6" placeholder="CVC"/>
+                            <input type="text" class="form-control" name="cardCvc" maxlength="6" placeholder="CVC" value="{{ old('cardCvc') }}"/>
                         </div>
                     </div>
                     <div class="input-row">
