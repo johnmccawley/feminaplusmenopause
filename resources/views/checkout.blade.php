@@ -90,6 +90,7 @@
             <form action="{{ action('CheckoutController@create') }}" id="payment-form" method="POST">
                 @include('errors.errors')
                 <div class="span6 billing-shipping-info">
+                    {{ csrf_field() }}
                     <div id="billing-info">
                         <h3>Billing Information</h3>
                         <div class="row input-row">
