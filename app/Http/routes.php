@@ -22,8 +22,6 @@ Route::get('/product', function ()  {
     return view('product');
 });
 
-// Route::get('auth/login', 'Auth\AuthController@getLogin');
-
 Route::get('/clinical', function () {
     return view('clinical');
 });
@@ -34,6 +32,9 @@ Route::get('/contact', function () {
 
 Route::post('/contact', 'ContactController@create');
 
+// User routes
+Route::post('/userUpdate', 'HomeController@updateUser');
+
 // Cart routes
 Route::get('/cart', 'CartController@show');
 Route::post('/cartUpdate', 'CartController@update');
@@ -42,6 +43,9 @@ Route::put('/cart/{item}/{itemType}', 'CartController@store');
 // Checkout routes
 Route::get('/checkout', 'CheckoutController@show');
 Route::post('/checkout', 'CheckoutController@create');
+
+// Subscription routes
+Route::post('/subscription', 'SubscriptionController@destroy');
 
 Route::get('/terms', function () {
     return view('terms');
