@@ -15,6 +15,9 @@ body {
 .ease {
     transition: all 0.25s ease;
 }
+button{
+    cursor: pointer;
+}
 .fa-custom{
     font: normal normal normal 14px/1 FontAwesome;
     font-size: inherit;
