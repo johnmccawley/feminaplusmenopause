@@ -93,7 +93,7 @@ class CheckoutController extends Controller
              return redirect('/');
         } catch (\Exception $e) {
             return back()->withErrors($e->getMessage())->withInput();
-        }        
+        }
     }
 
     /**
@@ -127,7 +127,13 @@ class CheckoutController extends Controller
                 }
             }
 
-            return view('checkout', ['cartItems' => $cartItems, 'total' => $total]);
+            if ($this->user) {
+                $name = explode(" ", $this->user->name);
+                $this->user->first_name = $name[0];
+                $this->user->last_name = $name[1];
+            }
+
+            return view('checkout', ['cartItems' => $cartItems, 'total' => $total, 'user' => $this->user]);
         } else {
             return redirect('/cart');
         }
