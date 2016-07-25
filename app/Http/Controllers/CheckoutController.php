@@ -83,6 +83,7 @@ class CheckoutController extends Controller
             }
 
             if (isset($response)) {
+                $displayTotal = $cart->total;
                 $cart->items = null;
                 $cart->total = null;
                 $cart->save();
@@ -90,10 +91,10 @@ class CheckoutController extends Controller
                 $this->fullfillmentEmail($request, $cartItems);
             }
 
-             return redirect('/');
+             return $this->receipt($request, $cartItems, $displayTotal);
         } catch (\Exception $e) {
             return back()->withErrors($e->getMessage())->withInput();
-        }        
+        }
     }
 
     /**
@@ -127,7 +128,13 @@ class CheckoutController extends Controller
                 }
             }
 
-            return view('checkout', ['cartItems' => $cartItems, 'total' => $total]);
+            if ($this->user) {
+                $name = explode(" ", $this->user->name);
+                $this->user->first_name = $name[0];
+                $this->user->last_name = $name[1];
+            }
+
+            return view('checkout', ['cartItems' => $cartItems, 'total' => $total, 'user' => $this->user]);
         } else {
             return redirect('/cart');
         }
@@ -165,6 +172,10 @@ class CheckoutController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function receipt($request, $cartItems, $total) {
+        return view('receipt', ['request' => $request, 'cartItems' => $cartItems, 'total' => $total]);
     }
 
     private function setUserData($request) {

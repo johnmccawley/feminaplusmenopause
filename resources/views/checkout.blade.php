@@ -5,7 +5,7 @@
 
 <?php
     $page_id = "checkout";
-    $billingState = old('billing-state');
+    $shipping_state = (old('shipping-state'));
     $states = [
         'AL' => 'Alabama',
         'AK' => 'Alaska',
@@ -59,6 +59,16 @@
         'WI' => 'Wisconsin',
         'WY' => 'Wyoming'
     ];
+
+    $billing_first_name = (old('billing-name-first')) ? old('billing-name-first') : $user->first_name;
+    $billing_last_name = (old('billing-name-last')) ? old('billing-name-last') : $user->last_name;
+    $billing_email = (old('billing-email')) ? old('billing-email') : $user->email;
+    $billing_phone = (old('billing-phone')) ? old('billing-phone') : $user->phone;
+    $billing_address_1 = (old('billing-address-1')) ? old('billing-address-1') : $user->address;
+    $billing_address_2 = (old('billing-address-2')) ? old('billing-address-2') : $user->apartment_suite_number;
+    $billing_city = (old('billing-city')) ? old('billing-city') : $user->city;
+    $billing_state = (old('billing-state')) ? old('billing-state') : $user->state;
+    $billing_zip = (old('billing-zip')) ? old('billing-zip') : $user->zip;
 ?>
 
 @section('content')
@@ -95,29 +105,29 @@
                         <h3>Billing Information</h3>
                         <div class="row input-row">
                             <div class="span6">
-                                <input type="text" class="form-control" name="billing-name-first" placeholder="First Name" value="{{ old('billing-name-first') }}"/>
+                                <input type="text" class="form-control" name="billing-name-first" placeholder="First Name" value="{{ $billing_first_name }}"/>
                             </div>
                             <div class="span6">
-                                <input type="text" class="form-control" name="billing-name-last" placeholder="Last Name" value="{{ old('billing-name-last') }}"/>
-                            </div>
-                        </div>
-                        <div class="row input-row">
-                            <div class="span6">
-                                <input type="text" class="form-control" name="billing-email" placeholder="Email" value="{{ old('billing-email') }}"/>
-                            </div>
-                            <div class="span6">
-                                <input id="billing-phone" type="text" class="form-control" name="billing-phone" placeholder="Phone" value="{{ old('billing-phone') }}"/>
+                                <input type="text" class="form-control" name="billing-name-last" placeholder="Last Name" value="{{ $billing_last_name }}"/>
                             </div>
                         </div>
                         <div class="row input-row">
-                            <input type="text" class="form-control" name="billing-address-1" placeholder="Address" value="{{ old('billing-address-1') }}"/>
+                            <div class="span6">
+                                <input type="text" class="form-control" name="billing-email" placeholder="Email" value="{{ $billing_email }}"/>
+                            </div>
+                            <div class="span6">
+                                <input id="billing-phone" type="text" class="form-control" name="billing-phone" placeholder="Phone" value="{{ $billing_phone }}"/>
+                            </div>
+                        </div>
+                        <div class="row input-row">
+                            <input type="text" class="form-control" name="billing-address-1" placeholder="Address" value="{{ $billing_address_1 }}"/>
                         </div>
                         <div class="row input-row">
                             <div class="span6">
-                                <input type="text" class="form-control" name="billing-address-2" placeholder="Address 2" value="{{ old('billing-address-2') }}"/>
+                                <input type="text" class="form-control" name="billing-address-2" placeholder="Address 2" value="{{ $billing_address_2 }}"/>
                             </div>
                             <div class="span6">
-                                <input type="text" class="form-control" name="billing-city" placeholder="City" value="{{ old('billing-city') }}"/>
+                                <input type="text" class="form-control" name="billing-city" placeholder="City" value="{{ $billing_city }}"/>
                             </div>
                         </div>
                         <div class="row input-row">
@@ -125,7 +135,7 @@
                                 <select name="billing-state">
                                     <option class="null" value="" disabled selected>State</option>
                                     @foreach($states as $key => $value)
-                                        @if($billingState == $key)
+                                        @if($billing_state == $key)
                                             <option value="{{$key}}" selected>{{$value}}</option>
                                         @else
                                             <option value="{{$key}}" >{{$value}}</option>
@@ -134,7 +144,7 @@
 								</select>
                             </div>
                             <div class="span4">
-                                <input type="text" class="form-control" name="billing-zip" placeholder="Zip" value="{{ old('billing-zip') }}"/>
+                                <input type="text" class="form-control" name="billing-zip" placeholder="Zip" value="{{ $billing_zip }}"/>
                             </div>
                         </div>
                     </div>
@@ -177,7 +187,7 @@
                                 <select name="shipping-state">
                                     <option class="null" value="" disabled selected>State</option>
                                     @foreach($states as $key => $value)
-                                        @if($billingState == $key)
+                                        @if($shipping_state == $key)
                                             <option value="{{$key}}" selected>{{$value}}</option>
                                         @else
                                             <option value="{{$key}}" >{{$value}}</option>
