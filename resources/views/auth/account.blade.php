@@ -120,7 +120,8 @@
                     </div>
                 </div>
                 <div class="span8">
-                    <h3>Billing Info</h3>
+                    <h3 id="billingHeader">Billing Info</h3>
+                    <a href="{{ url('/logout') }}" id="logoutBtn" class="primary-btn">Logout</a>
                     <form action="{{ action('HomeController@updateUser') }}" id="user-form" method="POST">
                         <div class="user-info-pane">
                             {{ csrf_field() }}
