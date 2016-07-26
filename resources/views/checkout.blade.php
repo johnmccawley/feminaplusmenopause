@@ -60,15 +60,28 @@
         'WY' => 'Wyoming'
     ];
 
-    $billing_first_name = (old('billing-name-first')) ? old('billing-name-first') : $user->first_name;
-    $billing_last_name = (old('billing-name-last')) ? old('billing-name-last') : $user->last_name;
-    $billing_email = (old('billing-email')) ? old('billing-email') : $user->email;
-    $billing_phone = (old('billing-phone')) ? old('billing-phone') : $user->phone;
-    $billing_address_1 = (old('billing-address-1')) ? old('billing-address-1') : $user->address;
-    $billing_address_2 = (old('billing-address-2')) ? old('billing-address-2') : $user->apartment_suite_number;
-    $billing_city = (old('billing-city')) ? old('billing-city') : $user->city;
-    $billing_state = (old('billing-state')) ? old('billing-state') : $user->state;
-    $billing_zip = (old('billing-zip')) ? old('billing-zip') : $user->zip;
+    if ($user) {
+        $billing_first_name = (old('billing-name-first')) ? old('billing-name-first') : $user->first_name;
+        $billing_last_name = (old('billing-name-last')) ? old('billing-name-last') : $user->last_name;
+        $billing_email = (old('billing-email')) ? old('billing-email') : $user->email;
+        $billing_phone = (old('billing-phone')) ? old('billing-phone') : $user->phone;
+        $billing_address_1 = (old('billing-address-1')) ? old('billing-address-1') : $user->address;
+        $billing_address_2 = (old('billing-address-2')) ? old('billing-address-2') : $user->apartment_suite_number;
+        $billing_city = (old('billing-city')) ? old('billing-city') : $user->city;
+        $billing_state = (old('billing-state')) ? old('billing-state') : $user->state;
+        $billing_zip = (old('billing-zip')) ? old('billing-zip') : $user->zip;
+    } else {
+        $billing_first_name = (old('billing-name-first')) ? old('billing-name-first') : null;
+        $billing_last_name = (old('billing-name-last')) ? old('billing-name-last') : null;
+        $billing_email = (old('billing-email')) ? old('billing-email') : null;
+        $billing_phone = (old('billing-phone')) ? old('billing-phone') : null;
+        $billing_address_1 = (old('billing-address-1')) ? old('billing-address-1') : null;
+        $billing_address_2 = (old('billing-address-2')) ? old('billing-address-2') : null;
+        $billing_city = (old('billing-city')) ? old('billing-city') : null;
+        $billing_state = (old('billing-state')) ? old('billing-state') : null;
+        $billing_zip = (old('billing-zip')) ? old('billing-zip') : null;
+    }
+
 ?>
 
 @section('content')
