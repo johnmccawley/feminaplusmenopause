@@ -146,11 +146,6 @@ class CheckoutController extends Controller
         }
     }
 
-    public function checkoutGuest(Request $request) {
-        Auth::logout();
-        return $this->show($request);
-    }
-
     /**
      * Show the form for editing the specified resource.
      *

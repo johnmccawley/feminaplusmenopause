@@ -77,7 +77,7 @@
         <div class="container">
             <div class="row">
                 <div class="center-box">
-                    <h3>Fast Relief in <strong>7-10 days</strong> <br />Feel Better Faster - <strong>Taken Daily</strong></h3>
+                    <h3>Fast Relief in <strong>7-10 days</strong> <br />Feel Better Faster - <strong>Best Taken Daily</strong></h3>
                 </div>
                 <a class="main-cta-btn" href="/buy">BUY NOW!</a>
                 <span>FREE BOTTLE WITH FEMINA PLUS CLUB</span>
