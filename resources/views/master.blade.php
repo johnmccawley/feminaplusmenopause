@@ -162,7 +162,6 @@
                             <span class="copy align-right">&copy; 2016 FEMINAPLUS ALL RIGHTS RESERVED</span>
                         </div>
                         <div class="row disclaimer-text">
-                            <p><sup>*</sup>Femina Plus is clinically proven to relieve the uncomfortable symptoms of menopause in as few as 7 days.</p>
                             <p><sup>*</sup>These statements have not been evaluated by the Food and Drug Administration. This product is not intended to cure, treat or prevent any disease.</p>
                         </div>
                     </div>

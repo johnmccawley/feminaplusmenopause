@@ -49,7 +49,7 @@
                     </div>
                     <div class="main-keypoint">
                         <h3>FAST ACTING</h3>
-                        <p>Provides relief in as few as <strong>7-10 days</strong>, <br />taken daily. 6X faster than black cohosh.</p>
+                        <p>Provides relief in as few as <strong>7-10 days</strong>, <br /><strong>TAKE DAILY</strong>. 6X faster than black cohosh.</p>
                     </div>
                     <div class="main-keypoint">
                         <h3>ZERO SIDE EFFECTS</h3>
@@ -77,7 +77,7 @@
         <div class="container">
             <div class="row">
                 <div class="center-box">
-                    <h3>Fast Relief in <strong>7-10 days</strong> <br />Feel Better Faster</h3>
+                    <h3>Fast Relief in <strong>7-10 days</strong> <br />Feel Better Faster - <strong>Taken Daily</strong></h3>
                 </div>
                 <a class="main-cta-btn" href="#">BUY NOW!</a>
                 <span>FREE BOTTLE WITH FEMINA PLUS CLUB</span>
