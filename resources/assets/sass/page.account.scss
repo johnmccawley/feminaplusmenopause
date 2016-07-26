@@ -41,6 +41,20 @@
 
             }
         }
+
+        button.atc-btn{
+            display: inline-block;
+            margin-top: 1em;
+            color: white;
+            background: $primary;
+            padding: .5em .75em;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: .75em;
+            &:hover{
+                background: darken($primary, 5%);
+            }
+        }
     }
     button{
         margin-top: 1em;

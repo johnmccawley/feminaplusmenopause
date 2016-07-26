@@ -1074,6 +1074,17 @@ footer #sub-footer {
       color: #c31da2;
       padding: .5em;
       text-align: center; }
+  #account .subscription-status button.atc-btn {
+    display: inline-block;
+    margin-top: 1em;
+    color: white;
+    background: #c31da2;
+    padding: .5em .75em;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: .75em; }
+    #account .subscription-status button.atc-btn:hover {
+      background: #ad1a90; }
 #account button {
   margin-top: 1em; }
 @media screen and (max-width: 900px) {
