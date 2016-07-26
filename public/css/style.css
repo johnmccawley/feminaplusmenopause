@@ -1074,6 +1074,8 @@ footer #sub-footer {
       color: #c31da2;
       padding: .5em;
       text-align: center; }
+    #account .subscription-status .subscription-wrapper .subscription-ends {
+      margin-top: 10px; }
   #account .subscription-status button.atc-btn {
     display: inline-block;
     margin-top: 1em;
