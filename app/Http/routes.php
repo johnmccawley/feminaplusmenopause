@@ -42,6 +42,7 @@ Route::put('/cart/{item}/{itemType}', 'CartController@store');
 
 // Checkout routes
 Route::get('/checkout', 'CheckoutController@show');
+Route::get('/checkoutGuest', 'CheckoutController@checkoutGuest');
 Route::post('/checkout', 'CheckoutController@create');
 
 // Subscription routes

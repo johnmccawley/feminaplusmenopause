@@ -24,7 +24,7 @@ class CheckoutController extends Controller
 
     function __construct() {
         $this->setApiKey();
-        $this->user = (Auth::user()) ? User::findOrFail(Auth::user()->id) : null;
+        $this->user = (Auth::user()) ? User::findOrFail(Auth::user()->id) : new User();
         $this->userId = (Auth::user()) ? Auth::user()->id : null;
     }
 
@@ -116,28 +116,39 @@ class CheckoutController extends Controller
      */
     public function show(Request $request)
     {
-        $cartDbEntry = $this->retrieveCartDatabaseEntry($request);
+        try {
+            $cartDbEntry = $this->retrieveCartDatabaseEntry($request);
 
-        if ($cartDbEntry) {
-            $cartItems = json_decode($cartDbEntry->items);
-            $total = $cartDbEntry->total;
+            if ($cartDbEntry) {
+                $cartItems = json_decode($cartDbEntry->items);
+                $total = $cartDbEntry->total;
 
-            foreach ($cartItems as $key => $item) {
-                if ($item->type == 'plan' && !Auth::user()) {
-                    return view('auth.login', ['required' => true]);
+                foreach ($cartItems as $key => $item) {
+                    if ($item->type == 'plan' && Auth::guest()) {
+                        return view('auth.login', ['required' => true]);
+                    }
                 }
-            }
 
-            if ($this->user) {
-                $name = explode(" ", $this->user->name);
-                $this->user->first_name = $name[0];
-                $this->user->last_name = $name[1];
-            }
+                if (Auth::guest()) {
+                    $this->user = null;
+                } else if ($this->user && isset($this->user->name)) {
+                    $name = explode(" ", $this->user->name);
+                    $this->user->first_name = $name[0];
+                    $this->user->last_name = $name[1];
+                }
 
-            return view('checkout', ['cartItems' => $cartItems, 'total' => $total, 'user' => $this->user]);
-        } else {
-            return redirect('/cart');
+                return view('checkout', ['cartItems' => $cartItems, 'total' => $total, 'user' => $this->user]);
+            } else {
+                return redirect('/cart');
+            }
+        } catch (\Exception $e) {
+            return back()->withErrors($e->getMessage())->withInput();
         }
+    }
+
+    public function checkoutGuest(Request $request) {
+        Auth::logout();
+        return $this->show($request);
     }
 
     /**

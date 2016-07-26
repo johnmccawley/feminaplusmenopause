@@ -59,6 +59,7 @@
                 </div>
                 <div class="right-btns">
                     <a href="/checkout" class="primary-btn">CHECKOUT</a>
+                    <a href="/checkoutGuest" class="primary-btn">CHECKOUT AS GUEST</a>
                 </div>
             </div>
         </div>
