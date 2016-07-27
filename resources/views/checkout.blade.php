@@ -105,6 +105,7 @@
             @endforeach
         </div>
         <a href="/cart" class="secondary-btn">EDIT CART</a>
+        <h3 id="checkoutTotal">Total: {{ $total }}</h3>
     </div>
 </section>
 <section id="tile-checkout-info">
@@ -214,6 +215,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="span6 payment-info">
                     {{ csrf_field() }}
                     <h3>Payment Information</h3>
@@ -232,10 +234,22 @@
                         </div>
                     </div>
                     <div class="input-row">
-                        <button type="submit" id="submitBtn" class="primary-btn">CONTINUE</button>
+                        <button type="submit" id="submitBtn" class="primary-btn">PLACE ORDER</button>
                     </div>
                 </div>
+            </form>
 
+            <form action="{{ action('CheckoutController@applyCoupon') }}" id="coupon-form" method="POST">
+                <div class="span6 coupon-info">
+                    {{ csrf_field() }}
+                    <h3>Coupon Code</h3>
+                    <div class="row input-row">
+                        <input type="text" class="form-control" name="coupon-code" placeholder="Code"/>
+                    </div>
+                    <div class="input-row">
+                        <button type="submit" id="submitBtn" class="primary-btn">APPLY</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>

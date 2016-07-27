@@ -1735,6 +1735,8 @@ footer #sub-footer {
         text-align: right; }
       #checkout #tile-cart .cart-items .cart-item .item-qty {
         text-align: right; }
+  #checkout #tile-cart #checkoutTotal {
+    float: right; }
 #checkout #shipping-info {
   margin-top: 1em;
   display: none; }
@@ -1762,6 +1764,13 @@ footer #sub-footer {
   border-right: 1px solid #cccccc; }
 #checkout #tile-checkout-info .payment-info {
   padding-left: 2em; }
+#checkout #tile-checkout-info .coupon-info {
+  padding-left: 2em; }
+  #checkout #tile-checkout-info .coupon-info input {
+    padding: .5em;
+    color: gray;
+    width: 100%;
+    border: 1px solid #cccccc; }
 #checkout #tile-checkout-info .input-row {
   margin-bottom: 1em; }
   #checkout #tile-checkout-info .input-row input {
@@ -1782,6 +1791,9 @@ footer #sub-footer {
     border-right: 0;
     margin-bottom: 2em; }
   #checkout #tile-checkout-info .payment-info {
+    width: 100%;
+    padding-left: 0; }
+  #checkout #tile-checkout-info .coupon-info {
     width: 100%;
     padding-left: 0; } }
 

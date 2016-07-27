@@ -66,7 +66,6 @@ class CartController extends Controller
 
         if (array_key_exists($id, $cartItems)) {
             $cartItems->$id->amount++;
-            $cartItems->$id->price = ($cartItems->$id->price * $cartItems->$id->amount);
             $cartItems->$id->display_price = $this->formatDisplayPrice($cartItems->$id->price);
         } else {
             if ($itemType == 'product') {
@@ -166,8 +165,11 @@ class CartController extends Controller
     }
 
     private function saveCart($cart, $cartItems) {
+        $total = $this->calculateTotal($cartItems);
         $cart->items = (json_encode($cartItems) == "{}") ? null : json_encode($cartItems);
-        $cart->total = $this->calculateTotal($cartItems);
+        $cart->total = $this->formatDisplayPrice($total);
+        $cart->charge_total = $total;
+        $cart->codes_applied = null;
         $cart->save();
 
         return $cart;
@@ -193,7 +195,7 @@ class CartController extends Controller
             $total += $item->amount * $item->price;
         }
 
-        return $this->formatDisplayPrice($total);
+        return $total;
     }
 
     private function setApiKey() {

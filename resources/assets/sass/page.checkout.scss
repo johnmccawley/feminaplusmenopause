@@ -32,6 +32,10 @@
                 }
             }
         }
+
+        #checkoutTotal {
+            float: right;
+        }
     }
     #shipping-info{
         margin-top: 1em;
@@ -73,6 +77,15 @@
         .payment-info{
             padding-left: 2em;
         }
+        .coupon-info{
+            padding-left: 2em;
+            input {
+                padding: .5em;
+                color: gray;
+                width: 100%;
+                border: 1px solid darken(white, 20%);
+            }
+        }
         .input-row{
             margin-bottom: 1em;
             input{
@@ -105,6 +118,11 @@
                 margin-bottom: 2em;
             }
             .payment-info{
+                width: 100%;
+                padding-left: 0;
+            }
+
+            .coupon-info{
                 width: 100%;
                 padding-left: 0;
             }

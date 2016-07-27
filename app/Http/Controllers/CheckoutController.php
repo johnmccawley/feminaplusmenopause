@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DB as DB;
 use App\User;
 use App\Cart;
+use App\Coupon;
 use App\Purchase;
 use \Stripe\Stripe as Stripe;
 use \Stripe\Token as Token;
@@ -178,6 +179,75 @@ class CheckoutController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function applyCoupon(Request $request) {
+        try {
+            $coupon = Coupon::where('code', $request->input('coupon-code'))->first();
+
+            $cartDbEntry = $this->retrieveCartDatabaseEntry($request);
+            $cart = Cart::findOrFail($cartDbEntry->id);
+
+            $this->checkIfCodeAlreadyUsed($coupon->code, $cart);
+
+            if ($coupon) {
+                if (isset($coupon->discount_percent)) {
+                    $cart->charge_total -= intval($cart->charge_total * ($coupon->discount_percent / 100));
+
+                    $cart->codes_applied = $this->addToAppliedCoupons($coupon->code, $cart);
+                } else if (isset($coupon->discount_amount)) {
+                    $cart->charge_total -= intval($coupon->discount_amount * 100);
+
+                    $cart->charge_total = ($cart->charge_total < 0) ? 0 : $cart->charge_total;
+
+                    $cart->codes_applied = $this->addToAppliedCoupons($coupon->code, $cart);
+                }
+
+                $cart->total = $this->formatDisplayPrice($cart->charge_total);
+                $cart->save();
+            } else {
+                throw new \Exception("Coupon code doesn't exist");
+            }
+        } catch (\Exception $e) {
+            return back()->withErrors($e->getMessage())->withInput();
+        }
+
+        return back();
+    }
+
+    private function addToAppliedCoupons($couponCode, $cart) {
+        if ($cart->codes_applied) {
+            $codesApplied = json_decode($cart->codes_applied);
+            $codesApplied->$couponCode = true;
+        } else {
+            $codesApplied = (object)[$couponCode => true];
+        }
+
+        return json_encode($codesApplied);
+    }
+
+    private function checkIfCodeAlreadyUsed($code, $cart) {
+        if ($cart->codes_applied) {
+            $codesApplied = json_decode($cart->codes_applied);
+
+            if (isset($codesApplied->$code)) {
+                throw new \Exception("Code already used!");
+            }
+        }
+    }
+
+    private function formatDisplayPrice($amount) {
+        $displayPrice = '$' . $amount / 100;
+        if (strpos($displayPrice, '.')) {
+            $explodedPrice = explode('.', $displayPrice);
+            if (strlen($explodedPrice[1]) == 1) {
+                $displayPrice .= '0';
+            }
+        } else {
+            $displayPrice .= '.00';
+        }
+
+        return $displayPrice;
     }
 
     public function receipt($request, $cartItems, $total) {
