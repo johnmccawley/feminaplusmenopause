@@ -45,6 +45,11 @@ Route::get('/checkout', 'CheckoutController@show');
 Route::post('/checkout', 'CheckoutController@create');
 Route::post('/checkoutCoupon', 'CheckoutController@applyCoupon');
 
+// Coupon routes
+Route::get('/coupon', 'CouponController@show');
+Route::post('/coupon', 'CouponController@create');
+Route::post('/coupon/{id}/update', 'CouponController@update');
+
 // Subscription routes
 Route::post('/subscription', 'SubscriptionController@destroy');
 

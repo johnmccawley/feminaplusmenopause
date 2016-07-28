@@ -121,6 +121,9 @@
                 </div>
                 <div class="span8">
                     <h3 id="billingHeader">Billing Info</h3>
+                    @if($user->email == env('ADMIN_EMAIL'))
+                        <a href="{{ url('/coupon') }}" id="couponBtn" class="primary-btn">Manage Coupons</a>
+                    @endif
                     <a href="{{ url('/logout') }}" id="logoutBtn" class="primary-btn">Logout</a>
                     <form action="{{ action('HomeController@updateUser') }}" id="user-form" method="POST">
                         <div class="user-info-pane">

@@ -1060,7 +1060,8 @@ footer #sub-footer {
   padding-left: .5em; }
 #account #tile-account #billingHeader {
   float: left; }
-#account #tile-account #logoutBtn {
+#account #tile-account #logoutBtn, #account #tile-account #couponBtn {
+  margin: 0 5px;
   float: right; }
 #account .subscription-status {
   padding-right: 2em; }
@@ -1099,6 +1100,20 @@ footer #sub-footer {
     width: 100%;
     padding-left: 0;
     padding-right: 0; } }
+
+#coupon .coupon-header {
+  background: #c31da2;
+  color: white;
+  padding: 5px;
+  margin: 5px 0; }
+  #coupon .coupon-header div {
+    margin: 0 5px; }
+#coupon #coupon-info .form-control {
+  margin: 5px 0; }
+#coupon #coupon-info .primary-btn {
+  margin: .6em 0; }
+#coupon #coupon-info .input-row div {
+  margin: 0 5px; }
 
 #product #tile-hero {
   background: url("../img/orchid-background-3.png");

@@ -188,9 +188,9 @@ class CheckoutController extends Controller
             $cartDbEntry = $this->retrieveCartDatabaseEntry($request);
             $cart = Cart::findOrFail($cartDbEntry->id);
 
-            $this->checkIfCodeAlreadyUsed($coupon->code, $cart);
-
             if ($coupon) {
+                $this->checkIfCodeAlreadyUsed($coupon->code, $cart);
+                
                 if (isset($coupon->discount_percent)) {
                     $cart->charge_total -= intval($cart->charge_total * ($coupon->discount_percent / 100));
 
