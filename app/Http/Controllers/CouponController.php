@@ -37,20 +37,16 @@ class CouponController extends Controller
     public function create(CouponRequest $request)
     {
         try {
-            $this->checkDiscountFields($request);
-            $coupon = Coupon::where('code', $request->input('coupon-code'))->first();
+            $this->checkForDuplicateCode($request);
 
-            if (!$coupon) {
-                $newCoupon = Coupon::create([
-                    'code' => $request->input('coupon-code'),
-                    'discount_percent' => (is_null($request->input('coupon-percent')) || $request->input('coupon-percent') == 0) ? NULL : $request->input('coupon-percent'),
-                    'discount_amount' => (is_null($request->input('coupon-amount')) || $request->input('coupon-amount') == 0) ? NULL : $request->input('coupon-amount')
-                ]);
+            $newCoupon = Coupon::create([
+                'code' => $request->input('coupon-code'),
+                'discount_amount' => (is_null($request->input('coupon-amount')) || $request->input('coupon-amount') == 0) ? NULL : $request->input('coupon-amount'),
+                'discount_type' => $request->input('coupon-type')
 
-                $newCoupon->save();
-            } else {
-                throw new \Exception('Coupon code already exists');
-            }
+            ]);
+
+            $newCoupon->save();
         } catch (\Exception $e) {
             return back()->withErrors($e->getMessage())->withInput();
         }
@@ -106,14 +102,18 @@ class CouponController extends Controller
     public function update(CouponRequest $request, $id)
     {
         try {
+            $this->checkForDuplicateCode($request);
+            
+            if ($request->input('coupon-type') == 'percent' && intval($request->input('coupon-amount')) <= 0 && intval($request->input('coupon-amount') > 100)) {
+                throw new \Exception('You must enter a percent value between 1 and 100');
+            }
             if ($request->input('coupon-button') == 'delete') {
                 DB::table('coupons')->where('id', '=', $id)->delete();
             } else if ($request->input('coupon-button') == 'update') {
-                $this->checkDiscountFields($request);
                 $coupon = Coupon::findOrFail($id);
                 $coupon->code = $request->input('coupon-code');
-                $coupon->discount_percent = (is_null($request->input('coupon-percent')) || $request->input('coupon-percent') == 0) ? NULL : $request->input('coupon-percent');
                 $coupon->discount_amount = (is_null($request->input('coupon-amount')) || $request->input('coupon-amount') == 0) ? NULL : $request->input('coupon-amount');
+                $coupon->discount_type = $request->input('coupon-type');
                 $coupon->save();
             }
         } catch (\Exception $e) {
@@ -135,10 +135,10 @@ class CouponController extends Controller
         //
     }
 
-    private function checkDiscountFields($request) {
-        if ((strlen($request->input('coupon-percent')) == 0 && strlen($request->input('coupon-amount')) == 0) ||
-            (strlen($request->input('coupon-percent')) > 0 && strlen($request->input('coupon-amount')) > 0)) {
-            throw new \Exception("You must enter a value into only one of the fields");
+    private function checkForDuplicateCode($request) {
+        $coupon = Coupon::where('code', $request->input('coupon-code'))->first();
+        if ($coupon) {
+            throw new \Exception('Coupon code already exists');
         }
     }
 }

@@ -190,12 +190,12 @@ class CheckoutController extends Controller
 
             if ($coupon) {
                 $this->checkIfCodeAlreadyUsed($coupon->code, $cart);
-                
-                if (isset($coupon->discount_percent)) {
-                    $cart->charge_total -= intval($cart->charge_total * ($coupon->discount_percent / 100));
+
+                if ($coupon->discount_type == 'percent') {
+                    $cart->charge_total -= intval($cart->charge_total * ($coupon->discount_amount / 100));
 
                     $cart->codes_applied = $this->addToAppliedCoupons($coupon->code, $cart);
-                } else if (isset($coupon->discount_amount)) {
+                } else if ($coupon->discount_type == 'amount') {
                     $cart->charge_total -= intval($coupon->discount_amount * 100);
 
                     $cart->charge_total = ($cart->charge_total < 0) ? 0 : $cart->charge_total;

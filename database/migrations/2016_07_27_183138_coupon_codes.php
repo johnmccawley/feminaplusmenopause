@@ -15,8 +15,8 @@ class CouponCodes extends Migration
         Schema::create('coupons', function ($table) {
             $table->increments('id');
             $table->string('code');
-            $table->integer('discount_percent')->nullable();
             $table->integer('discount_amount')->nullable();
+            $table->string('discount_type');
             $table->timestamps();
         });
 

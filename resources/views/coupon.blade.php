@@ -18,10 +18,10 @@
                             Coupon Code
                         </div>
                         <div class="span3">
-                            Percent Discount
+                            Discount Amount
                         </div>
                         <div class="span3">
-                            Amount Discount
+                            Discount Type
                         </div>
                         <div class="span1">
                             Delete
@@ -39,10 +39,18 @@
                                         <input type="text" class="form-control" name="coupon-code" placeholder="Code" value="{{ $coupon->code }}"/>
                                     </div>
                                     <div class="span3">
-                                        <input type="text" class="form-control" name="coupon-percent" placeholder="Percent" value="{{ $coupon->discount_percent }}"/>
+                                        <input type="text" class="form-control" name="coupon-amount" placeholder="Amount" value="{{ $coupon->discount_amount}}"/>
                                     </div>
                                     <div class="span3">
-                                        <input type="text" class="form-control" name="coupon-amount" placeholder="Amount" value="{{ $coupon->discount_amount }}"/>
+                                        <select name="coupon-type">
+                                            @if($coupon->discount_type == 'percent')
+                                                <option value="percent" selected>Percent</option>
+                                                <option value="amount">Amount</option>
+                                            @else
+                                                <option value="percent">Percent</option>
+                                                <option value="amount" selected>Amount</option>
+                                            @endif
+                                        </select>
                                     </div>
                                     <div class="span1">
                                         <button type="submit" name="coupon-button" class="primary-btn" value="delete">Delete</button>
@@ -64,10 +72,10 @@
                             Coupon Code
                         </div>
                         <div class="span3">
-                            Percent Discount
+                            Discount Amount
                         </div>
                         <div class="span3">
-                            Amount Discount
+                            Discount Type
                         </div>
                         <div class="span1">
                             Add
@@ -81,10 +89,14 @@
                                     <input type="text" class="form-control" name="coupon-code" placeholder="Code"/>
                                 </div>
                                 <div class="span3">
-                                    <input type="text" class="form-control" name="coupon-percent" placeholder="Percent"/>
+                                    <input type="text" class="form-control" name="coupon-amount" placeholder="Amount"/>
                                 </div>
                                 <div class="span3">
-                                    <input type="text" class="form-control" name="coupon-amount" placeholder="Amount"/>
+                                    <select name="coupon-type">
+                                        <option value="" disabled selected>Type</option>
+                                        <option value="percent">Percent</option>
+                                        <option value="amount">Amount</option>
+                                    </select>
                                 </div>
                                 <div class="span1">
                                     <button type="submit" name="coupon-add" class="primary-btn">Add</button>
