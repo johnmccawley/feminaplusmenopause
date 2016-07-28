@@ -54,8 +54,7 @@
                 <div class="row">
                     <h3>ADDRESS</h3>
                     <p>
-                        320 Paseo de Peralta <br />
-                        Suite C <br />
+                        P.O. Box 10132<br />
                         Santa Fe, NM 87501
                     </p>
                 </div>
