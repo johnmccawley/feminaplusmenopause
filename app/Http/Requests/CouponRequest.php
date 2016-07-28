@@ -24,9 +24,7 @@ class CouponRequest extends Request
     public function rules()
     {
         return [
-            'coupon-code' => 'required',
-            'coupon-percent' => 'required_without:coupon-amount',
-            'coupon-amount' => 'required_without:coupon-percent'
+            'coupon-code' => 'required'
         ];
     }
 }

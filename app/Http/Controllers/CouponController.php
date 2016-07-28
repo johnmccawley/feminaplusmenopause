@@ -37,6 +37,7 @@ class CouponController extends Controller
     public function create(CouponRequest $request)
     {
         try {
+            $this->checkDiscountFields($request);
             $coupon = Coupon::where('code', $request->input('coupon-code'))->first();
 
             if (!$coupon) {
@@ -108,6 +109,7 @@ class CouponController extends Controller
             if ($request->input('coupon-button') == 'delete') {
                 DB::table('coupons')->where('id', '=', $id)->delete();
             } else if ($request->input('coupon-button') == 'update') {
+                $this->checkDiscountFields($request);
                 $coupon = Coupon::findOrFail($id);
                 $coupon->code = $request->input('coupon-code');
                 $coupon->discount_percent = (is_null($request->input('coupon-percent')) || $request->input('coupon-percent') == 0) ? NULL : $request->input('coupon-percent');
@@ -131,5 +133,12 @@ class CouponController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function checkDiscountFields($request) {
+        if ((strlen($request->input('coupon-percent')) == 0 && strlen($request->input('coupon-amount')) == 0) ||
+            (strlen($request->input('coupon-percent')) > 0 && strlen($request->input('coupon-amount')) > 0)) {
+            throw new \Exception("You must enter a value into only one of the fields");
+        }
     }
 }
