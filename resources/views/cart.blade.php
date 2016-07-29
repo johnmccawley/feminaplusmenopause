@@ -58,7 +58,7 @@
                     <button type="button" class="secondary-btn updateButton">UPDATE</a>
                 </div>
                 <div class="right-btns">
-                    <a href="/checkout" class="primary-btn">CHECKOUT</a>
+                    <a href="/checkout" class="primary-btn">SECURE CHECKOUT</a>
                 </div>
             </div>
         </div>
