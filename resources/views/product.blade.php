@@ -214,7 +214,7 @@
                     <li><a class="tab" href="#tab-directions">DIRECTIONS</a></li>
                     <li><a class="tab" href="#tab-ingredients">INGREDIENTS</a></li>
                     <!-- <li><a class="tab" href="#tab-reviews">REVIEWS</a></li> -->
-                    <li><a class="tab" href="#tab-faq">F.A.Q.</a></li>
+                    <li><a class="tab" href="#tab-faq">Q&A</a></li>
                 </ul>
             </nav>
         </div>
@@ -268,7 +268,7 @@
                             <div class="question-box">
                                 <h4>What is Femina Plus<sup>®</sup>?</h4>
                                 <div class="answer">
-                                    <p>Femina Plus is the fastest working, safest and most effective herbal menopause relief product on the market, offering relief from menopause symptoms in as little as 7 days with no side effects, and works six times faster than Black Cohosh. The active ingredient of this exception brand is backed by three human clinical studies and 9 clinical support studies.</p>
+                                    <p>Femina Plus is the fastest working, safest and most effective herbal menopause relief product on the market, offering relief from menopause symptoms in as little as 7 days with no side effects, and works six times faster than Black Cohosh. The active ingredient of this exceptional brand is backed by three human clinical studies and 9 clinical support studies.</p>
                                 </div>
                             </div>
                             <div class="question-box">
@@ -348,7 +348,7 @@
                             <div class="question-box">
                                 <h4>Is Femina Plus safe?</h4>
                                 <div class="answer">
-                                    <p>The active ingredient in Femina was evaluated by the FDA via the NDI process where the active ingredient called was proven to be safe</p>
+                                    <p>The active ingredient in Femina was evaluated by the FDA via the NDI process where the active ingredient was proven to be safe</p>
                                 </div>
                             </div>
                             <div class="question-box">
@@ -428,7 +428,7 @@
                             <div class="question-box">
                                 <h4>What is Femina Plus?</h4>
                                 <div class="answer">
-                                    <p>A mixture of three 100% all natural herbal extracts. These three herbalshave been used and validated in written text for over 300 years. The combination represents the next generation menopause ingredient of choice.</p>
+                                    <p>A mixture of three 100% all natural herbal extracts. These three herbals have been used and validated in written text for over 300 years. The combination represents the next generation menopause ingredient of choice.</p>
                                 </div>
                             </div>
                             <div class="question-box">
