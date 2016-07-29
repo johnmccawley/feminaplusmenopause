@@ -214,7 +214,7 @@
                     <li><a class="tab" href="#tab-directions">DIRECTIONS</a></li>
                     <li><a class="tab" href="#tab-ingredients">INGREDIENTS</a></li>
                     <!-- <li><a class="tab" href="#tab-reviews">REVIEWS</a></li> -->
-                    <li><a class="tab" href="#tab-faq">Q&A</a></li>
+                    <li><a id="faqTab" class="tab" href="#tab-faq">Q&A</a></li>
                 </ul>
             </nav>
         </div>
@@ -476,6 +476,14 @@
             delay: 8000
         });
 	});
+</script>
+
+<script>
+    $(document).ready(function() {
+        if (window.location.hash === "#tab-faq") {
+            $("#faqTab").click();
+        }
+    });
 </script>
 
 @endsection

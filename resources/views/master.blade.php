@@ -132,7 +132,7 @@
                                         <li><a href="/clinical">Clinicals</a></li>
                                         <li><a href="/buy">Buy Now</a></li>
                                         <!-- <li><a href="#">Femina Plus Club</a></li> -->
-                                        <li><a href="/product">F.A.Q.</a></li>
+                                        <li><a href="/product#tab-faq">Q & A</a></li>
                                         <li><a href="/contact">Contact</a></li>
                                     </ul>
                                 </nav>
