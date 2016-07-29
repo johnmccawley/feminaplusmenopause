@@ -111,7 +111,7 @@ class CouponController extends Controller
                 $coupon = Coupon::findOrFail($id);
 
                 $couponDuplicateCheck = Coupon::where('code', $request->input('coupon-code'))->first();
-                if ($couponDuplicateCheck->code == $coupon->code && $couponDuplicateCheck->id !== $coupon->id) {
+                if ($couponDuplicateCheck && ($couponDuplicateCheck->code == $coupon->code && $couponDuplicateCheck->id !== $coupon->id)) {
                     throw new \Exception('Coupon code already exists');
                 }
 
