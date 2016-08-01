@@ -55,10 +55,14 @@
             <div class="row cart-btns">
                 <div class="left-btns">
                     <a href="/product" class="secondary-btn">CONTINUE SHOPPING</a>
-                    <button type="button" class="secondary-btn updateButton">UPDATE</a>
+                    <button type="button" class="secondary-btn updateButton">UPDATE</button>
                 </div>
                 <div class="right-btns">
                     <a href="/checkout" class="primary-btn">SECURE CHECKOUT</a>
+                    <div class="paypalButton">
+                        <input src="https://www.paypalobjects.com/en_US/i/btn/btn_xpressCheckout.gif" type="image">
+                        {{--<input name="goto_pp" value="paypal_express" src="https://www.paypalobjects.com/en_US/i/btn/btn_xpressCheckout.gif" type="image">--}}
+                    </div>
                 </div>
             </div>
         </div>

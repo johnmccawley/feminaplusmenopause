@@ -68,6 +68,14 @@
     .right-btns{
         float: right;
         display: inline-block;
+        font-size: .9em;
+
+        .paypalButton {
+            margin-top: 20px;
+            input {
+                width: auto !important;
+            }
+        }
     }
 
     @media screen and (max-width: 800px) {

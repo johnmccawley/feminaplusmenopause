@@ -1698,7 +1698,12 @@ footer #sub-footer {
   display: inline-block; }
 #cart .right-btns {
   float: right;
-  display: inline-block; }
+  display: inline-block;
+  font-size: .9em; }
+  #cart .right-btns .paypalButton {
+    margin-top: 20px; }
+    #cart .right-btns .paypalButton input {
+      width: auto !important; }
 @media screen and (max-width: 800px) {
   #cart .item-desc {
     display: none; }
