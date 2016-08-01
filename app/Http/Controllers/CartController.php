@@ -15,6 +15,10 @@ use App\Http\Requests;
 
 class CartController extends Controller
 {
+
+    private $productNames = ['oneBottle' => 'Femina Plus Single Bottle', 'twoBottle' => 'Femina Plus 2 Pack', 'fourBottle' => 'Femina Plus 4 Pack'];
+    private $productDescriptions = ['oneBottle' => '1 bottle', 'twoBottle' => '2 bottles', 'fourBottle' => '4 bottles'];
+
     function __construct() {
         $this->setApiKey();
     }
@@ -73,12 +77,12 @@ class CartController extends Controller
                 $product = Product::retrieve('feminaplus');
 
                 $displayPrice = $this->formatDisplayPrice($sku->price);
-                $cartItems->$id = (object)['amount' => 1, 'type' => 'product', 'name' => $product->name, 'description' => $product->description, 'price' => $sku->price, 'display_price' => $displayPrice];
+                $cartItems->$id = (object)['amount' => 1, 'type' => 'product', 'name' => $this->productNames[$id], 'description' => $this->productDescriptions[$id], 'price' => $sku->price, 'display_price' => $displayPrice];
             } else if ($itemType == 'plan') {
                 $plan = Plan::retrieve('fpClub');
 
                 $displayPrice = $this->formatDisplayPrice($plan->amount);
-                $cartItems->$id = (object)['amount' => 1, 'type' => 'plan', 'name' => $plan->name, 'description' => $plan->statement_descriptor, 'price' => $plan->amount, 'display_price' => $displayPrice];
+                $cartItems->$id = (object)['amount' => 1, 'type' => 'plan', 'name' => 'Femina Plus Club Refill', 'description' => '1 Bottle/ Mth x 12 + 1', 'price' => $plan->amount, 'display_price' => $displayPrice];
             }
         }
 

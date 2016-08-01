@@ -1018,9 +1018,7 @@ footer #sub-footer {
       font-size: 1.5em;
       line-height: 1.25em; }
       #home #tile-lifestyle h1 span {
-        display: inline-block; }
-  #home .background-area {
-    background: none; } }
+        display: inline-block; } }
 @media screen and (max-width: 800px) {
   #home #tile-hero .bullet-points {
     margin-top: 0;
@@ -1045,7 +1043,7 @@ footer #sub-footer {
 @media screen and (max-width: 600px) {
   #home #tile-lifestyle {
     padding-top: 37em;
-    padding-bottom: 1em; } }
+    padding-bottom: 2.2em; } }
 @media screen and (max-width: 500px) {
   #home #tile-hero .bullet-points {
     font-size: .9em; }
