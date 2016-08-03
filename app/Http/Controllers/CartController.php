@@ -163,6 +163,42 @@ class CartController extends Controller
         //
     }
 
+    public function paypalPayment(Request $request) {
+        try {
+            $tokenResponse = json_decode($this->paypalToken());
+
+            $cancelUrl = env('APP_URL') . '/cart';
+            $returnUrl = env('APP_URL');
+            $total = '39.50';
+            $response = json_decode(exec("curl -v https://api.sandbox.paypal.com/v1/payments/payment -H \"Content-Type: application/json\" -H \"Authorization: Bearer $tokenResponse->access_token\" -d '{\"intent\":\"sale\",\"redirect_urls\":{\"return_url\":\"$returnUrl\",\"cancel_url\":\"$cancelUrl\"},\"payer\":{\"payment_method\":\"paypal\"},\"transactions\":[{\"amount\":{\"total\":\"$total\",\"currency\":\"USD\"}}]}'"));
+
+            foreach($response->links as $link) {
+                if ($link->method == 'REDIRECT') {
+                    $redirect = $link->href;
+                    break;
+                }
+            }
+
+            if (isset($redirect)) {
+                return redirect($redirect);
+
+            } else {
+                throw new \Exception('Paypal authentication failed!');
+            }
+        } catch (\Exception $e) {
+            return back()->withErrors($e->getMessage())->withInput();
+        }
+
+    }
+
+    private function paypalToken() {
+        $clientId = env('PAYPAL_CLIENT');
+        $secret = env('PAYPAL_SECRET');
+        $response = exec("curl -v https://api.sandbox.paypal.com/v1/oauth2/token -H \"Accept: application/json\" -H \"Accept-Language: en_US\" -u \"$clientId:$secret\" -d \"grant_type=client_credentials\"");
+
+        return $response;
+    }
+
     private function retrieveCartDatabaseEntry($request) {
         $token = $request->session()->get('_token');
         return DB::table('carts')->where('token', $token)->first();

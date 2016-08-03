@@ -39,6 +39,7 @@ Route::post('/userUpdate', 'HomeController@updateUser');
 Route::get('/cart', 'CartController@show');
 Route::post('/cartUpdate', 'CartController@update');
 Route::put('/cart/{item}/{itemType}', 'CartController@store');
+Route::get('/paypal', 'CartController@paypalPayment');
 
 // Checkout routes
 Route::get('/checkout', 'CheckoutController@show');
