@@ -59,10 +59,10 @@
                 </div>
                 <div class="right-btns">
                     <a href="/checkout" class="primary-btn">SECURE CHECKOUT</a>
-                    <div class="paypalButton">
-                        <input src="https://www.paypalobjects.com/en_US/i/btn/btn_xpressCheckout.gif" type="image">
-                        {{--<input name="goto_pp" value="paypal_express" src="https://www.paypalobjects.com/en_US/i/btn/btn_xpressCheckout.gif" type="image">--}}
-                    </div>
+                    <br>
+                    <img id="paypalButton" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-medium.png" alt="Check out with PayPal" />
+                    <br>
+                    <img id="paypalBadges" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/cc-badges-ppmcvdam.png" alt="Buy now with PayPal"/>
                 </div>
             </div>
         </div>
