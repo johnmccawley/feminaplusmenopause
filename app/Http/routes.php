@@ -39,12 +39,13 @@ Route::post('/userUpdate', 'HomeController@updateUser');
 Route::get('/cart', 'CartController@show');
 Route::post('/cartUpdate', 'CartController@update');
 Route::put('/cart/{item}/{itemType}', 'CartController@store');
-Route::get('/paypal', 'CartController@paypalPayment');
 
 // Checkout routes
 Route::get('/checkout', 'CheckoutController@show');
 Route::post('/checkout', 'CheckoutController@create');
 Route::post('/checkoutCoupon', 'CheckoutController@applyCoupon');
+Route::get('/paypal', 'CheckoutController@paypalPayment');
+Route::get('/paypalComplete', 'CheckoutController@paypalComplete');
 
 // Coupon routes
 Route::get('/coupon', 'CouponController@show');

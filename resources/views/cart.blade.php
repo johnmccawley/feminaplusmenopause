@@ -12,6 +12,7 @@
 <section id="tile-cart">
     @if($cartItems)
         <div class="container">
+            @include('errors.errors')
             <div class="row cart-header">
                 <div class="span3 item-name">
                     Item
@@ -60,7 +61,7 @@
                 <div class="right-btns">
                     <a href="/checkout" class="primary-btn">SECURE CHECKOUT</a>
                     <br>
-                    <img id="paypalButton" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-medium.png" alt="Check out with PayPal" />
+                    <a href="{{env('APP_URL')}}/paypal"><img id="paypalButton" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-medium.png" alt="Check out with PayPal" /></a>
                     <br>
                     <img id="paypalBadges" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/cc-badges-ppmcvdam.png" alt="Buy now with PayPal"/>
                 </div>

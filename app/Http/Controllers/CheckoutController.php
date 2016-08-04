@@ -84,7 +84,6 @@ class CheckoutController extends Controller
             }
 
             if (isset($response)) {
-                $displayTotal = $cart->total;
                 $cart->items = null;
                 $cart->total = null;
                 $cart->save();
@@ -92,10 +91,63 @@ class CheckoutController extends Controller
                 $this->fullfillmentEmail($request, $cartItems);
             }
 
-             return $this->receipt($request, $cartItems, $displayTotal);
+             return $this->receipt($request);
         } catch (\Exception $e) {
             return back()->withErrors($e->getMessage())->withInput();
         }
+    }
+
+    //    TODO: Use built in PHP curl functionality
+    public function paypalPayment(Request $request) {
+        try {
+            $url = (env('APP_ENV') == 'production') ? 'paypal' : 'sandbox.paypal';
+            $tokenResponse = $this->paypalToken($url);
+            $cartDbEntry = $this->retrieveCartDatabaseEntry($request);
+            $cart = Cart::findOrFail($cartDbEntry->id);
+            $total = $cart->charge_total/100;
+
+            $returnUrl = env('APP_URL') . '/paypalComplete';
+            $cancelUrl = env('APP_URL') . '/paypalComplete';
+            $response = json_decode(exec("curl -v https://api.$url.com/v1/payments/payment -H \"Content-Type: application/json\" -H \"Authorization: Bearer $tokenResponse->access_token\" -d '{\"intent\":\"sale\",\"redirect_urls\":{\"return_url\":\"$returnUrl\",\"cancel_url\":\"$cancelUrl\"},\"payer\":{\"payment_method\":\"paypal\"},\"transactions\":[{\"amount\":{\"total\":\"$total\",\"currency\":\"USD\"}}]}'"));
+
+            foreach($response->links as $link) {
+                if ($link->method == 'REDIRECT') {
+                    $redirect = $link->href;
+                    break;
+                }
+            }
+
+            if (isset($redirect)) {
+                return redirect($redirect);
+            } else {
+                throw new \Exception('Paypal authentication failed!');
+            }
+        } catch (\Exception $e) {
+            return back()->withErrors($e->getMessage())->withInput();
+        }
+    }
+
+    private function paypalToken($url) {
+        $clientId = env('PAYPAL_CLIENT');
+        $secret = env('PAYPAL_SECRET');
+
+        return json_decode(exec("curl -v https://api.$url.com/v1/oauth2/token -H \"Accept: application/json\" -H \"Accept-Language: en_US\" -u \"$clientId:$secret\" -d \"grant_type=client_credentials\""));
+    }
+
+    public function paypalComplete(Request $request) {
+        if ($request->input('paymentId') && $request->input('token') && $request->input('PayerID')) {
+            return $this->receipt($request, true);
+        } else if ($request->input('token') && !$request->input('paymentId') && !$request->input('PayerId')) {
+            return $this->receipt($request, false);
+        } else {
+            return $this->receipt($request);
+        }
+    }
+
+    public function receipt($request, $complete = null) {
+        $cartDbEntry = $this->retrieveCartDatabaseEntry($request);
+
+        return view('receipt', ['request' => $request, 'cartItems' => json_decode($cartDbEntry->items), 'total' => $cartDbEntry->total, 'paypalComplete' => $complete]);
     }
 
     /**
@@ -248,10 +300,6 @@ class CheckoutController extends Controller
         }
 
         return $displayPrice;
-    }
-
-    public function receipt($request, $cartItems, $total) {
-        return view('receipt', ['request' => $request, 'cartItems' => $cartItems, 'total' => $total]);
     }
 
     private function setUserData($request) {
