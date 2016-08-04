@@ -92,7 +92,7 @@ class CheckoutController extends Controller
                 $this->fullfillmentEmail($request, $cartItems);
             }
 
-             return $this->receipt($request, $cartItems, $displayTotal);
+             return redirect('/cart');
         } catch (\Exception $e) {
             return back()->withErrors($e->getMessage())->withInput();
         }
