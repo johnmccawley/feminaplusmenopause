@@ -21,9 +21,10 @@ use App\Http\Requests;
 
 class CheckoutController extends Controller
 {
-    private $user, $userId;
+    private $user, $userId, $cart;
 
-    function __construct() {
+    function __construct(Request $request) {
+        $this->cart = $this->retrieveCartDatabaseEntry($request);
         $this->setApiKey();
         $this->user = (Auth::user()) ? User::findOrFail(Auth::user()->id) : new User();
         $this->userId = (Auth::user()) ? Auth::user()->id : null;
@@ -47,15 +48,12 @@ class CheckoutController extends Controller
     public function create(CheckoutRequest $request)
     {
         try {
-            // Retrieves cart
-            $cartDbEntry = $this->retrieveCartDatabaseEntry($request);
-            $cart = Cart::findOrFail($cartDbEntry->id);
-            if (is_null($cart->items)) {
-                return redirect('/cart');
+            if (is_null($this->cart->items)) {
+                throw new \Exception('Cart is empty');
             }
 
             // Gets cart items
-            $cartItems = json_decode($cart->items);
+            $cartItems = json_decode($this->cart->items);
             $amount = (object)['total' => 0, 'product' => 0, 'plan' => 0];
             foreach($cartItems as $key => $item) {
                 $itemsPurchased[$key] = ['product' => $key, 'amount' => $item->amount, 'price' => $item->price];
@@ -71,27 +69,34 @@ class CheckoutController extends Controller
             // Determines if a subscription or product is being bought
             if (isset($itemsPurchased['fpClub'])) {
                 $source = $this->getSource($request);
+
                 $response = $this->user->newSubscription('primary', 'fpClub')->create($source->id, ['email' => $request->input('billing-email')]);
+
                 $purchased = (object)['fpClub' => $itemsPurchased['fpClub']];
                 $this->createPurchase($response->stripe_id, $purchased, $amount->plan);
             }
 
             if ($amount->product > 0) {
                 $source = $this->getSource($request);
+
                 $response = $this->user->charge(($amount->product), ['source' => $source]);
+
                 unset($itemsPurchased['fpClub']);
                 $this->createPurchase($response->id, $itemsPurchased, $amount->product);
             }
 
-            if (isset($response)) {
-                $cart->items = null;
-                $cart->total = null;
-                $cart->save();
-
-                $this->fullfillmentEmail($request, $cartItems);
+            if (is_null($response)) {
+                throw new \Exception('Failed to make purchase');
             }
 
-             return $this->receipt($request);
+            $cartTotal = $this->cart->total;
+            $this->cart->items = null;
+            $this->cart->total = null;
+            $this->cart->save();
+
+            $this->fullfillmentEmail($request, $cartItems);
+
+             return $this->receipt($request, $cartItems, $cartTotal);
         } catch (\Exception $e) {
             return back()->withErrors($e->getMessage())->withInput();
         }
@@ -102,9 +107,7 @@ class CheckoutController extends Controller
         try {
             $url = (env('APP_ENV') == 'production') ? 'paypal' : 'sandbox.paypal';
             $tokenResponse = $this->paypalToken($url);
-            $cartDbEntry = $this->retrieveCartDatabaseEntry($request);
-            $cart = Cart::findOrFail($cartDbEntry->id);
-            $total = $cart->charge_total/100;
+            $total = $this->cart->charge_total/100;
 
             $returnUrl = env('APP_URL') . '/paypalComplete';
             $cancelUrl = env('APP_URL') . '/paypalComplete';
@@ -135,19 +138,20 @@ class CheckoutController extends Controller
     }
 
     public function paypalComplete(Request $request) {
+        $cartItems = $this->cart->items;
+        $cartTotal = $this->cart->total;
+
         if ($request->input('paymentId') && $request->input('token') && $request->input('PayerID')) {
-            return $this->receipt($request, true);
+            return $this->receipt($request, $cartItems, $cartTotal, true);
         } else if ($request->input('token') && !$request->input('paymentId') && !$request->input('PayerId')) {
-            return $this->receipt($request, false);
+            return $this->receipt($request, $cartItems, $cartTotal, false);
         } else {
-            return $this->receipt($request);
+            return $this->receipt($request, $cartItems, $cartTotal);
         }
     }
 
-    public function receipt($request, $complete = null) {
-        $cartDbEntry = $this->retrieveCartDatabaseEntry($request);
-
-        return view('receipt', ['request' => $request, 'cartItems' => json_decode($cartDbEntry->items), 'total' => $cartDbEntry->total, 'paypalComplete' => $complete]);
+    public function receipt($request, $cartItems, $cartTotal, $complete = null) {
+        return view('receipt', ['request' => $request, 'cartItems' => $cartItems, 'total' => $cartTotal, 'paypalComplete' => $complete]);
     }
 
     /**
@@ -170,11 +174,8 @@ class CheckoutController extends Controller
     public function show(Request $request)
     {
         try {
-            $cartDbEntry = $this->retrieveCartDatabaseEntry($request);
-
-            if ($cartDbEntry) {
-                $cartItems = json_decode($cartDbEntry->items);
-                $total = $cartDbEntry->total;
+            if ($this->cart) {
+                $cartItems = json_decode($this->cart->items);
 
                 foreach ($cartItems as $key => $item) {
                     if ($item->type == 'plan' && Auth::guest()) {
@@ -190,7 +191,7 @@ class CheckoutController extends Controller
                     $this->user->last_name = $name[1];
                 }
 
-                return view('checkout', ['cartItems' => $cartItems, 'total' => $total, 'user' => $this->user]);
+                return view('checkout', ['cartItems' => $cartItems, 'total' => $this->cart->total, 'user' => $this->user]);
             } else {
                 return redirect('/cart');
             }
@@ -237,26 +238,23 @@ class CheckoutController extends Controller
         try {
             $coupon = Coupon::where('code', $request->input('coupon-code'))->first();
 
-            $cartDbEntry = $this->retrieveCartDatabaseEntry($request);
-            $cart = Cart::findOrFail($cartDbEntry->id);
-
             if ($coupon) {
-                $this->checkIfCodeAlreadyUsed($coupon->code, $cart);
+                $this->checkIfCodeAlreadyUsed($coupon->code);
 
                 if ($coupon->discount_type == 'percent') {
-                    $cart->charge_total -= intval($cart->charge_total * ($coupon->discount_amount / 100));
+                    $this->cart->charge_total -= intval($this->cart->charge_total * ($coupon->discount_amount / 100));
 
-                    $cart->codes_applied = $this->addToAppliedCoupons($coupon->code, $cart);
+                    $this->cart->codes_applied = $this->addToAppliedCoupons($coupon->code);
                 } else if ($coupon->discount_type == 'amount') {
-                    $cart->charge_total -= intval($coupon->discount_amount * 100);
+                    $this->cart->charge_total -= intval($coupon->discount_amount * 100);
 
-                    $cart->charge_total = ($cart->charge_total < 0) ? 0 : $cart->charge_total;
+                    $this->cart->charge_total = ($this->cart->charge_total < 0) ? 0 : $this->cart->charge_total;
 
-                    $cart->codes_applied = $this->addToAppliedCoupons($coupon->code, $cart);
+                    $this->cart->codes_applied = $this->addToAppliedCoupons($coupon->code);
                 }
 
-                $cart->total = $this->formatDisplayPrice($cart->charge_total);
-                $cart->save();
+                $this->cart->total = $this->formatDisplayPrice($this->cart->charge_total);
+                $this->cart->save();
             } else {
                 throw new \Exception("Coupon code doesn't exist");
             }
@@ -267,9 +265,9 @@ class CheckoutController extends Controller
         return back();
     }
 
-    private function addToAppliedCoupons($couponCode, $cart) {
-        if ($cart->codes_applied) {
-            $codesApplied = json_decode($cart->codes_applied);
+    private function addToAppliedCoupons($couponCode) {
+        if ($this->cart->codes_applied) {
+            $codesApplied = json_decode($this->cart->codes_applied);
             $codesApplied->$couponCode = true;
         } else {
             $codesApplied = (object)[$couponCode => true];
@@ -278,9 +276,9 @@ class CheckoutController extends Controller
         return json_encode($codesApplied);
     }
 
-    private function checkIfCodeAlreadyUsed($code, $cart) {
-        if ($cart->codes_applied) {
-            $codesApplied = json_decode($cart->codes_applied);
+    private function checkIfCodeAlreadyUsed($code) {
+        if ($this->cart->codes_applied) {
+            $codesApplied = json_decode($this->cart->codes_applied);
 
             if (isset($codesApplied->$code)) {
                 throw new \Exception("Code already used!");
@@ -371,7 +369,8 @@ class CheckoutController extends Controller
 
     private function retrieveCartDatabaseEntry($request) {
         $token = $request->session()->get('_token');
-        return DB::table('carts')->where('token', $token)->first();
+        $cartDbEntry = DB::table('carts')->where('token', $token)->first();
+        return Cart::findOrFail($cartDbEntry->id);
     }
 
     private function setApiKey() {
