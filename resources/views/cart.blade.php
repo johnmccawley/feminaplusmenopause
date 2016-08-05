@@ -22,7 +22,10 @@
                 <div class="span1 item-qty">
                     Quantity
                 </div>
-                <div class="span2 item-price">
+                <div class="span1 item-remove">
+                    Remove
+                </div>
+                <div class="span1 item-price">
                     Price
                 </div>
             </div>
@@ -39,7 +42,10 @@
                             <div class="span1 item-qty">
                                 <input class="qty-input" autocomplete="off" data-product="{{ $key }}" value="{{ $item->amount }}"/>
                             </div>
-                            <div class="span2 item-price">
+                            <div class="span1 item-remove">
+                                <button class="secondary-btn removeButton">Remove</button>
+                            </div>
+                            <div class="span1 item-price">
                                 {{ $item->display_price }}
                             </div>
                         </div>
@@ -95,6 +101,11 @@
                 }
             });
         });
+
+        $('.removeButton').on('click', function() {
+            $(this).parent().parent().find('.qty-input').val(0);
+            $('.updateButton').click();
+        })
     </script>
 </section>
 

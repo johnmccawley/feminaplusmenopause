@@ -1670,6 +1670,8 @@ footer #sub-footer {
     padding-left: .5em; }
     #cart .cart-item [class^=span]:last-child {
       border-right: 0; }
+  #cart .cart-item .item-remove button {
+    font-size: .7em !important; }
   #cart .cart-item .item-price {
     border-right: 0; }
   #cart .cart-item .remove-btn {
@@ -1680,6 +1682,8 @@ footer #sub-footer {
     cursor: pointer; }
     #cart .cart-item .remove-btn:hover {
       color: red; }
+#cart .item-remove {
+  text-align: center; }
 #cart .item-price {
   text-align: right; }
 #cart .cart-totals {
@@ -1706,6 +1710,8 @@ footer #sub-footer {
     width: 66.66666666666666%; }
   #cart .item-qty {
     width: 16.666666666666664%; }
+  #cart .item-remove {
+    width: 16.666666666666664%; }
   #cart .item-price {
     width: 16.666666666666664%; } }
 @media screen and (max-width: 600px) {
@@ -1715,6 +1721,8 @@ footer #sub-footer {
   #cart .item-name {
     width: 50%; }
   #cart .item-qty {
+    width: 25%; }
+  #cart .item-remove {
     width: 25%; }
   #cart .item-price {
     width: 25%; } }
