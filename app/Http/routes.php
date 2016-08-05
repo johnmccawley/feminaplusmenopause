@@ -72,7 +72,3 @@ Route::get('/confirm', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
-
-// Route::group(['middleware' => 'auth'], function () {
-//
-// });
