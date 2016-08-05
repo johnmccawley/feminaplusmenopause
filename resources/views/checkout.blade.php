@@ -218,23 +218,29 @@
 
                 <div class="span6 payment-info">
                     {{ csrf_field() }}
-                    <h3>Payment Information</h3>
-                    <div class="row input-row">
-                        <input type="text" class="form-control" name="cardName" placeholder="Name" value="{{ old('cardName') }}"/>
+                    <div id="choosePayment">
+                        <button type="button" id="payWithCard" class="primary-btn">PAY WITH CARD</button>
+                        <a href="{{env('APP_URL')}}/paypal"><img id="paypalButton" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-medium.png" alt="Check out with PayPal" /></a>
                     </div>
-                    <div class="row input-row">
-                        <input type="text" class="form-control" name="cardNumber" maxlength="16" placeholder="Card number" value="{{ old('cardNumber') }}"/>
-                    </div>
-                    <div class="row input-row">
-                        <div class="span8">
-                            <input id="payment-exp" type="text" class="form-control" name="cardExpiration" placeholder="MM / YYYY" value="{{ old('cardExpiration') }}"/>
+                    <div id="cardPayment" style="display:none">
+                        <h3>Payment Information</h3>
+                        <div class="row input-row">
+                            <input type="text" class="form-control" name="cardName" placeholder="Name" value="{{ old('cardName') }}"/>
                         </div>
-                        <div class="span4">
-                            <input type="text" class="form-control" name="cardCvc" maxlength="6" placeholder="CVC" value="{{ old('cardCvc') }}"/>
+                        <div class="row input-row">
+                            <input type="text" class="form-control" name="cardNumber" maxlength="16" placeholder="Card number" value="{{ old('cardNumber') }}"/>
                         </div>
-                    </div>
-                    <div class="input-row">
-                        <button type="submit" id="submitBtn" class="primary-btn">PLACE ORDER</button>
+                        <div class="row input-row">
+                            <div class="span8">
+                                <input id="payment-exp" type="text" class="form-control" name="cardExpiration" placeholder="MM / YYYY" value="{{ old('cardExpiration') }}"/>
+                            </div>
+                            <div class="span4">
+                                <input type="text" class="form-control" name="cardCvc" maxlength="6" placeholder="CVC" value="{{ old('cardCvc') }}"/>
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <button type="submit" id="submitBtn" class="primary-btn">PLACE ORDER</button>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -261,7 +267,10 @@
 	   $("#shipping-phone").mask("(999) 999-9999");
 	   $("#payment-exp").mask("99/9999");
 
-
+        $('#payWithCard').on('click', function() {
+            $('#choosePayment').css('display', 'none');
+            $('#cardPayment').css('display', '');
+        });
 	});
 </script>
 

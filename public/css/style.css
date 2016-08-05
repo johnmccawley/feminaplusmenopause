@@ -1703,11 +1703,9 @@ footer #sub-footer {
 #cart .right-btns {
   float: right;
   display: inline-block; }
-  #cart .right-btns #paypalButton {
-    margin-top: 15px;
-    cursor: pointer; }
   #cart .right-btns #paypalBadges {
-    width: 170px; }
+    margin-top: 5px;
+    width: 168px; }
 @media screen and (max-width: 800px) {
   #cart .item-desc {
     display: none; }

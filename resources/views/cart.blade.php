@@ -67,8 +67,6 @@
                 <div class="right-btns">
                     <a href="/checkout" class="primary-btn">SECURE CHECKOUT</a>
                     <br>
-                    <a href="{{env('APP_URL')}}/paypal"><img id="paypalButton" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-medium.png" alt="Check out with PayPal" /></a>
-                    <br>
                     <img id="paypalBadges" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/cc-badges-ppmcvdam.png" alt="Buy now with PayPal"/>
                 </div>
             </div>
