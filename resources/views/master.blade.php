@@ -155,7 +155,7 @@
                                 <li><a href="/terms">TERMS OF SERVICE</a></li>
                                 <li>
                                     FOLLOW US
-                                    <a href="#" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                                     <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                                 </li>
                             </ul>
