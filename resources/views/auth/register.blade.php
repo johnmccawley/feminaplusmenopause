@@ -55,6 +55,18 @@ $states = [
 ];
 ?>
 @section('content')
+<style>
+    .registerRequired {
+        color: red;
+        float: left;
+        font-size: 1.5em;
+    }
+    .registerRequiredText {
+        color: red;
+        float: right;
+        font-size: 1em;
+    }
+</style>
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -76,6 +88,7 @@ $states = [
                                     </span>
                                 @endif
                             </div>
+                            <span class="registerRequired">*</span>
                         </div>
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -90,6 +103,7 @@ $states = [
                                     </span>
                                 @endif
                             </div>
+                            <span class="registerRequired">*</span>
                         </div>
 
                         <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
@@ -118,6 +132,7 @@ $states = [
                                     </span>
                                 @endif
                             </div>
+                            <span class="registerRequired">*</span>
                         </div>
 
                         <div class="form-group{{ $errors->has('apartment_suite_number') ? ' has-error' : '' }}">
@@ -147,6 +162,7 @@ $states = [
                                     </span>
                                 @endif
                             </div>
+                            <span class="registerRequired">*</span>
                         </div>
 
                         <div class="form-group{{ $errors->has('state') ? ' has-error' : '' }}">
@@ -166,6 +182,7 @@ $states = [
                                     </span>
                                 @endif
                             </div>
+                            <span class="registerRequired">*</span>
                         </div>
 
                         <div class="form-group{{ $errors->has('zip') ? ' has-error' : '' }}">
@@ -180,6 +197,7 @@ $states = [
                                     </span>
                                 @endif
                             </div>
+                            <span class="registerRequired">*</span>
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
@@ -194,6 +212,7 @@ $states = [
                                     </span>
                                 @endif
                             </div>
+                            <span class="registerRequired">*</span>
                         </div>
 
                         <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
@@ -208,6 +227,7 @@ $states = [
                                     </span>
                                 @endif
                             </div>
+                            <span class="registerRequired">*</span>
                         </div>
 
                         <div class="form-group">
@@ -215,6 +235,7 @@ $states = [
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-btn fa-user"></i> Register
                                 </button>
+                                <span class="registerRequiredText">* Denotes required field</span>
                             </div>
                         </div>
                     </form>

@@ -29,6 +29,11 @@
                 border-right: 0;
             }
         }
+        .item-remove{
+            button {
+                font-size: .7em !important;
+            }
+        }
         .item-price{
             border-right: 0;
         }
@@ -42,6 +47,9 @@
                 color: red;
             }
         }
+    }
+    .item-remove{
+        text-align: center;
     }
     .item-price{
         text-align: right;
@@ -89,6 +97,9 @@
         .item-qty{
             width: 16.666666666666664%;
         }
+        .item-remove{
+            width: 16.666666666666664%;
+        }
         .item-price{
             width: 16.666666666666664%;
         }
@@ -103,6 +114,9 @@
             width: 50%;
         }
         .item-qty{
+            width: 25%;
+        }
+        .item-remove{
             width: 25%;
         }
         .item-price{
