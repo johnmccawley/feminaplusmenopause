@@ -67,6 +67,7 @@ class CheckoutController extends Controller
     private function creditCardPayment($request) {
         // Gets cart items
         $cartItems = json_decode($this->cart->items);
+        $customerData = $this->setCustomerData($request);
         $amount = (object)['total' => 0, 'product' => 0, 'plan' => 0];
         foreach($cartItems as $key => $item) {
             $itemsPurchased[$key] = ['product' => $key, 'amount' => $item->amount, 'price' => $item->price];
@@ -86,7 +87,7 @@ class CheckoutController extends Controller
             $response = $this->user->newSubscription('primary', 'fpClub')->create($source->id, ['email' => $request->input('billing-email')]);
 
             $purchased = (object)['fpClub' => $itemsPurchased['fpClub']];
-            $this->createPurchase($response->stripe_id, $purchased, $amount->plan);
+            $this->createPurchase($response->stripe_id, null, $customerData, true, $purchased, $amount->plan, 'stripe');
         }
 
         if ($amount->product > 0) {
@@ -95,7 +96,7 @@ class CheckoutController extends Controller
             $response = $this->user->charge(($amount->product), ['source' => $source]);
 
             unset($itemsPurchased['fpClub']);
-            $this->createPurchase($response->id, $itemsPurchased, $amount->product);
+            $this->createPurchase($response->id, null, $customerData, true, $itemsPurchased, $amount->product, 'stripe');
         }
 
         if (is_null($response)) {
@@ -107,7 +108,7 @@ class CheckoutController extends Controller
         $this->cart->total = null;
         $this->cart->save();
 
-        $this->fullfillmentEmail($request, $cartItems);
+        $this->fullfillmentEmail($customerData, $cartItems);
 
         return redirect('/');
 //             return $this->receipt($request, $cartItems, $cartTotal);
@@ -120,10 +121,14 @@ class CheckoutController extends Controller
 
         $tokenResponse = json_decode(exec("curl -v https://api.$url.com/v1/oauth2/token -H \"Accept: application/json\" -H \"Accept-Language: en_US\" -u \"$clientId:$secret\" -d \"grant_type=client_credentials\""));
 
-        $total = $this->cart->charge_total/100;
+        $sessionToken = $request->session()->get('_token');
+        $customerData = $this->setCustomerData($request);
+        $this->createPurchase(null, $sessionToken, $customerData, false, json_decode($this->cart->items), $this->cart->charge_total, 'paypal');
 
+        $total = $this->cart->charge_total/100;
         $returnUrl = env('APP_URL') . '/paymentComplete';
         $cancelUrl = env('APP_URL') . '/paymentComplete';
+
         $response = json_decode(exec("curl -v https://api.$url.com/v1/payments/payment -H \"Content-Type: application/json\" -H \"Authorization: Bearer $tokenResponse->access_token\" -d '{\"intent\":\"sale\",\"redirect_urls\":{\"return_url\":\"$returnUrl\",\"cancel_url\":\"$cancelUrl\"},\"payer\":{\"payment_method\":\"paypal\"},\"transactions\":[{\"amount\":{\"total\":\"$total\",\"currency\":\"USD\"}}]}'"));
 
         foreach($response->links as $link) {
@@ -141,20 +146,29 @@ class CheckoutController extends Controller
     }
 
     public function paymentComplete(Request $request) {
-        $cartItems = $this->cart->items;
-        $cartTotal = $this->cart->total;
-
+        $cartItems = json_decode($this->cart->items);
         if ($request->input('paymentId') && $request->input('token') && $request->input('PayerID')) {
-            return $this->receipt($request, $cartItems, $cartTotal, true);
-        } else if ($request->input('token') && !$request->input('paymentId') && !$request->input('PayerId')) {
-            return $this->receipt($request, $cartItems, $cartTotal, false);
-        } else {
-            return $this->receipt($request, $cartItems, $cartTotal);
+            $purchaseDbEntry = DB::table('purchases')->where('token', $request->session()->get('_token'))->first();
+            $purchase = Purchase::findOrFail($purchaseDbEntry->id);
+
+            $purchase->transaction_id = $request->input('paymentId');
+            $purchase->purchased = true;
+            $purchase->save();
+
+            $this->cart->items = null;
+            $this->cart->total = null;
+            $this->cart->save();
+
+            $this->fullfillmentEmail(json_decode($purchase->customer_info), $cartItems);
+
+//            return $this->receipt($request, $cartItems, $purchase->amount);
         }
+
+        return redirect('/');
     }
 
-    public function receipt($request, $cartItems, $cartTotal, $complete = null) {
-        return view('receipt', ['request' => $request, 'cartItems' => $cartItems, 'total' => $cartTotal, 'paypalComplete' => $complete]);
+    private function receipt($request, $cartItems, $cartTotal) {
+        return view('receipt', ['request' => $request, 'cartItems' => $cartItems, 'total' => $cartTotal]);
     }
 
     /**
@@ -303,31 +317,31 @@ class CheckoutController extends Controller
         return $displayPrice;
     }
 
-    private function setUserData($request) {
-        $userData = (object)[];
+    private function setCustomerData($request) {
+        $customerData = (object)[];
         if ($request->input('billing-same')) {
-            $userData->firstName = $request->input('billing-name-first');
-            $userData->lastName = $request->input('billing-name-last');
-            $userData->email = $request->input('billing-email');
-            $userData->phone = $request->input('billing-phone');
-            $userData->addressOne = $request->input('billing-address-1');
-            $userData->addressTwo = ($request->input('billing-address-2')) ? $request->input('billing-address-2') : null;
-            $userData->city = $request->input('billing-city');
-            $userData->state = $request->input('billing-state');
-            $userData->zip = $request->input('billing-zip');
+            $customerData->firstName = $request->input('billing-name-first');
+            $customerData->lastName = $request->input('billing-name-last');
+            $customerData->email = $request->input('billing-email');
+            $customerData->phone = $request->input('billing-phone');
+            $customerData->addressOne = $request->input('billing-address-1');
+            $customerData->addressTwo = ($request->input('billing-address-2')) ? $request->input('billing-address-2') : null;
+            $customerData->city = $request->input('billing-city');
+            $customerData->state = $request->input('billing-state');
+            $customerData->zip = $request->input('billing-zip');
         } else {
-            $userData->firstName = $request->input('shipping-name-first');
-            $userData->lastName = $request->input('shipping-name-last');
-            $userData->email = $request->input('shipping-email');
-            $userData->phone = $request->input('shipping-phone');
-            $userData->addressOne = $request->input('shipping-address-1');
-            $userData->addressTwo = ($request->input('shipping-address-2')) ? $request->input('shipping-address-2') : null;
-            $userData->city = $request->input('shipping-city');
-            $userData->state = $request->input('shipping-state');
-            $userData->zip = $request->input('shipping-zip');
+            $customerData->firstName = $request->input('shipping-name-first');
+            $customerData->lastName = $request->input('shipping-name-last');
+            $customerData->email = $request->input('shipping-email');
+            $customerData->phone = $request->input('shipping-phone');
+            $customerData->addressOne = $request->input('shipping-address-1');
+            $customerData->addressTwo = ($request->input('shipping-address-2')) ? $request->input('shipping-address-2') : null;
+            $customerData->city = $request->input('shipping-city');
+            $customerData->state = $request->input('shipping-state');
+            $customerData->zip = $request->input('shipping-zip');
         }
 
-        return $userData;
+        return $customerData;
     }
 
     private function getSource($request) {
@@ -348,22 +362,22 @@ class CheckoutController extends Controller
         ));
     }
 
-    private function createPurchase($transactionId, $itemsPurchased, $amount) {
+    private function createPurchase($transactionId, $sessionToken, $customerData, $purchased, $itemsPurchased, $amount, $processor) {
         // Local database log entry of purchases
-        if (isset($transactionId)) {
-            Purchase::create([
-                'user_id' => $this->userId,
-                'items' => json_encode($itemsPurchased),
-                'amount' => $amount,
-                'stripe_transaction_id' => $transactionId,
-            ]);
-        }
+        Purchase::create([
+            'user_id' => $this->userId,
+            'token' => $sessionToken,
+            'customer_info' => json_encode($customerData),
+            'purchased' => $purchased,
+            'items' => json_encode($itemsPurchased),
+            'amount' => $amount,
+            'payment_processor' => $processor,
+            'transaction_id' => $transactionId
+        ]);
     }
 
-    private function fullfillmentEmail($request, $purchased) {
-        $userData = $this->setUserData($request);
-
-        Mail::send('emails.fullfill', ['userData' => $userData, 'purchased' => $purchased], function ($message) use ($userData, $purchased) {
+    private function fullfillmentEmail($customerData, $purchased) {
+        Mail::send('emails.fullfill', ['customerData' => $customerData, 'purchased' => $purchased], function ($message) use ($customerData, $purchased) {
            $message->from('fullfillment@mg.feminaplus.com', 'Femina Plus');
            $message->to(env('FULLFILL_EMAIL_ONE'), null)->subject('FULLFILLMENT REQUEST');
            $message->cc(env('FULLFILL_EMAIL_TWO'), null)->subject('FULLFILLMENT REQUEST');

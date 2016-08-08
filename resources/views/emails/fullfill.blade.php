@@ -1,23 +1,23 @@
 CUSTOMER SHIPPING INFORMATION
 <br/>
 <hr>
-<p>Name: {{ $userData->firstName }} {{ $userData->lastName }}</p>
-<p>Email: {{ $userData->email }}</p>
-<p>Phone: {{ $userData->phone }}</p>
-<p>Adress: {{ $userData->addressOne }}</p>
-@if($userData->addressTwo)
-    <p>Apartment/Suite Number: {{ $userData->addressTwo }}</p>
+<p>Name: {{ $customerData->firstName }} {{ $customerData->lastName }}</p>
+<p>Email: {{ $customerData->email }}</p>
+<p>Phone: {{ $customerData->phone }}</p>
+<p>Adress: {{ $customerData->addressOne }}</p>
+@if($customerData->addressTwo)
+    <p>Apartment/Suite Number: {{ $customerData->addressTwo }}</p>
 @endif
-<p>City: {{ $userData->city }}</p>
-<p>State: {{ $userData->state }}</p>
-<p>Zip: {{ $userData->zip }}</p>
+<p>City: {{ $customerData->city }}</p>
+<p>State: {{ $customerData->state }}</p>
+<p>Zip: {{ $customerData->zip }}</p>
 <br/>
 <br/>
 ITEMS PURCHASED
 <br/>
 <hr>
 @foreach($purchased as $key => $item)
-    <p>Product: {{ $item->product }}</p>
+    <p>Product: {{ $key }}</p>
     <p>Name: {{ $item->name }}</p>
     <p>Quantity: {{ $item->amount }}</p>
     <br />

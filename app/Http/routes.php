@@ -44,7 +44,7 @@ Route::put('/cart/{item}/{itemType}', 'CartController@store');
 Route::get('/checkout', 'CheckoutController@show');
 Route::post('/checkout', 'CheckoutController@create');
 Route::post('/checkoutCoupon', 'CheckoutController@applyCoupon');
-Route::get('/paymentComplete', 'CheckoutController@paypalComplete');
+Route::get('/paymentComplete', 'CheckoutController@paymentComplete');
 
 // Coupon routes
 Route::get('/coupon', 'CouponController@show');
