@@ -52,101 +52,92 @@ class CheckoutController extends Controller
                 throw new \Exception('Cart is empty');
             }
 
-//            if ($request->input('card-submit') == 'card') {
-//                $this->creditCardPayment($request);
-//            } else if ($request->input('paypal-submit') == 'paypal') {
-//                $this->paypalPayment($request);
-//            } else {
-//                throw new \Exception('Invalid payment selection');
-//            }
-
-            // Gets cart items
-            $cartItems = json_decode($this->cart->items);
-            $amount = (object)['total' => 0, 'product' => 0, 'plan' => 0];
-            foreach($cartItems as $key => $item) {
-                $itemsPurchased[$key] = ['product' => $key, 'amount' => $item->amount, 'price' => $item->price];
-
-                $amount->total += $item->price;
-                if ($item->type == 'product') {
-                    $amount->product += $item->price;
-                } else if ($item->type == 'plan') {
-                    $amount->plan += $item->price;
-                }
+            if ($request->input('card-submit') == 'card') {
+                return $this->creditCardPayment($request);
+            } else if ($request->input('paypal-submit') == 'paypal') {
+                return $this->paypalPayment($request);
+            } else {
+                throw new \Exception('Invalid payment selection');
             }
-
-            // Determines if a subscription or product is being bought
-            if (isset($itemsPurchased['fpClub'])) {
-                $source = $this->getSource($request);
-
-                $response = $this->user->newSubscription('primary', 'fpClub')->create($source->id, ['email' => $request->input('billing-email')]);
-
-                $purchased = (object)['fpClub' => $itemsPurchased['fpClub']];
-                $this->createPurchase($response->stripe_id, $purchased, $amount->plan);
-            }
-
-            if ($amount->product > 0) {
-                $source = $this->getSource($request);
-
-                $response = $this->user->charge(($amount->product), ['source' => $source]);
-
-                unset($itemsPurchased['fpClub']);
-                $this->createPurchase($response->id, $itemsPurchased, $amount->product);
-            }
-
-            if (is_null($response)) {
-                throw new \Exception('Failed to make purchase');
-            }
-
-            $cartTotal = $this->cart->total;
-            $this->cart->items = null;
-            $this->cart->total = null;
-            $this->cart->save();
-
-            $this->fullfillmentEmail($request, $cartItems);
-
-            return redirect('/');
-//             return $this->receipt($request, $cartItems, $cartTotal);
         } catch (\Exception $e) {
             return back()->withErrors($e->getMessage())->withInput();
         }
     }
 
     private function creditCardPayment($request) {
+        // Gets cart items
+        $cartItems = json_decode($this->cart->items);
+        $amount = (object)['total' => 0, 'product' => 0, 'plan' => 0];
+        foreach($cartItems as $key => $item) {
+            $itemsPurchased[$key] = ['product' => $key, 'amount' => $item->amount, 'price' => $item->price];
 
+            $amount->total += $item->price;
+            if ($item->type == 'product') {
+                $amount->product += $item->price;
+            } else if ($item->type == 'plan') {
+                $amount->plan += $item->price;
+            }
+        }
+
+        // Determines if a subscription or product is being bought
+        if (isset($itemsPurchased['fpClub'])) {
+            $source = $this->getSource($request);
+
+            $response = $this->user->newSubscription('primary', 'fpClub')->create($source->id, ['email' => $request->input('billing-email')]);
+
+            $purchased = (object)['fpClub' => $itemsPurchased['fpClub']];
+            $this->createPurchase($response->stripe_id, $purchased, $amount->plan);
+        }
+
+        if ($amount->product > 0) {
+            $source = $this->getSource($request);
+
+            $response = $this->user->charge(($amount->product), ['source' => $source]);
+
+            unset($itemsPurchased['fpClub']);
+            $this->createPurchase($response->id, $itemsPurchased, $amount->product);
+        }
+
+        if (is_null($response)) {
+            throw new \Exception('Failed to make purchase');
+        }
+
+        $cartTotal = $this->cart->total;
+        $this->cart->items = null;
+        $this->cart->total = null;
+        $this->cart->save();
+
+        $this->fullfillmentEmail($request, $cartItems);
+
+        return redirect('/');
+//             return $this->receipt($request, $cartItems, $cartTotal);
     }
 
     private function paypalPayment($request) {
-        try {
-            $url = (env('APP_ENV') == 'production') ? 'paypal' : 'sandbox.paypal';
-            $tokenResponse = $this->paypalToken($url);
-            $total = $this->cart->charge_total/100;
-
-            $returnUrl = env('APP_URL') . '/paymentComplete';
-            $cancelUrl = env('APP_URL') . '/paymentComplete';
-            $response = json_decode(exec("curl -v https://api.$url.com/v1/payments/payment -H \"Content-Type: application/json\" -H \"Authorization: Bearer $tokenResponse->access_token\" -d '{\"intent\":\"sale\",\"redirect_urls\":{\"return_url\":\"$returnUrl\",\"cancel_url\":\"$cancelUrl\"},\"payer\":{\"payment_method\":\"paypal\"},\"transactions\":[{\"amount\":{\"total\":\"$total\",\"currency\":\"USD\"}}]}'"));
-
-            foreach($response->links as $link) {
-                if ($link->method == 'REDIRECT') {
-                    $redirect = $link->href;
-                    break;
-                }
-            }
-
-            if (isset($redirect)) {
-                return redirect($redirect);
-            } else {
-                throw new \Exception('Paypal authentication failed!');
-            }
-        } catch (\Exception $e) {
-            return back()->withErrors($e->getMessage())->withInput();
-        }
-    }
-
-    private function paypalToken($url) {
         $clientId = env('PAYPAL_CLIENT');
         $secret = env('PAYPAL_SECRET');
+        $url = (env('APP_ENV') == 'production') ? 'paypal' : 'sandbox.paypal';
 
-        return json_decode(exec("curl -v https://api.$url.com/v1/oauth2/token -H \"Accept: application/json\" -H \"Accept-Language: en_US\" -u \"$clientId:$secret\" -d \"grant_type=client_credentials\""));
+        $tokenResponse = json_decode(exec("curl -v https://api.$url.com/v1/oauth2/token -H \"Accept: application/json\" -H \"Accept-Language: en_US\" -u \"$clientId:$secret\" -d \"grant_type=client_credentials\""));
+
+        $total = $this->cart->charge_total/100;
+
+        $returnUrl = env('APP_URL') . '/paymentComplete';
+        $cancelUrl = env('APP_URL') . '/paymentComplete';
+        $response = json_decode(exec("curl -v https://api.$url.com/v1/payments/payment -H \"Content-Type: application/json\" -H \"Authorization: Bearer $tokenResponse->access_token\" -d '{\"intent\":\"sale\",\"redirect_urls\":{\"return_url\":\"$returnUrl\",\"cancel_url\":\"$cancelUrl\"},\"payer\":{\"payment_method\":\"paypal\"},\"transactions\":[{\"amount\":{\"total\":\"$total\",\"currency\":\"USD\"}}]}'"));
+
+        foreach($response->links as $link) {
+            if ($link->method == 'REDIRECT') {
+                $redirect = $link->href;
+                break;
+            }
+        }
+
+        if (isset($redirect)) {
+            return redirect($redirect);
+        } else {
+            throw new \Exception('Paypal authentication failed!');
+        }
     }
 
     public function paymentComplete(Request $request) {
