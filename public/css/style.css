@@ -1671,7 +1671,8 @@ footer #sub-footer {
     #cart .cart-item [class^=span]:last-child {
       border-right: 0; }
   #cart .cart-item .item-remove button {
-    font-size: .7em !important; }
+    width: 100%;
+    font-size: .7em; }
   #cart .cart-item .item-price {
     border-right: 0; }
   #cart .cart-item .remove-btn {
@@ -1788,6 +1789,15 @@ footer #sub-footer {
   border-right: 1px solid #cccccc; }
 #checkout #tile-checkout-info .payment-info {
   padding-left: 2em; }
+  #checkout #tile-checkout-info .payment-info #choosePayment h3 {
+    margin-bottom: 10px; }
+  #checkout #tile-checkout-info .payment-info #choosePayment #payWithCard {
+    margin-top: 4px;
+    float: left; }
+  #checkout #tile-checkout-info .payment-info #choosePayment #paypalButton {
+    background: #f7f7f7; }
+    #checkout #tile-checkout-info .payment-info #choosePayment #paypalButton input {
+      border: none; }
 #checkout #tile-checkout-info .coupon-info {
   padding-left: 2em; }
   #checkout #tile-checkout-info .coupon-info input {
@@ -1817,6 +1827,9 @@ footer #sub-footer {
   #checkout #tile-checkout-info .payment-info {
     width: 100%;
     padding-left: 0; }
+    #checkout #tile-checkout-info .payment-info #choosePayment #paypalButton {
+      padding: 0;
+      margin-left: -10px; }
   #checkout #tile-checkout-info .coupon-info {
     width: 100%;
     padding-left: 0; } }

@@ -76,6 +76,25 @@
         }
         .payment-info{
             padding-left: 2em;
+
+            #choosePayment {
+                h3 {
+                    margin-bottom: 10px;
+                }
+
+                #payWithCard {
+                    margin-top: 4px;
+                    float: left;
+                }
+
+                #paypalButton {
+                    background: darken(white, 3%);
+
+                    input {
+                        border: none;
+                    }
+                }
+            }
         }
         .coupon-info{
             padding-left: 2em;
@@ -120,6 +139,13 @@
             .payment-info{
                 width: 100%;
                 padding-left: 0;
+
+                #choosePayment {
+                    #paypalButton {
+                        padding: 0;
+                        margin-left: -10px;
+                    }
+                }
             }
 
             .coupon-info{

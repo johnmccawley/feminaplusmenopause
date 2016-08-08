@@ -52,6 +52,14 @@ class CheckoutController extends Controller
                 throw new \Exception('Cart is empty');
             }
 
+//            if ($request->input('card-submit') == 'card') {
+//                $this->creditCardPayment($request);
+//            } else if ($request->input('paypal-submit') == 'paypal') {
+//                $this->paypalPayment($request);
+//            } else {
+//                throw new \Exception('Invalid payment selection');
+//            }
+
             // Gets cart items
             $cartItems = json_decode($this->cart->items);
             $amount = (object)['total' => 0, 'product' => 0, 'plan' => 0];
@@ -96,21 +104,25 @@ class CheckoutController extends Controller
 
             $this->fullfillmentEmail($request, $cartItems);
 
-             return $this->receipt($request, $cartItems, $cartTotal);
+            return redirect('/');
+//             return $this->receipt($request, $cartItems, $cartTotal);
         } catch (\Exception $e) {
             return back()->withErrors($e->getMessage())->withInput();
         }
     }
 
-    //    TODO: Use built in PHP curl functionality
-    public function paypalPayment(Request $request) {
+    private function creditCardPayment($request) {
+
+    }
+
+    private function paypalPayment($request) {
         try {
             $url = (env('APP_ENV') == 'production') ? 'paypal' : 'sandbox.paypal';
             $tokenResponse = $this->paypalToken($url);
             $total = $this->cart->charge_total/100;
 
-            $returnUrl = env('APP_URL') . '/paypalComplete';
-            $cancelUrl = env('APP_URL') . '/paypalComplete';
+            $returnUrl = env('APP_URL') . '/paymentComplete';
+            $cancelUrl = env('APP_URL') . '/paymentComplete';
             $response = json_decode(exec("curl -v https://api.$url.com/v1/payments/payment -H \"Content-Type: application/json\" -H \"Authorization: Bearer $tokenResponse->access_token\" -d '{\"intent\":\"sale\",\"redirect_urls\":{\"return_url\":\"$returnUrl\",\"cancel_url\":\"$cancelUrl\"},\"payer\":{\"payment_method\":\"paypal\"},\"transactions\":[{\"amount\":{\"total\":\"$total\",\"currency\":\"USD\"}}]}'"));
 
             foreach($response->links as $link) {
@@ -137,7 +149,7 @@ class CheckoutController extends Controller
         return json_decode(exec("curl -v https://api.$url.com/v1/oauth2/token -H \"Accept: application/json\" -H \"Accept-Language: en_US\" -u \"$clientId:$secret\" -d \"grant_type=client_credentials\""));
     }
 
-    public function paypalComplete(Request $request) {
+    public function paymentComplete(Request $request) {
         $cartItems = $this->cart->items;
         $cartTotal = $this->cart->total;
 

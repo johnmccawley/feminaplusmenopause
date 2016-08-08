@@ -17,7 +17,7 @@ ITEMS PURCHASED
 <br/>
 <hr>
 @foreach($purchased as $key => $item)
-    <p>Product: {{ $key }}</p>
+    <p>Product: {{ $item->product }}</p>
     <p>Name: {{ $item->name }}</p>
     <p>Quantity: {{ $item->amount }}</p>
     <br />
