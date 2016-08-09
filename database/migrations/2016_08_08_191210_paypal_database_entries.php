@@ -16,7 +16,7 @@ class PaypalDatabaseEntries extends Migration
             $table->dropColumn('stripe_transaction_id');
             $table->string('transaction_id')->after('amount')->nullable();
             $table->string('payment_processor')->after('amount')->nullable();
-            $table->boolean('purchased')->after('user_id')->nullable();
+            $table->string('purchase_status')->after('user_id')->nullable();
             $table->text('customer_info')->after('user_id')->nullable();
             $table->string('token')->after('user_id')->nullable();
         });
@@ -32,7 +32,7 @@ class PaypalDatabaseEntries extends Migration
         Schema::table('purchases', function ($table) {
             $table->dropColumn('transaction_id');
             $table->dropColumn('payment_processor');
-            $table->dropColumn('purchased');
+            $table->dropColumn('purchase_status');
             $table->dropColumn('customer_info');
             $table->dropColumn('token');
             $table->string('stripe_transaction_id')->after('amount');

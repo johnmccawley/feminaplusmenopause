@@ -45,6 +45,7 @@ Route::get('/checkout', 'CheckoutController@show');
 Route::post('/checkout', 'CheckoutController@create');
 Route::post('/checkoutCoupon', 'CheckoutController@applyCoupon');
 Route::get('/paymentComplete', 'CheckoutController@paymentComplete');
+Route::get('/paymentCancelled', 'CheckoutController@paymentCancelled');
 
 // Coupon routes
 Route::get('/coupon', 'CouponController@show');

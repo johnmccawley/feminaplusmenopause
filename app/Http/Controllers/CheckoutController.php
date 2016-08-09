@@ -87,7 +87,7 @@ class CheckoutController extends Controller
             $response = $this->user->newSubscription('primary', 'fpClub')->create($source->id, ['email' => $request->input('billing-email')]);
 
             $purchased = (object)['fpClub' => $itemsPurchased['fpClub']];
-            $this->createPurchase($response->stripe_id, null, $customerData, true, $purchased, $amount->plan, 'stripe');
+            $this->createPurchase($response->stripe_id, null, $customerData, 'complete', $purchased, $amount->plan, 'stripe');
         }
 
         if ($amount->product > 0) {
@@ -96,7 +96,7 @@ class CheckoutController extends Controller
             $response = $this->user->charge(($amount->product), ['source' => $source]);
 
             unset($itemsPurchased['fpClub']);
-            $this->createPurchase($response->id, null, $customerData, true, $itemsPurchased, $amount->product, 'stripe');
+            $this->createPurchase($response->id, null, $customerData, 'complete', $itemsPurchased, $amount->product, 'stripe');
         }
 
         if (is_null($response)) {
@@ -123,11 +123,11 @@ class CheckoutController extends Controller
 
         $sessionToken = $request->session()->get('_token');
         $customerData = $this->setCustomerData($request);
-        $this->createPurchase(null, $sessionToken, $customerData, false, json_decode($this->cart->items), $this->cart->charge_total, 'paypal');
+        $this->createPurchase(null, $sessionToken, $customerData, 'created', json_decode($this->cart->items), $this->cart->charge_total, 'paypal');
 
         $total = $this->cart->charge_total/100;
         $returnUrl = env('APP_URL') . '/paymentComplete';
-        $cancelUrl = env('APP_URL') . '/paymentComplete';
+        $cancelUrl = env('APP_URL') . '/paymentCancelled';
 
         $response = json_decode(exec("curl -v https://api.$url.com/v1/payments/payment -H \"Content-Type: application/json\" -H \"Authorization: Bearer $tokenResponse->access_token\" -d '{\"intent\":\"sale\",\"redirect_urls\":{\"return_url\":\"$returnUrl\",\"cancel_url\":\"$cancelUrl\"},\"payer\":{\"payment_method\":\"paypal\"},\"transactions\":[{\"amount\":{\"total\":\"$total\",\"currency\":\"USD\"}}]}'"));
 
@@ -148,11 +148,11 @@ class CheckoutController extends Controller
     public function paymentComplete(Request $request) {
         $cartItems = json_decode($this->cart->items);
         if ($request->input('paymentId') && $request->input('token') && $request->input('PayerID')) {
-            $purchaseDbEntry = DB::table('purchases')->where('token', $request->session()->get('_token'))->first();
+            $purchaseDbEntry = DB::table('purchases')->orderBy('created_at', 'desc')->where('token', $request->session()->get('_token'))->first();
             $purchase = Purchase::findOrFail($purchaseDbEntry->id);
 
             $purchase->transaction_id = $request->input('paymentId');
-            $purchase->purchased = true;
+            $purchase->purchase_status = 'complete';
             $purchase->save();
 
             $this->cart->items = null;
@@ -162,6 +162,18 @@ class CheckoutController extends Controller
             $this->fullfillmentEmail(json_decode($purchase->customer_info), $cartItems);
 
 //            return $this->receipt($request, $cartItems, $purchase->amount);
+        }
+
+        return redirect('/');
+    }
+
+    public function paymentCancelled(Request $request) {
+        if (!$request->input('paymentId') && $request->input('token') && !$request->input('PayerID')) {
+            $purchaseDbEntry = DB::table('purchases')->orderBy('created_at', 'desc')->where('token', $request->session()->get('_token'))->first();
+            $purchase = Purchase::findOrFail($purchaseDbEntry->id);
+
+            $purchase->purchase_status = 'cancelled';
+            $purchase->save();
         }
 
         return redirect('/');
@@ -362,13 +374,13 @@ class CheckoutController extends Controller
         ));
     }
 
-    private function createPurchase($transactionId, $sessionToken, $customerData, $purchased, $itemsPurchased, $amount, $processor) {
+    private function createPurchase($transactionId, $sessionToken, $customerData, $purchaseStatus, $itemsPurchased, $amount, $processor) {
         // Local database log entry of purchases
         Purchase::create([
             'user_id' => $this->userId,
             'token' => $sessionToken,
             'customer_info' => json_encode($customerData),
-            'purchased' => $purchased,
+            'purchase_status' => $purchaseStatus,
             'items' => json_encode($itemsPurchased),
             'amount' => $amount,
             'payment_processor' => $processor,
