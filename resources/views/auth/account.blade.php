@@ -181,6 +181,10 @@
     </section>
 
     <script type="text/javascript">
+        $(document).ready(function() {
+            $("#user-phone").mask("(999) 999-9999");
+        });
+
         $('#cancelButton').on('click', function () {
             $('#cancelDiv').show();
         });
