@@ -67,6 +67,7 @@ class CheckoutController extends Controller
     private function creditCardPayment($request) {
         // Gets cart items
         $cartItems = json_decode($this->cart->items);
+        $sessionToken = $request->session()->get('_token');
         $customerData = $this->setCustomerData($request);
         $amount = (object)['total' => 0, 'product' => 0, 'plan' => 0];
         foreach($cartItems as $key => $item) {
@@ -87,7 +88,7 @@ class CheckoutController extends Controller
             $response = $this->user->newSubscription('primary', 'fpClub')->create($source->id, ['email' => $request->input('billing-email')]);
 
             $purchased = (object)['fpClub' => $itemsPurchased['fpClub']];
-            $this->createPurchase($response->stripe_id, null, $customerData, 'complete', $purchased, $amount->plan, 'stripe');
+            $this->createPurchase($response->stripe_id, $sessionToken, $customerData, 'complete', $purchased, $amount->plan, 'stripe');
         }
 
         if ($amount->product > 0) {
@@ -96,7 +97,7 @@ class CheckoutController extends Controller
             $response = $this->user->charge(($amount->product), ['source' => $source]);
 
             unset($itemsPurchased['fpClub']);
-            $this->createPurchase($response->id, null, $customerData, 'complete', $itemsPurchased, $amount->product, 'stripe');
+            $this->createPurchase($response->id, $sessionToken, $customerData, 'complete', $itemsPurchased, $amount->product, 'stripe');
         }
 
         if (is_null($response)) {
