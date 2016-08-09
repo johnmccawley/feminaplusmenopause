@@ -116,6 +116,13 @@ class CheckoutController extends Controller
     }
 
     private function paypalPayment($request) {
+        $cartItems = json_decode($this->cart->items);
+        foreach ($cartItems as $key => $item) {
+            if ($item->type == 'plan') {
+                throw new \Exception("You can't purchase Femina Plus Club through paypal at this time, we apologize for the inconvenience.");
+            }
+        }
+
         $clientId = env('PAYPAL_CLIENT');
         $secret = env('PAYPAL_SECRET');
         $url = (env('APP_ENV') == 'production') ? 'paypal' : 'sandbox.paypal';
@@ -144,6 +151,10 @@ class CheckoutController extends Controller
         } else {
             throw new \Exception('Paypal authentication failed!');
         }
+    }
+
+    private function paypalBillingPlan($accessToken, $url) {
+//        json_decode(exec("curl -v POST https://api.$url.com/v1/payments/billing-plans -H 'Content-Type:application/json' -H 'Authorization: Bearer $accessToken' -d '{\"name\": \"T-Shirt of the Month Club Plan\",\"description\": \"Template creation.\",\"type\": \"fixed\",\"payment_definitions\": [{\"name\": \"Regular Payments\",\"type\": \"REGULAR\",\"frequency\": \"MONTH\",\"frequency_interval\": \"2\",\"amount\": {\"value\": \"100\",\"currency\": \"USD\"},\"cycles\": \"12\",\"charge_models\": [{\"type\": \"SHIPPING\",\"amount\": {\"value\": \"10\",\"currency\": \"USD\"}},{\"type\": \"TAX\",\"amount\": {\"value\": \"12\",\"currency\": \"USD\"}}]}],\"merchant_preferences\": {\"setup_fee\": {\"value\": \"1\",\"currency\": \"USD\"},\"return_url\": \"http://www.return.com\",\"cancel_url\": \"http://www.cancel.com\",\"auto_bill_amount\": \"YES\",\"initial_fail_amount_action\": \"CONTINUE\",\"max_fail_attempts\": \"0\"}}"));
     }
 
     public function paymentComplete(Request $request) {
