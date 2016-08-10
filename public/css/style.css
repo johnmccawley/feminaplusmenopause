@@ -1845,6 +1845,8 @@ footer #sub-footer {
   color: #a4509e; }
 #receipt #tile-receipt p {
   margin-bottom: auto; }
+#receipt #tile-receipt #info-div h3 {
+  margin-bottom: .5em; }
 #receipt #tile-receipt #info-div #billing-info {
   float: left; }
 #receipt #tile-receipt #info-div #shipping-info {
@@ -1863,7 +1865,7 @@ footer #sub-footer {
   position: relative;
   margin-bottom: .5em; }
   #receipt #tile-receipt .cart-item [class^=span] {
-    height: 2.75em;
+    height: 3.25em;
     padding: .5em;
     border-right: 1px solid #d9d9d9;
     padding-left: .5em; }
@@ -1893,10 +1895,14 @@ footer #sub-footer {
     #receipt #tile-receipt .cart-totals div.cart-total {
       font-size: 1.25em;
       font-weight: 600; }
+@media screen and (max-width: 960px) {
+  #receipt #tile-receipt #info-div #billing-info {
+    width: 100%;
+    margin-bottom: 1.5em; }
+  #receipt #tile-receipt #info-div #shipping-info {
+    float: left;
+    width: 100%; } }
 @media screen and (max-width: 800px) {
-  #receipt #receipt #tile-receipt #info-div #shipping-info {
-    float: left !important;
-    margin-top: 2em !important; }
   #receipt .item-desc {
     display: none; }
   #receipt .item-name {
@@ -1906,6 +1912,7 @@ footer #sub-footer {
   #receipt .item-remove {
     width: 16.666666666666664%; }
   #receipt .item-price {
+    text-align: right;
     width: 16.666666666666664%; } }
 @media screen and (max-width: 600px) {
   #receipt #tile-cart {

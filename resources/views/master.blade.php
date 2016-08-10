@@ -101,7 +101,7 @@
                 @yield('content')
             </main>
 
-            @if ($page_id != "cart" AND $page_id != "checkout" AND $page_id != "home" AND $page_id != "account" AND $page_id != "coupon")
+            @if ($page_id != "cart" AND $page_id != "checkout" AND $page_id != "home" AND $page_id != "account" AND $page_id != "coupon"  AND $page_id != "receipt")
             <div id="attachment-fpc">
                 <div class="container">
                     <div class="row">
