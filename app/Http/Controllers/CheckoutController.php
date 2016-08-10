@@ -118,7 +118,7 @@ class CheckoutController extends Controller
         $cartItems = json_decode($this->cart->items);
         foreach ($cartItems as $key => $item) {
             if ($item->type == 'plan') {
-                throw new \Exception("You can't purchase Femina Plus Club through paypal at this time, we apologize for the inconvenience.");
+                throw new \Exception("Femina Plus Club can't be purchased through Paypal at this time, we apologize for the inconvenience.");
             }
         }
 
