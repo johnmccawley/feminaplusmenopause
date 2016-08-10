@@ -5,38 +5,47 @@
 
 <?php
     $page_id="receipt";
-    $billing_address_2 = ($request->input('billing-address-2')) ? $request->input('billing-address-2') : null;
-    $shipping_address_2 = ($request->input('shipping-address-2')) ? $request->input('shipping-address-2') : null;
 ?>
 
 @section('content')
-    <section id="tile-cart">
-        <div>
-            THANK YOU FOR PURCHASING FEMINA PLUS!
-        </div>
+    <section id="tile-receipt">
         <div class="container">
-            Billing Information:
-            First Name: {{ $request->input('billing-name-first') }}
-            Last Name: {{ $request->input('billing-name-last') }}
-            Email: {{ $request->input('billing-email') }}
-            Phone: {{ $request->input('billing-phone') }}
-            Address One: {{ $request->input('billing-address-1') }}
-            Address Two: {{ $billing_address_2 }}
-            City: {{ $request->input('billing-city') }}
-            State: {{ $request->input('billing-state') }}
-            Zip: {{ $request->input('billing-zip') }}
-            <br />
-            Shipping Information:
-            First Name: {{ $request->input('shipping-name-first') | $request->input('billing-name-first') }}
-            Last Name: {{ $request->input('shipping-name-last') | $request->input('billing-name-last')}}
-            Email: {{ $request->input('shipping-email') | $request->input('billing-email') }}
-            Phone: {{ $request->input('shipping-phone') | $request->input('billing-phone') }}
-            Address One: {{ $request->input('shipping-address-1') | $request->input('billing-address-1') }}
-            Address Two: {{ $shipping_address_2 }}
-            City: {{ $request->input('shipping-city') | $request->input('billing-city') }}
-            State: {{ $request->input('shipping-state') | $request->input('billing-state') }}
-            Zip: {{ $request->input('shipping-zip') | $request->input('billing-zip') }}
+            <h2>THANK YOU FOR PURCHASING FEMINA PLUS!</h2>
         </div>
+        <br>
+        <div id="info-div" class="container">
+            <div id="billing-info">
+                <h3>Billing Information</h3>
+                <p>First Name: {{ $customerData->billing->firstName }}</p>
+                <p>Last Name: {{ $customerData->billing->lastName }}</p>
+                <p>Email: {{ $customerData->billing->email }}</p>
+                <p>Phone: {{ $customerData->billing->phone }}</p>
+                <p>Address One: {{ $customerData->billing->addressOne }}</p>
+                @if($customerData->billing->addressTwo)
+                    <p>Address Two: {{ $customerData->billing->addressTwo }}</p>
+                @endif
+                <p>City: {{ $customerData->billing->city }}</p>
+                <p>State: {{ $customerData->billing->state }}</p>
+                <p>Zip: {{ $customerData->billing->zip }}</p>
+            </div>
+
+            <div id="shipping-info">
+                <h3>Shipping Information</h3>
+                <p>First Name: {{ $customerData->shipping->firstName }}</p>
+                <p>Last Name: {{ $customerData->shipping->lastName }}</p>
+                <p>Email: {{ $customerData->shipping->email }}</p>
+                <p>Phone: {{ $customerData->shipping->phone }}</p>
+                <p>Address One: {{ $customerData->shipping->addressOne }}</p>
+                @if($customerData->shipping->addressTwo)
+                    <p>Address Two: {{ $customerData->shipping->addressTwo }}</p>
+                @endif
+                <p>City: {{ $customerData->shipping->city }}</p>
+                <p>State: {{ $customerData->shipping->state }}</p>
+                <p>Zip: {{ $customerData->shipping->zip }}</p>
+            </div>
+
+        </div>
+        <br><br>
         <div class="container">
             <div class="row cart-header">
                 <div class="span3 item-name">
@@ -53,20 +62,19 @@
                 </div>
             </div>
             <div class="row cart-items">
-                <!-- Loop foreach cart-item -->
                     @foreach($cartItems as $key => $item)
                         <div class="row cart-item">
                             <div class="span3 item-name">
-                                {{ $item->name }}
+                                <p>{{ $item->name }}</p>
                             </div>
                             <div class="span6 item-desc">
-                                {{ $item->description }}
+                                <p>{{ $item->description }}</p>
                             </div>
                             <div class="span1 item-qty">
-                                {{ $item->amount }}
+                                <p>{{ $item->amount }}</p>
                             </div>
                             <div class="span2 item-price">
-                                {{ $item->display_price }}
+                                <p>{{ $item->display_price }}</p>
                             </div>
                         </div>
                     @endforeach
@@ -74,7 +82,7 @@
             <div class="row cart-totals">
                 <div class="cart-subtotal">
                     @if($total)
-                        Total: {{ $total }}
+                        <p>Total: {{ $total }}</p>
                     @endif
                 </div>
             </div>

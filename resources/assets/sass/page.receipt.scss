@@ -1,0 +1,143 @@
+#receipt{
+    #tile-receipt{
+        h2 {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: $secondary;
+        }
+
+        p {
+            margin-bottom: auto;
+        }
+
+        #info-div {
+            #billing-info {
+                float: left;
+            }
+
+            #shipping-info {
+                float: right;
+                margin-right: 16em;
+            }
+        }
+
+        .cart-header{
+            background: $primary;
+            color: white;
+            padding: .5em .75em;
+            margin-bottom: 1em;
+        }
+
+        .cart-item{
+            padding: .5em;
+            border: 1px solid darken(white, 15%);
+            display: block;
+            background: white;
+            position: relative;
+            margin-bottom: .5em;
+            [class^=span]{
+                height: 2.75em;
+                padding: .5em;
+                border-right: 1px solid darken(white, 15%);
+                padding-left: .5em;
+                &:last-child{
+                    border-right: 0;
+                }
+            }
+            .item-remove{
+                button {
+                    width: 100%;
+                    font-size: .7em;
+                }
+            }
+            .item-price{
+                border-right: 0;
+            }
+            .remove-btn{
+                position: absolute;
+                right: -18px;
+                top: 21px;
+                border-right: 0;
+                cursor: pointer;
+                &:hover{
+                    color: red;
+                }
+            }
+        }
+
+        .cart-totals{
+            margin-top: 1em;
+            padding-top: 1em;
+            text-align: right;
+            border-top: 1px solid lighten(black, 80%);
+            margin-bottom: 2em;
+            div{
+                margin-bottom: .5em;
+                &.cart-total{
+                    font-size: 1.25em;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 800px) {
+        #receipt {
+            #tile-receipt {
+                #info-div {
+                    #shipping-info {
+                        float: left !important;
+                        margin-top: 2em !important;
+                    }
+                }
+            }
+        }
+        .item-desc{
+            display: none;
+        }
+        .item-name{
+            width: 66.66666666666666%;
+        }
+        .item-qty{
+            width: 16.666666666666664%;
+        }
+        .item-remove{
+            width: 16.666666666666664%;
+        }
+        .item-price{
+            width: 16.666666666666664%;
+        }
+    }
+    @media screen and (max-width: 600px) {
+        #tile-cart{
+            padding-bottom: 3em;
+        }
+    }
+    @media screen and (max-width: 525px) {
+        .item-name{
+            width: 50%;
+        }
+        .item-qty{
+            width: 25%;
+        }
+        .item-remove{
+            width: 25%;
+        }
+        .item-price{
+            width: 25%;
+        }
+    }
+    @media screen and (max-width: 500px) {
+        #tile-cart{
+            padding-bottom: 1em;
+        }
+        .left-btns, .right-btns, .secondary-btn, .primary-btn{
+            width: 100%;
+        }
+        .secondary-btn, .primary-btn{
+            margin-bottom: 1em;
+            text-align: center;
+        }
+
+    }
+}

@@ -109,10 +109,9 @@ class CheckoutController extends Controller
         $this->cart->total = null;
         $this->cart->save();
 
-        $this->fullfillmentEmail($customerData, $cartItems);
+        $this->fullfillmentEmail($customerData->shipping, $cartItems);
 
-        return redirect('/');
-//             return $this->receipt($request, $cartItems, $cartTotal);
+        return $this->receipt($customerData, $cartItems, $cartTotal);
     }
 
     private function paypalPayment($request) {
@@ -171,9 +170,12 @@ class CheckoutController extends Controller
             $this->cart->total = null;
             $this->cart->save();
 
-            $this->fullfillmentEmail(json_decode($purchase->customer_info), $cartItems);
+            $customerData = json_decode($purchase->customer_info);
 
-//            return $this->receipt($request, $cartItems, $purchase->amount);
+            $this->fullfillmentEmail($customerData->shipping, $cartItems);
+
+            $displayTotal = $this->formatDisplayPrice($purchase->amount);
+            return $this->receipt($customerData, $cartItems, $displayTotal);
         }
 
         return redirect('/');
@@ -191,8 +193,8 @@ class CheckoutController extends Controller
         return redirect('/');
     }
 
-    private function receipt($request, $cartItems, $cartTotal) {
-        return view('receipt', ['request' => $request, 'cartItems' => $cartItems, 'total' => $cartTotal]);
+    private function receipt($customerData, $cartItems, $cartTotal) {
+        return view('receipt', ['customerData' => $customerData, 'cartItems' => $cartItems, 'total' => $cartTotal]);
     }
 
     /**
@@ -345,28 +347,37 @@ class CheckoutController extends Controller
     }
 
     private function setCustomerData($request) {
-        $customerData = (object)[];
-        if ($request->input('billing-same')) {
-            $customerData->firstName = $request->input('billing-name-first');
-            $customerData->lastName = $request->input('billing-name-last');
-            $customerData->email = $request->input('billing-email');
-            $customerData->phone = $request->input('billing-phone');
-            $customerData->addressOne = $request->input('billing-address-1');
-            $customerData->addressTwo = ($request->input('billing-address-2')) ? $request->input('billing-address-2') : null;
-            $customerData->city = $request->input('billing-city');
-            $customerData->state = $request->input('billing-state');
-            $customerData->zip = $request->input('billing-zip');
+        $billingAddressTwo = $request->input('billing-address-2');
+        $shippingAddressTwo = $request->input('shipping-address-2');
+        $customerData = (object)['billing' => (object)[], 'shipping' => (object)[]];
+
+//        Billing information
+        $customerData->billing->firstName = $request->input('billing-name-first');
+        $customerData->billing->lastName = $request->input('billing-name-last');
+        $customerData->billing->email = $request->input('billing-email');
+        $customerData->billing->phone = $request->input('billing-phone');
+        $customerData->billing->addressOne = $request->input('billing-address-1');
+        $customerData->billing->addressTwo = ($billingAddressTwo) ? $billingAddressTwo : null;
+        $customerData->billing->city = $request->input('billing-city');
+        $customerData->billing->state = $request->input('billing-state');
+        $customerData->billing->zip = $request->input('billing-zip');
+
+//        Shipping Information
+        $customerData->shipping->firstName = ($request->input('shipping-name-first')) ? $request->input('shipping-name-first') : $request->input('billing-name-first');
+        $customerData->shipping->lastName = ($request->input('shipping-name-last')) ? $request->input('shipping-name-last') : $request->input('billing-name-last');
+        $customerData->shipping->email = ($request->input('shipping-email')) ? $request->input('shipping-email') : $request->input('billing-email');
+        $customerData->shipping->phone = ($request->input('shipping-phone')) ? $request->input('shipping-phone') : $request->input('billing-phone');
+        $customerData->shipping->addressOne = ($request->input('shipping-address-1')) ? $request->input('shipping-address-1') : $request->input('billing-address-1');
+        if ($shippingAddressTwo) {
+            $customerData->shipping->addressTwo = $shippingAddressTwo;
+        } else if ($billingAddressTwo) {
+            $customerData->shipping->addressTwo = $billingAddressTwo;
         } else {
-            $customerData->firstName = $request->input('shipping-name-first');
-            $customerData->lastName = $request->input('shipping-name-last');
-            $customerData->email = $request->input('shipping-email');
-            $customerData->phone = $request->input('shipping-phone');
-            $customerData->addressOne = $request->input('shipping-address-1');
-            $customerData->addressTwo = ($request->input('shipping-address-2')) ? $request->input('shipping-address-2') : null;
-            $customerData->city = $request->input('shipping-city');
-            $customerData->state = $request->input('shipping-state');
-            $customerData->zip = $request->input('shipping-zip');
+            $customerData->shipping->addressTwo = null;
         }
+        $customerData->shipping->city = ($request->input('shipping-city')) ? $request->input('shipping-city') : $request->input('billing-city');
+        $customerData->shipping->state = ($request->input('shipping-state')) ? $request->input('shipping-state') : $request->input('billing-state');
+        $customerData->shipping->zip = ($request->input('shipping-zip')) ? $request->input('shipping-zip') : $request->input('billing-zip');
 
         return $customerData;
     }

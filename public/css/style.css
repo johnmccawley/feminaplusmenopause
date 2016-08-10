@@ -1834,6 +1834,95 @@ footer #sub-footer {
     width: 100%;
     padding-left: 0; } }
 
+#receipt #tile-receipt h2 {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #a4509e; }
+#receipt #tile-receipt p {
+  margin-bottom: auto; }
+#receipt #tile-receipt #info-div #billing-info {
+  float: left; }
+#receipt #tile-receipt #info-div #shipping-info {
+  float: right;
+  margin-right: 16em; }
+#receipt #tile-receipt .cart-header {
+  background: #c31da2;
+  color: white;
+  padding: .5em .75em;
+  margin-bottom: 1em; }
+#receipt #tile-receipt .cart-item {
+  padding: .5em;
+  border: 1px solid #d9d9d9;
+  display: block;
+  background: white;
+  position: relative;
+  margin-bottom: .5em; }
+  #receipt #tile-receipt .cart-item [class^=span] {
+    height: 2.75em;
+    padding: .5em;
+    border-right: 1px solid #d9d9d9;
+    padding-left: .5em; }
+    #receipt #tile-receipt .cart-item [class^=span]:last-child {
+      border-right: 0; }
+  #receipt #tile-receipt .cart-item .item-remove button {
+    width: 100%;
+    font-size: .7em; }
+  #receipt #tile-receipt .cart-item .item-price {
+    border-right: 0; }
+  #receipt #tile-receipt .cart-item .remove-btn {
+    position: absolute;
+    right: -18px;
+    top: 21px;
+    border-right: 0;
+    cursor: pointer; }
+    #receipt #tile-receipt .cart-item .remove-btn:hover {
+      color: red; }
+#receipt #tile-receipt .cart-totals {
+  margin-top: 1em;
+  padding-top: 1em;
+  text-align: right;
+  border-top: 1px solid #cccccc;
+  margin-bottom: 2em; }
+  #receipt #tile-receipt .cart-totals div {
+    margin-bottom: .5em; }
+    #receipt #tile-receipt .cart-totals div.cart-total {
+      font-size: 1.25em;
+      font-weight: 600; }
+@media screen and (max-width: 800px) {
+  #receipt #receipt #tile-receipt #info-div #shipping-info {
+    float: left !important;
+    margin-top: 2em !important; }
+  #receipt .item-desc {
+    display: none; }
+  #receipt .item-name {
+    width: 66.66666666666666%; }
+  #receipt .item-qty {
+    width: 16.666666666666664%; }
+  #receipt .item-remove {
+    width: 16.666666666666664%; }
+  #receipt .item-price {
+    width: 16.666666666666664%; } }
+@media screen and (max-width: 600px) {
+  #receipt #tile-cart {
+    padding-bottom: 3em; } }
+@media screen and (max-width: 525px) {
+  #receipt .item-name {
+    width: 50%; }
+  #receipt .item-qty {
+    width: 25%; }
+  #receipt .item-remove {
+    width: 25%; }
+  #receipt .item-price {
+    width: 25%; } }
+@media screen and (max-width: 500px) {
+  #receipt #tile-cart {
+    padding-bottom: 1em; }
+  #receipt .left-btns, #receipt .right-btns, #receipt .secondary-btn, #receipt .primary-btn {
+    width: 100%; }
+  #receipt .secondary-btn, #receipt .primary-btn {
+    margin-bottom: 1em;
+    text-align: center; } }
+
 #confirm #tile-confirm {
   padding-bottom: 5em; }
 #confirm .order-info {
