@@ -225,6 +225,7 @@
                             <input type="image" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-medium.png">
                         </button>
                     </div>
+
                     <div id="cardPayment" style="display:none" value="close">
                         <h3>Payment Information</h3>
                         <div class="row input-row">

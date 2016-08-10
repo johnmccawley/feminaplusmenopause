@@ -67,7 +67,7 @@
                 <div class="right-btns">
                     <a href="/checkout" class="primary-btn">SECURE CHECKOUT</a>
                     <br>
-                    <img id="paypalBadges" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/cc-badges-ppmcvdam.png" alt="Buy now with PayPal"/>
+                    <img id="paypalBadges" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/cc-badges-ppmcvdam.png" alt="Buy now with PayPal" />
                 </div>
             </div>
         </div>
