@@ -225,7 +225,7 @@
                             <input type="image" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-medium.png">
                         </button>
                     </div>
-                    <div id="cardPayment" style="display:none">
+                    <div id="cardPayment" style="display:none" value="close">
                         <h3>Payment Information</h3>
                         <div class="row input-row">
                             <input type="text" class="form-control" name="cardName" placeholder="Name" value="{{ old('cardName') }}"/>
@@ -271,8 +271,14 @@
 	   $("#payment-exp").mask("99/9999");
 
         $('#payWithCard').on('click', function() {
-            $('#choosePayment').css('display', 'none');
-            $('#cardPayment').css('display', '');
+            if ($("#cardPayment").attr('value') == 'close') {
+                $("#cardPayment").slideDown();
+                $("#cardPayment").attr('value', 'open');
+            } else if ($("#cardPayment").attr('value') == 'open') {
+                $("#cardPayment").slideUp();
+                $("#cardPayment").attr('value', 'close');
+
+            }
         });
 	});
 </script>

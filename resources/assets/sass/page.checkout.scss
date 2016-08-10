@@ -98,6 +98,7 @@
         }
         .coupon-info{
             padding-left: 2em;
+            float: right;
             input {
                 padding: .5em;
                 color: gray;
@@ -151,6 +152,19 @@
             .coupon-info{
                 width: 100%;
                 padding-left: 0;
+            }
+        }
+    }
+
+    @media screen and (max-width: 500px) {
+        #tile-checkout-info {
+            .payment-info {
+                #cardPayment {
+                    #changePaymentButton {
+                        float: left;
+                        margin-bottom: 5px;
+                    }
+                }
             }
         }
     }

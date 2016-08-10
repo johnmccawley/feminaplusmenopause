@@ -1799,7 +1799,8 @@ footer #sub-footer {
     #checkout #tile-checkout-info .payment-info #choosePayment #paypalButton input {
       border: none; }
 #checkout #tile-checkout-info .coupon-info {
-  padding-left: 2em; }
+  padding-left: 2em;
+  float: right; }
   #checkout #tile-checkout-info .coupon-info input {
     padding: .5em;
     color: gray;
@@ -1833,6 +1834,10 @@ footer #sub-footer {
   #checkout #tile-checkout-info .coupon-info {
     width: 100%;
     padding-left: 0; } }
+@media screen and (max-width: 500px) {
+  #checkout #tile-checkout-info .payment-info #cardPayment #changePaymentButton {
+    float: left;
+    margin-bottom: 5px; } }
 
 #receipt #tile-receipt h2 {
   font-size: 1.2em;
