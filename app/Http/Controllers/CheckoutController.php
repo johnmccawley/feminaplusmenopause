@@ -152,8 +152,14 @@ class CheckoutController extends Controller
         }
     }
 
-    private function paypalBillingPlan($accessToken, $url) {
-//        json_decode(exec("curl -v POST https://api.$url.com/v1/payments/billing-plans -H 'Content-Type:application/json' -H 'Authorization: Bearer $accessToken' -d '{\"name\": \"T-Shirt of the Month Club Plan\",\"description\": \"Template creation.\",\"type\": \"fixed\",\"payment_definitions\": [{\"name\": \"Regular Payments\",\"type\": \"REGULAR\",\"frequency\": \"MONTH\",\"frequency_interval\": \"2\",\"amount\": {\"value\": \"100\",\"currency\": \"USD\"},\"cycles\": \"12\",\"charge_models\": [{\"type\": \"SHIPPING\",\"amount\": {\"value\": \"10\",\"currency\": \"USD\"}},{\"type\": \"TAX\",\"amount\": {\"value\": \"12\",\"currency\": \"USD\"}}]}],\"merchant_preferences\": {\"setup_fee\": {\"value\": \"1\",\"currency\": \"USD\"},\"return_url\": \"http://www.return.com\",\"cancel_url\": \"http://www.cancel.com\",\"auto_bill_amount\": \"YES\",\"initial_fail_amount_action\": \"CONTINUE\",\"max_fail_attempts\": \"0\"}}"));
+    private function paypalBillingAgreement($url, $accessToken, $customerData) {
+        $planId = env('FPC_PLAN_ID');
+        $date = getdate();
+        $startDate = $date['year'] . '-' . $date['mon'] . '-' .  $date['mday'] . 'T00:00:00Z';
+
+        $response = json_decode(exec("curl -v POST https://api.$url.com/v1/payments/billing-agreements -H 'Content-Type:application/json' -H 'Authorization: Bearer $accessToken' -d '{\"name\": \"Femina Plus Club\",\"description\": \"1 bottle a month for 12 months\",\"start_date\": \"$startDate\",\"plan\": {\"id\": \"$planId\"},\"payer\": {\"payment_method\": \"paypal\"},\"shipping_address\": {\"line1\": \"$customerData->addressOne\",\"city\": \"$customerData->city\",\"state\": \"$customerData->state\",\"postal_code\": \"$customerData->zip\",\"country_code\": \"US\"}}'"));
+
+        return $response;
     }
 
     public function paymentComplete(Request $request) {
