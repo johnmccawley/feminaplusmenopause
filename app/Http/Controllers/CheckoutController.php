@@ -219,13 +219,14 @@ class CheckoutController extends Controller
         try {
             if ($this->cart) {
                 $cartItems = json_decode($this->cart->items);
-                $subscription = DB::table('subscriptions')->where('user_id', $this->userId)->first();
 
-                foreach ($cartItems as $key => $item) {
-                    if ($item->type == 'plan' && Auth::guest()) {
-                        return view('auth.login', ['required' => true]);
-                    } else if ($item->type == 'plan' && $subscription->ends_at == null) {
-                        throw new \Exception('You already have a femina plus club subscription');
+                if ($this->userId) {
+                    $subscription = DB::table('subscriptions')->orderBy('created_at', 'desc')->where('user_id', $this->userId)->first();
+
+                    foreach ($cartItems as $key => $item) {
+                        if ($item->type == 'plan' && $subscription->ends_at == null) {
+                            throw new \Exception('You already have a femina plus club subscription');
+                        }
                     }
                 }
 
