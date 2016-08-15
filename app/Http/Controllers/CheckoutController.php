@@ -26,7 +26,8 @@ class CheckoutController extends Controller
     function __construct(Request $request) {
         $this->cart = $this->retrieveCartDatabaseEntry($request);
         $this->setApiKey();
-        $this->user = (Auth::user()) ? User::findOrFail(Auth::user()->id) : new User();
+        $guestUser = DB::table('users')->where('email', 'guestCheckout@feminaplusmenopause.com')->first();
+        $this->user = (Auth::user()) ? User::findOrFail(Auth::user()->id) : User::findOrFail($guestUser->id);
         $this->userId = (Auth::user()) ? Auth::user()->id : null;
     }
 
@@ -86,6 +87,11 @@ class CheckoutController extends Controller
             $source = $this->getSource($request);
 
             $response = $this->user->newSubscription('primary', 'fpClub')->create($source->id, ['email' => $request->input('billing-email')]);
+            
+            if ($this->user->email == 'guestCheckout@feminaplusmenopause.com') {
+                $this->user->stripe_id = null;
+                $this->user->save();
+            }
 
             $purchased = (object)['fpClub' => $itemsPurchased['fpClub']];
             $this->createPurchase($response->stripe_id, $sessionToken, $customerData, 'complete', $purchased, $amount->plan, 'stripe');
@@ -225,13 +231,16 @@ class CheckoutController extends Controller
         try {
             if ($this->cart) {
                 $cartItems = json_decode($this->cart->items);
-                $subscription = DB::table('subscriptions')->where('user_id', $this->userId)->first();
 
-                foreach ($cartItems as $key => $item) {
-                    if ($item->type == 'plan' && Auth::guest()) {
-                        return view('auth.login', ['required' => true]);
-                    } else if ($item->type == 'plan' && $subscription->ends_at == null) {
-                        throw new \Exception('You already have a femina plus club subscription');
+                if ($this->userId) {
+                    $subscription = DB::table('subscriptions')->orderBy('created_at', 'desc')->where('user_id', $this->userId)->first();
+
+                    if ($subscription) {
+                        foreach ($cartItems as $key => $item) {
+                            if ($item->type == 'plan' && $subscription->ends_at == null) {
+                                throw new \Exception('You already have a femina plus club subscription');
+                            }
+                        }
                     }
                 }
 
