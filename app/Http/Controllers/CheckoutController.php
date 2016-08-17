@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use DB as DB;
+use DB;
+use Auth;
+use Mail;
 use App\User;
 use App\Cart;
 use App\Coupon;
@@ -15,8 +17,6 @@ use App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CheckoutRequest as CheckoutRequest;
 
-use Auth;
-use Mail;
 use App\Http\Requests;
 
 class CheckoutController extends Controller
@@ -24,8 +24,8 @@ class CheckoutController extends Controller
     private $user, $userId, $cart;
 
     function __construct(Request $request) {
-        $this->cart = $this->retrieveCartDatabaseEntry($request);
         $this->setApiKey();
+        $this->cart = $this->retrieveCartDatabaseEntry($request);
         $guestUser = DB::table('users')->where('email', 'guestCheckout@feminaplusmenopause.com')->first();
         $this->user = (Auth::user()) ? User::findOrFail(Auth::user()->id) : User::findOrFail($guestUser->id);
         $this->userId = (Auth::user()) ? Auth::user()->id : null;
@@ -124,7 +124,7 @@ class CheckoutController extends Controller
         $cartItems = json_decode($this->cart->items);
         foreach ($cartItems as $key => $item) {
             if ($item->type == 'plan') {
-                throw new \Exception("Femina Plus Club can't be purchased through Paypal at this time, we apologize for the inconvenience.");
+                throw new \Exception("Femina Plus Club can't be purchased via Paypal through the cart, please go to the Product or Buy Now page.");
             }
         }
 
@@ -156,16 +156,6 @@ class CheckoutController extends Controller
         } else {
             throw new \Exception('Paypal authentication failed!');
         }
-    }
-
-    private function paypalBillingAgreement($url, $accessToken, $customerData) {
-        $planId = env('FPC_PLAN_ID');
-        $date = getdate();
-        $startDate = $date['year'] . '-' . $date['mon'] . '-' .  $date['mday'] . 'T00:00:00Z';
-
-        $response = json_decode(exec("curl -v POST https://api.$url.com/v1/payments/billing-agreements -H 'Content-Type:application/json' -H 'Authorization: Bearer $accessToken' -d '{\"name\": \"Femina Plus Club\",\"description\": \"1 bottle a month for 12 months\",\"start_date\": \"$startDate\",\"plan\": {\"id\": \"$planId\"},\"payer\": {\"payment_method\": \"paypal\"},\"shipping_address\": {\"line1\": \"$customerData->addressOne\",\"city\": \"$customerData->city\",\"state\": \"$customerData->state\",\"postal_code\": \"$customerData->zip\",\"country_code\": \"US\"}}'"));
-
-        return $response;
     }
 
     public function paymentComplete(Request $request) {
@@ -431,7 +421,7 @@ class CheckoutController extends Controller
 
     private function fullfillmentEmail($customerData, $purchased) {
         Mail::send('emails.fullfill', ['customerData' => $customerData, 'purchased' => $purchased], function ($message) use ($customerData, $purchased) {
-           $message->from('fullfillment@mg.feminaplus.com', 'Femina Plus');
+           $message->from('fullfillment@mg.feminaplusmenopause.com', 'Femina Plus');
            $message->to(env('FULLFILL_EMAIL_ONE'), null)->subject('FULLFILLMENT REQUEST');
            $message->cc(env('FULLFILL_EMAIL_TWO'), null)->subject('FULLFILLMENT REQUEST');
        });

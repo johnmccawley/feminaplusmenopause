@@ -257,6 +257,13 @@ body {
 button {
   cursor: pointer; }
 
+.paypal-subscribe-button {
+  margin-top: 5px; }
+  .paypal-subscribe-button .paypal-subscribe-image {
+    width: auto;
+    min-width: auto;
+    border: none; }
+
 .fa-custom, #product #tile-tab-info #tab-faq .question-box h4:before, #checkout .address-check label:before, #checkout .address-check input[type=checkbox]:checked + label:before {
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;

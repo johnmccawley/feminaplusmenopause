@@ -18,6 +18,14 @@ body {
 button{
     cursor: pointer;
 }
+.paypal-subscribe-button {
+    margin-top: 5px;
+    .paypal-subscribe-image {
+        width: auto;
+        min-width: auto;
+        border: none;
+    }
+}
 .fa-custom{
     font: normal normal normal 14px/1 FontAwesome;
     font-size: inherit;

@@ -5,6 +5,8 @@
 
 <?php
     $page_id = "product";
+    $planId = env('FPC_PLAN_ID');
+    $paypalUrl = (env('APP_ENV') == 'production') ? 'paypal' : 'sandbox.paypal';
 ?>
 
 @section('content')
@@ -95,6 +97,12 @@
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <button type="submit" class="atc-btn">ADD TO CART</button>
+                    </form>
+                    <form class="paypal-subscribe-button" action="https://www.{{$paypalUrl}}.com/cgi-bin/webscr" method="post" target="_top">
+                        <input type="hidden" name="cmd" value="_s-xclick">
+                        <input type="hidden" name="hosted_button_id" value="{{$planId}}">
+                        <input type="image" class="paypal-subscribe-image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribe_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
                     </form>
                 </div>
 
