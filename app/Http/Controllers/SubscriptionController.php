@@ -53,38 +53,31 @@ class SubscriptionController extends Controller
      */
     public function store(Request $request)
     {
-        if ($this->verifyPurchase($request)) {
-            $plan = Plan::retrieve('fpClub');
-            $displayTotal = $this->formatDisplayPrice($plan->amount);
-            $cartItems = json_decode("{'fpClub':{'amount':1,'type':'plan','name':'Femina Plus Club Refill','description':'1 Bottle a Month for 12 Months (13th Bottle Free!)','price':$plan->amount,'display_price':$displayTotal}}");
-            $sessionToken = $request->session()->get('_token');
-            $transactionId = ($request->input('paymentId')) ? $request->input('paymentId') : null;
-            $customerData = $this->setShippingInfo($request);
-
-            $this->createPurchase($transactionId, $sessionToken, $customerData, 'complete', $cartItems, $cartItems->price, 'paypal');
-
-            $this->fullfillmentEmail($customerData->shipping, $cartItems);
-
-            return view('receipt', ['customerData' => $customerData, 'cartItems' => $cartItems, 'total' => $displayTotal]);
-        }
-
-        return redirect('/');
+        //
     }
 
-    private function verifyPurchase($request) {
-        return true;
-    }
 
-//    public function test(Request $request) {
-//        $clientId = env('PAYPAL_CLIENT');
-//        $secret = env('PAYPAL_SECRET');
-//        $url = (env('APP_ENV') == 'production') ? 'paypal' : 'sandbox.paypal';
-//        $id = "I-UDYLF176YBEP";
+    public function sendMessage(Request $request) {
+//        $plan = Plan::retrieve('fpClub');
+//        $displayTotal = $this->formatDisplayPrice($plan->amount);
+//        $cartItems = json_decode("{'fpClub':{'amount':1,'type':'plan','name':'Femina Plus Club Refill','description':'1 Bottle a Month for 12 Months (13th Bottle Free!)','price':$plan->amount,'display_price':$displayTotal}}");
+//        $sessionToken = $request->session()->get('_token');
+//        $transactionId = ($request->input('paymentId')) ? $request->input('paymentId') : null;
+//        $customerData = $this->setShippingInfo($request);
 //
-//        $tokenResponse = json_decode(exec("curl -v https://api.$url.com/v1/oauth2/token -H \"Accept: application/json\" -H \"Accept-Language: en_US\" -u \"$clientId:$secret\" -d \"grant_type=client_credentials\""));
+//        $this->createPurchase($transactionId, $sessionToken, $customerData, 'complete', $cartItems, $cartItems->price, 'paypal');
 //
-//        return exec("curl -v GET https://api.sandbox.paypal.com/v1/payments/billing-agreements/$id -H 'Content-Type:application/json' -H 'Authorization: Bearer $tokenResponse->access_token'");
-//    }
+//        $this->fullfillmentEmail($customerData->shipping, $cartItems);
+//
+//        return view('receipt', ['customerData' => $customerData, 'cartItems' => $cartItems, 'total' => $displayTotal]);
+
+        $requestString = json_decode($request);
+        Mail::send('emails.test', ['requeststring' => $requestString], function ($message) use ($requestString) {
+            $message->from('fullfillment@mg.feminaplusmenopause.com', 'Femina Plus');
+            $message->to(env('FULLFILL_EMAIL_ONE'), null)->subject('FULLFILLMENT REQUEST');
+            $message->cc(env('FULLFILL_EMAIL_TWO'), null)->subject('FULLFILLMENT REQUEST');
+        });
+    }
 
     /**
      * Display the specified resource.
