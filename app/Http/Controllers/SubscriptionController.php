@@ -54,16 +54,16 @@ class SubscriptionController extends Controller
     public function store(Request $request)
     {
         exec('touch /home/forge/start.txt');
-        $plan = Plan::retrieve('fpClub');
-        $displayTotal = $this->formatDisplayPrice($plan->amount);
-        $cartItems = json_decode("{'fpClub':{'amount':1,'type':'plan','name':'Femina Plus Club Refill','description':'1 Bottle a Month for 12 Months (13th Bottle Free!)','price':$plan->amount,'display_price':$displayTotal}}");
-        $sessionToken = $request->session()->get('_token');
-        $transactionId = ($request->input('subscr_id')) ? $request->input('subscr_id') : null;
-        $customerData = $this->setShippingInfo($request);
-
-        $this->createPurchase($transactionId, $sessionToken, $customerData, 'complete', $cartItems, $cartItems->price, 'paypal');
-
-        $this->fullfillmentEmail($customerData->shipping, $cartItems);
+//        $plan = Plan::retrieve('fpClub');
+//        $displayTotal = $this->formatDisplayPrice($plan->amount);
+//        $cartItems = json_decode("{'fpClub':{'amount':1,'type':'plan','name':'Femina Plus Club Refill','description':'1 Bottle a Month for 12 Months (13th Bottle Free!)','price':$plan->amount,'display_price':$displayTotal}}");
+//        $sessionToken = $request->session()->get('_token');
+//        $transactionId = ($request->input('subscr_id')) ? $request->input('subscr_id') : null;
+//        $customerData = $this->setShippingInfo($request);
+//
+//        $this->createPurchase($transactionId, $sessionToken, $customerData, 'complete', $cartItems, $cartItems->price, 'paypal');
+//
+//        $this->fullfillmentEmail($customerData->shipping, $cartItems);
         exec('touch /home/forge/finish.txt');
     }
 
