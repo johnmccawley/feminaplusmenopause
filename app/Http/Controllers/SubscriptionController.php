@@ -71,12 +71,12 @@ class SubscriptionController extends Controller
 //
 //        return view('receipt', ['customerData' => $customerData, 'cartItems' => $cartItems, 'total' => $displayTotal]);
 
-        $requestString = json_decode($request);
-        Mail::send('emails.test', ['requeststring' => $requestString], function ($message) use ($requestString) {
-            $message->from('fullfillment@mg.feminaplusmenopause.com', 'Femina Plus');
-            $message->to(env('FULLFILL_EMAIL_ONE'), null)->subject('FULLFILLMENT REQUEST');
-            $message->cc(env('FULLFILL_EMAIL_TWO'), null)->subject('FULLFILLMENT REQUEST');
-        });
+//        $requestString = json_decode($request);
+//        Mail::send('emails.test', ['requeststring' => $requestString], function ($message) use ($requestString) {
+//            $message->from('fullfillment@mg.feminaplusmenopause.com', 'Femina Plus');
+//            $message->to(env('FULLFILL_EMAIL_ONE'), null)->subject('FULLFILLMENT REQUEST');
+//            $message->cc(env('FULLFILL_EMAIL_TWO'), null)->subject('FULLFILLMENT REQUEST');
+//        });
 
         return header("HTTP/1.1 200 OK");
     }
