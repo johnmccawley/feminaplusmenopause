@@ -51,6 +51,15 @@ class SubscriptionController extends Controller
         //
     }
 
+    public function sendMessage(Request $request) {
+        $requestString = json_decode($request);
+        Mail::send('emails.test', ['requeststring' => $requestString], function ($message) use ($requestString) {
+            $message->from('fullfillment@mg.feminaplusmenopause.com', 'Femina Plus');
+            $message->to(env('FULLFILL_EMAIL_ONE'), null)->subject('FULLFILLMENT REQUEST');
+            $message->cc(env('FULLFILL_EMAIL_TWO'), null)->subject('FULLFILLMENT REQUEST');
+        });
+    }
+
     /**
      * Display the specified resource.
      *
