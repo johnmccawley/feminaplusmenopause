@@ -53,45 +53,18 @@ class SubscriptionController extends Controller
      */
     public function store(Request $request)
     {
-        exec('touch /home/forge/test.txt');
+        exec('touch /home/forge/start.txt');
         $plan = Plan::retrieve('fpClub');
         $displayTotal = $this->formatDisplayPrice($plan->amount);
         $cartItems = json_decode("{'fpClub':{'amount':1,'type':'plan','name':'Femina Plus Club Refill','description':'1 Bottle a Month for 12 Months (13th Bottle Free!)','price':$plan->amount,'display_price':$displayTotal}}");
         $sessionToken = $request->session()->get('_token');
-        $transactionId = ($request->input('paymentId')) ? $request->input('paymentId') : null;
+        $transactionId = ($request->input('subscr_id')) ? $request->input('subscr_id') : null;
         $customerData = $this->setShippingInfo($request);
 
         $this->createPurchase($transactionId, $sessionToken, $customerData, 'complete', $cartItems, $cartItems->price, 'paypal');
 
         $this->fullfillmentEmail($customerData->shipping, $cartItems);
-
-        return view('receipt', ['customerData' => $customerData, 'cartItems' => $cartItems, 'total' => $displayTotal]);
-    }
-
-
-    public function sendMessage(Request $request) {
-        exec('touch /home/forge/test.txt');
-//        $plan = Plan::retrieve('fpClub');
-//        $displayTotal = $this->formatDisplayPrice($plan->amount);
-//        $cartItems = json_decode("{'fpClub':{'amount':1,'type':'plan','name':'Femina Plus Club Refill','description':'1 Bottle a Month for 12 Months (13th Bottle Free!)','price':$plan->amount,'display_price':$displayTotal}}");
-//        $sessionToken = $request->session()->get('_token');
-//        $transactionId = ($request->input('paymentId')) ? $request->input('paymentId') : null;
-//        $customerData = $this->setShippingInfo($request);
-//
-//        $this->createPurchase($transactionId, $sessionToken, $customerData, 'complete', $cartItems, $cartItems->price, 'paypal');
-//
-//        $this->fullfillmentEmail($customerData->shipping, $cartItems);
-//
-//        return view('receipt', ['customerData' => $customerData, 'cartItems' => $cartItems, 'total' => $displayTotal]);
-
-//        $requestString = json_decode($request);
-//        Mail::send('emails.test', ['requeststring' => $requestString], function ($message) use ($requestString) {
-//            $message->from('fullfillment@mg.feminaplusmenopause.com', 'Femina Plus');
-//            $message->to(env('FULLFILL_EMAIL_ONE'), null)->subject('FULLFILLMENT REQUEST');
-//            $message->cc(env('FULLFILL_EMAIL_TWO'), null)->subject('FULLFILLMENT REQUEST');
-//        });
-
-        return header("HTTP/1.1 200 OK");
+        exec('touch /home/forge/finish.txt');
     }
 
     /**
@@ -148,22 +121,20 @@ class SubscriptionController extends Controller
     private function setShippingInfo($request) {
         $customerData = (object)['shipping' => (object)[]];
 
-//        $customerData->shipping->firstName = $request->input('shipping-name-first');
-//        $customerData->shipping->lastName = $request->input('shipping-name-last');
-//        $customerData->shipping->email = $request->input('shipping-email');
-//        $customerData->shipping->phone = $request->input('shipping-phone');
-//        $customerData->shipping->addressOne = $request->input('shipping-address-1');
-//        $customerData->shipping->addressTwo = ($request->input('shipping-address-2')) ? $request->input('shipping-address-2') : null;
-//        $customerData->shipping->city = $request->input('shipping-city');
-//        $customerData->shipping->state = $request->input('shipping-state');
-//        $customerData->shipping->zip = $request->input('shipping-zip');
+//        $customerData->shipping->firstName = ($request->input('first_name')) ? $request->input('last_name') : null;
+//        $customerData->shipping->lastName = ($request->input('last_name')) ? $request->input('last_name') : null;
+//        $customerData->shipping->email = ($request->input('payer_email')) ? $request->input('payer_email') : null;
+//        $customerData->shipping->phone = ($request->input('')) ? $request->input('') : null;
+//        $customerData->shipping->addressOne = ($request->input('address_street')) ? $request->input('address_street') : null;
+//        $customerData->shipping->city = ($request->input('address_city')) ? $request->input('address_city') : null;
+//        $customerData->shipping->state = ($request->input('address_state')) ? $request->input('address_state') : null;
+//        $customerData->shipping->zip = ($request->input('address_zip')) ? $request->input('address_zip') : null;
 
         $customerData->shipping->firstName = 'Sean';
         $customerData->shipping->lastName = 'Baluha';
         $customerData->shipping->email = 'sbaluha@jekyllhydelabs.com';
         $customerData->shipping->phone = '1234567890';
         $customerData->shipping->addressOne = '12345 some lane';
-        $customerData->shipping->addressTwo = null;
         $customerData->shipping->city = 'someCity';
         $customerData->shipping->state = 'MI';
         $customerData->shipping->zip = '48185';
