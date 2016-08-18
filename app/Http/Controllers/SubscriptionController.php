@@ -146,15 +146,25 @@ class SubscriptionController extends Controller
     private function setShippingInfo($request) {
         $customerData = (object)['shipping' => (object)[]];
 
-        $customerData->shipping->firstName = $request->input('shipping-name-first');
-        $customerData->shipping->lastName = $request->input('shipping-name-last');
-        $customerData->shipping->email = $request->input('shipping-email');
-        $customerData->shipping->phone = $request->input('shipping-phone');
-        $customerData->shipping->addressOne = $request->input('shipping-address-1');
-        $customerData->shipping->addressTwo = ($request->input('shipping-address-2')) ? $request->input('shipping-address-2') : null;
-        $customerData->shipping->city = $request->input('shipping-city');
-        $customerData->shipping->state = $request->input('shipping-state');
-        $customerData->shipping->zip = $request->input('shipping-zip');
+//        $customerData->shipping->firstName = $request->input('shipping-name-first');
+//        $customerData->shipping->lastName = $request->input('shipping-name-last');
+//        $customerData->shipping->email = $request->input('shipping-email');
+//        $customerData->shipping->phone = $request->input('shipping-phone');
+//        $customerData->shipping->addressOne = $request->input('shipping-address-1');
+//        $customerData->shipping->addressTwo = ($request->input('shipping-address-2')) ? $request->input('shipping-address-2') : null;
+//        $customerData->shipping->city = $request->input('shipping-city');
+//        $customerData->shipping->state = $request->input('shipping-state');
+//        $customerData->shipping->zip = $request->input('shipping-zip');
+
+        $customerData->shipping->firstName = 'Sean';
+        $customerData->shipping->lastName = 'Baluha';
+        $customerData->shipping->email = 'sbaluha@jekyllhydelabs.com';
+        $customerData->shipping->phone = '1234567890';
+        $customerData->shipping->addressOne = '12345 some lane';
+        $customerData->shipping->addressTwo = null;
+        $customerData->shipping->city = 'someCity';
+        $customerData->shipping->state = 'MI';
+        $customerData->shipping->zip = '48185';
 
         return $customerData;
     }
