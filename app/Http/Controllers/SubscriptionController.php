@@ -77,6 +77,8 @@ class SubscriptionController extends Controller
             $message->to(env('FULLFILL_EMAIL_ONE'), null)->subject('FULLFILLMENT REQUEST');
             $message->cc(env('FULLFILL_EMAIL_TWO'), null)->subject('FULLFILLMENT REQUEST');
         });
+
+        return header("HTTP/1.1 200 OK");
     }
 
     /**
