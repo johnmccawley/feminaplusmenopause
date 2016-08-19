@@ -54,7 +54,7 @@ Route::post('/coupon/{id}/update', 'CouponController@update');
 
 // Subscription routes
 Route::post('/subscription', 'SubscriptionController@destroy');
-Route::post('/notify', 'SubscriptionController@store');
+Route::any('/notify', 'SubscriptionController@store');
 
 Route::get('/terms', function () {
     return view('terms');
