@@ -65,7 +65,7 @@
                     <button type="button" class="secondary-btn updateButton">UPDATE</button>
                 </div>
                 <div class="right-btns">
-                    <a href="/checkout" class="primary-btn">SECURE CHECKOUT</a>
+                    <a href="/checkout" class="primary-btn checkoutButton">SECURE CHECKOUT</a>
                     <br>
                     <img id="paypalBadges" src="/img/cc-badges.png"/>
                 </div>

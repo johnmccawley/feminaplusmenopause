@@ -8,6 +8,13 @@
 ?>
 
 @section('content')
+    <script>
+        $(document).ready(function(){
+            var total = $("#receiptTotal").text();
+            var totalSplit = total.split("$");
+            fbq('track', 'Purchase', {value: totalSplit[1], currency:'USD'});
+        });
+    </script>
     <section id="tile-receipt">
         <div class="container">
             <h2>THANK YOU FOR PURCHASING FEMINA PLUS!</h2>
@@ -82,7 +89,7 @@
             <div class="row cart-totals">
                 <div class="cart-subtotal">
                     @if($total)
-                        <p>Total: {{ $total }}</p>
+                        <p id="receiptTotal">Total: {{ $total }}</p>
                     @endif
                 </div>
             </div>
