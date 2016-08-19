@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use DB;
 use Auth;
 use Mail;
-Use Log;
+use Log;
 use App\User;
 use App\Cart;
 use App\Purchase;
