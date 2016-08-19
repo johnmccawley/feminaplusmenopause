@@ -65,7 +65,7 @@ class SubscriptionController extends Controller
 //
 //        $this->fullfillmentEmail($customerData->shipping, $cartItems);
         Log::info("Got an IPN message from PayPal");
-        return header("Status: 200");
+        return;
     }
 
     /**
