@@ -124,7 +124,7 @@ class CheckoutController extends Controller
         $cartItems = json_decode($this->cart->items);
         foreach ($cartItems as $key => $item) {
             if ($item->type == 'plan') {
-                throw new \Exception("Femina Plus Club can't be purchased via Paypal through the cart, please go to the Product or Buy Now page.");
+                throw new \Exception("Femina Plus Club currently can't be purchased through Paypal, though we are working on adding this option.  We apologize for the inconvenience.");
             }
         }
 
@@ -159,28 +159,58 @@ class CheckoutController extends Controller
     }
 
     public function paymentComplete(Request $request) {
-        $cartItems = json_decode($this->cart->items);
-        if ($request->input('paymentId') && $request->input('token') && $request->input('PayerID')) {
-            $purchaseDbEntry = DB::table('purchases')->orderBy('created_at', 'desc')->where('token', $request->session()->get('_token'))->first();
-            $purchase = Purchase::findOrFail($purchaseDbEntry->id);
+        try {
+            $clientId = env('PAYPAL_CLIENT');
+            $secret = env('PAYPAL_SECRET');
+            $url = (env('APP_ENV') == 'production') ? 'paypal' : 'sandbox.paypal';
+            $cartItems = json_decode($this->cart->items);
+            $paymentId = ($request->input('paymentId')) ? $request->input('paymentId') : null;
+            $payerId = ($request->input('PayerID')) ? $request->input('PayerID') : null;
+            if ($paymentId) {
+                $tokenResponse = json_decode(exec("curl -v https://api.$url.com/v1/oauth2/token -H \"Accept: application/json\" -H \"Accept-Language: en_US\" -u \"$clientId:$secret\" -d \"grant_type=client_credentials\""));
+                $response = json_decode(exec("curl -v -X GET https://api.$url.com/v1/payments/payment/$paymentId -H \"Content-Type:application/json\" -H \"Authorization: Bearer $tokenResponse->access_token\""));
+                $responseState = $this->getPaymentState($response);
 
-            $purchase->transaction_id = $request->input('paymentId');
-            $purchase->purchase_status = 'complete';
-            $purchase->save();
+                if ($responseState == 'created') {
+                    $response = json_decode(exec("curl -v https://api.$url.com/v1/payments/payment/$paymentId/execute/ -H \"Content-Type:application/json\" -H \"Authorization: Bearer $tokenResponse->access_token\" -d '{ \"payer_id\" : \"$payerId\" }'"));
+                    $responseState = $this->getPaymentState($response);
 
-            $this->cart->items = null;
-            $this->cart->total = null;
-            $this->cart->save();
+                    if ($responseState == 'approved') {
+                        $purchaseDbEntry = DB::table('purchases')->orderBy('created_at', 'desc')->where('token', $request->session()->get('_token'))->first();
+                        $purchase = Purchase::findOrFail($purchaseDbEntry->id);
 
-            $customerData = json_decode($purchase->customer_info);
+                        $purchase->transaction_id = $request->input('paymentId');
+                        $purchase->purchase_status = 'complete';
+                        $purchase->save();
 
-            $this->fullfillmentEmail($customerData->shipping, $cartItems);
+                        $this->cart->items = null;
+                        $this->cart->total = null;
+                        $this->cart->save();
 
-            $displayTotal = $this->formatDisplayPrice($purchase->amount);
-            return $this->receipt($customerData, $cartItems, $displayTotal);
+                        $customerData = json_decode($purchase->customer_info);
+
+                        $this->fullfillmentEmail($customerData->shipping, $cartItems);
+
+                        $displayTotal = $this->formatDisplayPrice($purchase->amount);
+                        return $this->receipt($customerData, $cartItems, $displayTotal);
+                    } else {
+                        throw new \Exception('Failed to execute Paypal purchase!');
+                    }
+                }
+            }
+
+            return redirect('/');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
         }
+    }
 
-        return redirect('/');
+    private function getPaymentState($callResponse) {
+        if (isset($callResponse->state)) {
+            return $callResponse->state;
+        } else {
+            return null;
+        }
     }
 
     public function paymentCancelled(Request $request) {
