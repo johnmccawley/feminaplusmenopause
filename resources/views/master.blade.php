@@ -35,6 +35,34 @@
 
     @yield('styles')
 
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+            n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+                document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+        fbq('init', '628465503996501');
+        fbq('track', "PageView");
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=628465503996501&ev=PageView&noscript=1"/>
+    </noscript>
+
+    <script>
+        $(document).ready(function(){
+            $(".addToCartButton").on('click', function(){
+                fbq('track', 'AddToCart');
+            });
+
+            $(".checkoutButton").on('click', function(){
+                fbq('track', 'InitiateCheckout');
+            });
+        });
+    </script>
+    <!-- End Facebook Pixel Code -->
+
 </head>
 
 <body id="@yield('page_id')" class="site">
@@ -155,8 +183,8 @@
                                 <li><a href="/terms">TERMS OF SERVICE</a></li>
                                 <li>
                                     FOLLOW US
-                                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    <a href="https://www.facebook.com/MyFeminaPlus/?hc_ref=SEARCH&fref=nf"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                    <a href="https://twitter.com/MyFeminaPlus"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                                 </li>
                             </ul>
                             <span class="copy align-right">&copy; 2016 FEMINAPLUS ALL RIGHTS RESERVED</span>

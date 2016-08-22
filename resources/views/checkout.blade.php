@@ -243,7 +243,7 @@
                             </div>
                         </div>
                         <div class="input-row">
-                            <button type="submit" id="submitBtn" class="primary-btn" name="card-submit" value="card">PLACE ORDER</button>
+                            <button type="submit" id="submitBtn" class="primary-btn placeOrderButton" name="card-submit" value="card">PLACE ORDER</button>
                         </div>
                     </div>
                 </div>
