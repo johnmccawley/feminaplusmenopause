@@ -237,7 +237,8 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        header("Access-Control-Allow-Origin: *");
+        return null;
     }
 
     /**
