@@ -44,23 +44,10 @@
                 document,'script','https://connect.facebook.net/en_US/fbevents.js');
 
         fbq('init', '628465503996501');
-        fbq('track', "PageView");
     </script>
     <noscript>
         <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=628465503996501&ev=PageView&noscript=1"/>
     </noscript>
-
-    <script>
-        $(document).ready(function(){
-            $(".addToCartButton").on('click', function(){
-                fbq('track', 'AddToCart');
-            });
-
-            $(".checkoutButton").on('click', function(){
-                fbq('track', 'InitiateCheckout');
-            });
-        });
-    </script>
     <!-- End Facebook Pixel Code -->
 
 </head>

@@ -86,6 +86,12 @@
 
 @section('content')
 
+<script>
+    $(document).ready(function(){
+        fbq('track', 'InitiateCheckout');
+    });
+</script>
+
 <section id="tile-cart">
     <div class="container">
         <h3>Cart</h3>

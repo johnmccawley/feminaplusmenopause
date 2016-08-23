@@ -24,7 +24,7 @@
                     <form action="{{ url('/cart/fpClub/plan') }}" method="POST">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
-                        <button type="submit" class="atc-btn addToCartButton">ADD TO CART</button>
+                        <button type="submit" class="atc-btn">ADD TO CART</button>
                     </form>
                 </div>
 
@@ -50,7 +50,7 @@
                     <form action="{{ url('/cart/twoBottle/product') }}" method="POST">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
-                        <button type="submit" class="atc-btn addToCartButton">ADD TO CART</button>
+                        <button type="submit" class="atc-btn">ADD TO CART</button>
                     </form>
                 </div>
 
@@ -76,7 +76,7 @@
                     <form action="{{ url('/cart/fourBottle/product') }}" method="POST">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
-                        <button type="submit" class="atc-btn addToCartButton">ADD TO CART</button>
+                        <button type="submit" class="atc-btn">ADD TO CART</button>
                     </form>
                 </div>
 
@@ -102,7 +102,7 @@
                     <form action="{{ url('/cart/oneBottle/product') }}" method="POST">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
-                        <button type="submit" class="atc-btn addToCartButton">ADD TO CART</button>
+                        <button type="submit" class="atc-btn">ADD TO CART</button>
                     </form>
                 </div>
             </div>
