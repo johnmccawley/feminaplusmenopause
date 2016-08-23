@@ -115,7 +115,7 @@ class CheckoutController extends Controller
         $this->cart->total = null;
         $this->cart->save();
 
-        $this->fullfillmentEmail($customerData->shipping, $cartItems);
+        $this->fulfillmentEmail($customerData->shipping, $cartItems);
 
         return $this->receipt($customerData, $cartItems, $cartTotal);
     }
@@ -189,7 +189,7 @@ class CheckoutController extends Controller
 
                         $customerData = json_decode($purchase->customer_info);
 
-                        $this->fullfillmentEmail($customerData->shipping, $cartItems);
+                        $this->fulfillmentEmail($customerData->shipping, $cartItems);
 
                         $displayTotal = $this->formatDisplayPrice($purchase->amount);
                         return $this->receipt($customerData, $cartItems, $displayTotal);
@@ -450,11 +450,11 @@ class CheckoutController extends Controller
         ]);
     }
 
-    private function fullfillmentEmail($customerData, $purchased) {
-        Mail::send('emails.fullfill', ['customerData' => $customerData, 'purchased' => $purchased], function ($message) use ($customerData, $purchased) {
-           $message->from('fullfillment@mg.feminaplusmenopause.com', 'Femina Plus');
-           $message->to(env('FULLFILL_EMAIL_ONE'), null)->subject('FULLFILLMENT REQUEST');
-           $message->cc(env('FULLFILL_EMAIL_TWO'), null)->subject('FULLFILLMENT REQUEST');
+    private function fulfillmentEmail($customerData, $purchased) {
+        Mail::send('emails.fulfill', ['customerData' => $customerData, 'purchased' => $purchased], function ($message) use ($customerData, $purchased) {
+           $message->from('fulfillment@mg.feminaplusmenopause.com', 'Femina Plus');
+           $message->to(env('FULFILL_EMAIL_ONE'), null)->subject('FULFILLMENT REQUEST');
+           $message->cc(env('FULFILL_EMAIL_TWO'), null)->subject('FULFILLMENT REQUEST');
        });
     }
 
