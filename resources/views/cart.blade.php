@@ -9,6 +9,12 @@
 
 @section('content')
 
+<script>
+    $(document).ready(function(){
+        fbq('track', 'AddToCart');
+    });
+</script>
+
 <section id="tile-cart">
     @if($cartItems)
         <div class="container">
@@ -65,7 +71,7 @@
                     <button type="button" class="secondary-btn updateButton">UPDATE</button>
                 </div>
                 <div class="right-btns">
-                    <a href="/checkout" class="primary-btn checkoutButton">SECURE CHECKOUT</a>
+                    <a href="/checkout" class="primary-btn">SECURE CHECKOUT</a>
                     <br>
                     <img id="paypalBadges" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/cc-badges-ppmcvdam.png" alt="Buy now with PayPal" />
                 </div>

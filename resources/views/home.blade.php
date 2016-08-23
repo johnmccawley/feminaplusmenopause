@@ -9,6 +9,12 @@
 
 @section('content')
 
+<script>
+    $(document).ready(function(){
+        fbq('track', 'PageView');
+    });
+</script>
+
 <section id="tile-hero">
     <div class="container">
         <div class="row">
