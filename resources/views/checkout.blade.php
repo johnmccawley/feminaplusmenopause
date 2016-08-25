@@ -94,24 +94,30 @@
 
 <section id="tile-cart">
     <div class="container">
-        <h3>Cart</h3>
-        <div class="row cart-items">
-            @foreach($cartItems as $item)
-                <div class="row cart-item">
-                    <div class="span4 item-name">
-                        {{ $item->name }}
+        @if($cartItems)
+            <h3>Cart</h3>
+            <div class="row cart-items">
+                @foreach($cartItems as $item)
+                    <div class="row cart-item">
+                        <div class="span4 item-name">
+                            {{ $item->name }}
+                        </div>
+                        <div class="span4 item-qty">
+                            Qty: {{ $item->amount }}
+                        </div>
+                        <div class="span4 item-price">
+                            {{ $item->display_price }}
+                        </div>
                     </div>
-                    <div class="span4 item-qty">
-                        Qty: {{ $item->amount }}
-                    </div>
-                    <div class="span4 item-price">
-                        {{ $item->display_price }}
-                    </div>
-                </div>
-            @endforeach
-        </div>
-        <a href="/cart" class="secondary-btn">EDIT CART</a>
-        <h3 id="checkoutTotal">Total: {{ $total }}</h3>
+                @endforeach
+            </div>
+            <a href="/cart" class="secondary-btn">EDIT CART</a>
+            <h3 id="checkoutTotal">Total: {{ $total }}</h3>
+        @else
+            <script type="text/javascript">
+                window.location = "{{ url('/cart') }}";
+            </script>
+        @endif
     </div>
 </section>
 <section id="tile-checkout-info">
