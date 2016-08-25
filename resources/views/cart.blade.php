@@ -110,9 +110,11 @@
             $('.updateButton').click();
         });
 
-        $(document).ready(function(){
-            fbq('track', 'AddToCart');
-        });
+        @if(env('APP_ENV') == 'production')
+            $(document).ready(function(){
+                fbq('track', 'AddToCart');
+            });
+        @endif
     </script>
 </section>
 
