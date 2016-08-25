@@ -9,12 +9,6 @@
 
 @section('content')
 
-<script>
-    $(document).ready(function(){
-        fbq('track', 'AddToCart');
-    });
-</script>
-
 <section id="tile-cart">
     @if($cartItems)
         <div class="container">
@@ -114,7 +108,11 @@
         $('.removeButton').on('click', function() {
             $(this).parent().parent().find('.qty-input').val(0);
             $('.updateButton').click();
-        })
+        });
+
+        $(document).ready(function(){
+            fbq('track', 'AddToCart');
+        });
     </script>
 </section>
 
