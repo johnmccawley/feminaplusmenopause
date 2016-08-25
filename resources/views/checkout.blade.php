@@ -227,8 +227,8 @@
                     <div id="choosePayment">
                         <h3>Choose a payment</h3>
                         <button type="button" id="payWithCard" class="primary-btn">PAY WITH CARD</button>
-                        <button id="paypalButton" type="submit" name="paypal-submit" value="paypal">
-                            <input type="image" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-medium.png">
+                        <button id="paypalButton" type="submit">
+                            <input type="image" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-medium.png" name="paypal-submit" value="paypal">
                         </button>
                     </div>
 
@@ -249,7 +249,7 @@
                             </div>
                         </div>
                         <div class="input-row">
-                            <button type="submit" id="submitBtn" class="primary-btn placeOrderButton" name="card-submit" value="card">PLACE ORDER</button>
+                            <input type="submit" id="submitBtn" class="primary-btn placeOrderButton" name="card-submit" value="PLACE ORDER">
                         </div>
                     </div>
                 </div>
@@ -284,9 +284,9 @@
             } else if ($("#cardPayment").attr('value') == 'open') {
                 $("#cardPayment").slideUp();
                 $("#cardPayment").attr('value', 'close');
-
             }
         });
+
         fbq('track', 'InitiateCheckout');
 	});
 </script>

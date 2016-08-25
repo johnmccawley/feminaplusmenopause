@@ -53,7 +53,7 @@ class CheckoutController extends Controller
                 throw new \Exception('Cart is empty');
             }
 
-            if ($request->input('card-submit') == 'card') {
+            if ($request->input('card-submit') == 'PLACE ORDER') {
                 return $this->creditCardPayment($request);
             } else if ($request->input('paypal-submit') == 'paypal') {
                 return $this->paypalPayment($request);
