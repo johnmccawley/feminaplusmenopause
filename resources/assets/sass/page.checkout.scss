@@ -95,6 +95,15 @@
                     }
                 }
             }
+
+            .placeOrderButton{
+                background-color: $primary;
+                border-radius: 0px;
+                margin-top: 1em;
+                width: 100%;
+                text-transform: uppercase;
+                cursor: pointer;
+            }
         }
         .coupon-info{
             padding-left: 2em;

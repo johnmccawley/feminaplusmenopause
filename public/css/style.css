@@ -1805,6 +1805,13 @@ footer #sub-footer {
     background: #f7f7f7; }
     #checkout #tile-checkout-info .payment-info #choosePayment #paypalButton input {
       border: none; }
+  #checkout #tile-checkout-info .payment-info .placeOrderButton {
+    background-color: #c31da2;
+    border-radius: 0px;
+    margin-top: 1em;
+    width: 100%;
+    text-transform: uppercase;
+    cursor: pointer; }
 #checkout #tile-checkout-info .coupon-info {
   padding-left: 2em;
   float: right; }
