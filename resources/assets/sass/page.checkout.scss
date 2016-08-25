@@ -78,6 +78,8 @@
             padding-left: 2em;
 
             #choosePayment {
+                margin-bottom: 10px;
+
                 h3 {
                     margin-bottom: 10px;
                 }
@@ -88,11 +90,15 @@
                 }
 
                 #paypalButton {
-                    background: darken(white, 3%);
-
-                    input {
-                        border: none;
-                    }
+                    background: none;
+                    background-image: url('https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-medium.png');
+                    background-repeat: no-repeat;
+                    width: 170px;
+                    height: 32px;
+                    border-radius: 0;
+                    font-size: 0;
+                    margin-left: 16px;
+                    margin-top: 6px;
                 }
             }
 
@@ -149,13 +155,6 @@
             .payment-info{
                 width: 100%;
                 padding-left: 0;
-
-                #choosePayment {
-                    #paypalButton {
-                        padding: 0;
-                        margin-left: -10px;
-                    }
-                }
             }
 
             .coupon-info{
@@ -172,6 +171,12 @@
                     #changePaymentButton {
                         float: left;
                         margin-bottom: 5px;
+                    }
+                }
+
+                #choosePayment {
+                    #paypalButton {
+                        margin-left: -1px;
                     }
                 }
             }
