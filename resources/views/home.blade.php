@@ -9,14 +9,7 @@
 
 @section('content')
 
-<script>
-    $(document).ready(function(){
-        fbq('track', 'PageView');
-        ga('send', 'pageview');
-    });
-</script>
-
-<section id="tile-hero">
+    <section id="tile-hero">
     <div class="container">
         <div class="row">
             <img class="product-image" src="img/bottle.png" />
@@ -122,5 +115,14 @@
         </div>
     </h1>
 </section>
+
+@if(env('APP_ENV') == 'production')
+    <script>
+        $(document).ready(function(){
+            fbq('track', 'PageView');
+            ga('send', 'pageview');
+        });
+    </script>
+@endif
 
 @endsection

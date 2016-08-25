@@ -8,13 +8,6 @@
 ?>
 
 @section('content')
-    <script>
-        $(document).ready(function(){
-            var total = $("#receiptTotal").text();
-            var totalSplit = total.split("$");
-            fbq('track', 'Purchase', {value: totalSplit[1], currency:'USD'});
-        });
-    </script>
     <section id="tile-receipt">
         <div class="container">
             <h2>THANK YOU FOR PURCHASING FEMINA PLUS!</h2>
@@ -97,4 +90,13 @@
             </div>
         </div>
     </section>
+    @if(env('APP_ENV') == 'production')
+        <script>
+            $(document).ready(function(){
+                var total = $("#receiptTotal").text();
+                var totalSplit = total.split("$");
+                fbq('track', 'Purchase', {value: totalSplit[1], currency:'USD'});
+            });
+        </script>
+    @endif
 @endsection

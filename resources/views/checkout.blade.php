@@ -285,7 +285,9 @@
             }
         });
 
-        fbq('track', 'InitiateCheckout');
+        @if(env('APP_ENV') == 'production')
+            fbq('track', 'InitiateCheckout');
+        @endif
 	});
 </script>
 
