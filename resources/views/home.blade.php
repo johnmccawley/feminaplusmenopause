@@ -12,6 +12,7 @@
 <script>
     $(document).ready(function(){
         fbq('track', 'PageView');
+        ga('send', 'pageview');
     });
 </script>
 
