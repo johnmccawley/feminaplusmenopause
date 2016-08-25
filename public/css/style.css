@@ -1796,15 +1796,23 @@ footer #sub-footer {
   border-right: 1px solid #cccccc; }
 #checkout #tile-checkout-info .payment-info {
   padding-left: 2em; }
-  #checkout #tile-checkout-info .payment-info #choosePayment h3 {
+  #checkout #tile-checkout-info .payment-info #choosePayment {
     margin-bottom: 10px; }
-  #checkout #tile-checkout-info .payment-info #choosePayment #payWithCard {
-    margin-top: 4px;
-    float: left; }
-  #checkout #tile-checkout-info .payment-info #choosePayment #paypalButton {
-    background: #f7f7f7; }
-    #checkout #tile-checkout-info .payment-info #choosePayment #paypalButton input {
-      border: none; }
+    #checkout #tile-checkout-info .payment-info #choosePayment h3 {
+      margin-bottom: 10px; }
+    #checkout #tile-checkout-info .payment-info #choosePayment #payWithCard {
+      margin-top: 4px;
+      float: left; }
+    #checkout #tile-checkout-info .payment-info #choosePayment #paypalButton {
+      background: none;
+      background-image: url("https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-medium.png");
+      background-repeat: no-repeat;
+      width: 170px;
+      height: 32px;
+      border-radius: 0;
+      font-size: 0;
+      margin-left: 16px;
+      margin-top: 6px; }
   #checkout #tile-checkout-info .payment-info .placeOrderButton {
     background-color: #c31da2;
     border-radius: 0px;
@@ -1842,16 +1850,15 @@ footer #sub-footer {
   #checkout #tile-checkout-info .payment-info {
     width: 100%;
     padding-left: 0; }
-    #checkout #tile-checkout-info .payment-info #choosePayment #paypalButton {
-      padding: 0;
-      margin-left: -10px; }
   #checkout #tile-checkout-info .coupon-info {
     width: 100%;
     padding-left: 0; } }
 @media screen and (max-width: 500px) {
   #checkout #tile-checkout-info .payment-info #cardPayment #changePaymentButton {
     float: left;
-    margin-bottom: 5px; } }
+    margin-bottom: 5px; }
+  #checkout #tile-checkout-info .payment-info #choosePayment #paypalButton {
+    margin-left: -1px; } }
 
 #receipt #tile-receipt h2 {
   font-size: 1.2em;

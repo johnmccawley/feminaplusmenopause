@@ -227,9 +227,7 @@
                     <div id="choosePayment">
                         <h3>Choose a payment</h3>
                         <button type="button" id="payWithCard" class="primary-btn">PAY WITH CARD</button>
-                        <button id="paypalButton" type="submit">
-                            <input type="image" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-medium.png" name="paypal-submit" value="paypal">
-                        </button>
+                        <input type="submit" id="paypalButton" name="paypal-submit" value="paypal">
                     </div>
 
                     <div id="cardPayment" style="display:none" value="close">
