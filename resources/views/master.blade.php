@@ -94,7 +94,7 @@
                                     <div class="cart">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>Cart: 0
                                         <br />
-                                        <a href="#">VIEW CART</a>
+                                        <a href="/cart">VIEW CART</a>
                                     </div>
                                     <ul>
                                         <li><a class="<?=($page_id == 'home') ? 'active-nav' : '';?>" href="/">HOME</a></li>
