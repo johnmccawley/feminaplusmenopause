@@ -86,12 +86,6 @@
 
 @section('content')
 
-<script>
-    $(document).ready(function(){
-        fbq('track', 'InitiateCheckout');
-    });
-</script>
-
 <section id="tile-cart">
     <div class="container">
         @if($cartItems)
@@ -279,9 +273,9 @@
 
 <script>
 	$(document).ready(function() {
-	   $("#billing-phone").mask("(999) 999-9999");
-	   $("#shipping-phone").mask("(999) 999-9999");
-	   $("#payment-exp").mask("99/9999");
+	    $("#billing-phone").mask("(999) 999-9999");
+        $("#shipping-phone").mask("(999) 999-9999");
+        $("#payment-exp").mask("99/9999");
 
         $('#payWithCard').on('click', function() {
             if ($("#cardPayment").attr('value') == 'close') {
@@ -293,6 +287,7 @@
 
             }
         });
+        fbq('track', 'InitiateCheckout');
 	});
 </script>
 
