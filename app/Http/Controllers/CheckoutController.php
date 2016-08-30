@@ -92,9 +92,6 @@ class CheckoutController extends Controller
                 $this->user->stripe_id = null;
                 $this->user->save();
             }
-
-            $purchased = (object)['fpClub' => $itemsPurchased['fpClub']];
-            $this->createPurchase($response->stripe_id, $sessionToken, $customerData, 'complete', $purchased, $amount->plan, 'stripe');
         }
 
         if ($amount->product > 0) {
@@ -103,8 +100,9 @@ class CheckoutController extends Controller
             $response = $this->user->charge(($amount->product), ['source' => $source]);
 
             unset($itemsPurchased['fpClub']);
-            $this->createPurchase($response->id, $sessionToken, $customerData, 'complete', $itemsPurchased, $amount->product, 'stripe');
         }
+
+        $this->createPurchase($response->id, $sessionToken, $customerData, 'complete', $cartItems, $amount->total, 'stripe');
 
         if (is_null($response)) {
             throw new \Exception('Failed to make purchase');
@@ -117,7 +115,7 @@ class CheckoutController extends Controller
 
         $this->fulfillmentEmail($customerData->shipping, $cartItems);
 
-        return $this->receipt($customerData, $cartItems, $cartTotal);
+        return redirect("/receipt/$sessionToken");
     }
 
     private function paypalPayment($request) {
@@ -192,7 +190,8 @@ class CheckoutController extends Controller
                         $this->fulfillmentEmail($customerData->shipping, $cartItems);
 
                         $displayTotal = $this->formatDisplayPrice($purchase->amount);
-                        return $this->receipt($customerData, $cartItems, $displayTotal);
+                        $sessionToken = $request->session()->get('_token');
+                        return redirect("/receipt/$sessionToken");
                     } else {
                         throw new \Exception('Failed to execute Paypal purchase!');
                     }
@@ -225,8 +224,17 @@ class CheckoutController extends Controller
         return redirect('/');
     }
 
-    private function receipt($customerData, $cartItems, $cartTotal) {
-        return view('receipt', ['customerData' => $customerData, 'cartItems' => $cartItems, 'total' => $cartTotal]);
+    public function receipt(Request $request, $token) {
+        $purchaseDbEntry = DB::table('purchases')->orderBy('created_at', 'desc')->where('token', $token)->first();
+
+        if (is_null($purchaseDbEntry)) {
+            return redirect('/');
+        } else if ($purchaseDbEntry->purchase_status == 'complete') {
+            $total = $this->formatDisplayPrice($purchaseDbEntry->amount);
+            return view('receipt', ['customerData' => json_decode($purchaseDbEntry->customer_info), 'cartItems' => json_decode($purchaseDbEntry->items), 'total' => $total]);
+        } else {
+            return redirect('/');
+        }
     }
 
     /**

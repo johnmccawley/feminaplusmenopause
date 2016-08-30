@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>@yield('page_title') | Femina Plus</title>
-    <link href="css/style.css" rel="stylesheet">
-    <script type="text/javascript" src="js/all.js"></script>
+    <link href="{{ url('/css/style.css') }}" rel="stylesheet">
+    <script type="text/javascript" src="{{ url('/js/all.js') }}"></script>
 
     <link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
@@ -90,7 +90,7 @@
                         <div class="row">
                             <div class="span2 logo">
                                 <a href="/">
-                                    <img class="full" src="img/logo.png" />
+                                    <img class="full" src="{{ url('/img/logo.png') }}" />
                                 </a>
                             </div>
                             <div class="span10">
