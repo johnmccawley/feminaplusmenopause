@@ -102,7 +102,7 @@ class CheckoutController extends Controller
             unset($itemsPurchased['fpClub']);
         }
 
-        $this->createPurchase($response->id, $sessionToken, $customerData, 'complete', $cartItems, $amount->total, 'stripe');
+        $purchase = $this->createPurchase($response->id, $sessionToken, $customerData, 'complete', $cartItems, $amount->total, 'stripe');
 
         if (is_null($response)) {
             throw new \Exception('Failed to make purchase');
@@ -115,7 +115,7 @@ class CheckoutController extends Controller
 
         $this->fulfillmentEmail($customerData->shipping, $cartItems);
 
-        return redirect("/receipt/$sessionToken");
+        return redirect("/receipt/$purchase->id");
     }
 
     private function paypalPayment($request) {
@@ -190,8 +190,7 @@ class CheckoutController extends Controller
                         $this->fulfillmentEmail($customerData->shipping, $cartItems);
 
                         $displayTotal = $this->formatDisplayPrice($purchase->amount);
-                        $sessionToken = $request->session()->get('_token');
-                        return redirect("/receipt/$sessionToken");
+                        return redirect("/receipt/$purchase->id");
                     } else {
                         throw new \Exception('Failed to execute Paypal purchase!');
                     }
@@ -224,12 +223,15 @@ class CheckoutController extends Controller
         return redirect('/');
     }
 
-    public function receipt(Request $request, $token) {
-        $purchaseDbEntry = DB::table('purchases')->orderBy('created_at', 'desc')->where('token', $token)->first();
+    public function receipt(Request $request, $id) {
+        if (is_null($this->userId)) {
+            $sessionToken = $request->session()->get('_token');
+            $purchaseDbEntry = DB::table('purchases')->orderBy('created_at', 'desc')->where('id', $id)->where('token', $sessionToken)->first();
+        } else {
+            $purchaseDbEntry = DB::table('purchases')->orderBy('created_at', 'desc')->where('id', $id)->where('user_id', $this->userId)->first();
+        }
 
-        if (is_null($purchaseDbEntry)) {
-            return redirect('/');
-        } else if ($purchaseDbEntry->purchase_status == 'complete') {
+        if (isset($purchaseDbEntry->purchase_status) && $purchaseDbEntry->purchase_status == 'complete') {
             $total = $this->formatDisplayPrice($purchaseDbEntry->amount);
             return view('receipt', ['customerData' => json_decode($purchaseDbEntry->customer_info), 'cartItems' => json_decode($purchaseDbEntry->items), 'total' => $total]);
         } else {
@@ -446,7 +448,7 @@ class CheckoutController extends Controller
 
     private function createPurchase($transactionId, $sessionToken, $customerData, $purchaseStatus, $itemsPurchased, $amount, $processor) {
         // Local database log entry of purchases
-        Purchase::create([
+        return Purchase::create([
             'user_id' => $this->userId,
             'token' => $sessionToken,
             'customer_info' => json_encode($customerData),
