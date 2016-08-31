@@ -467,9 +467,9 @@ class CheckoutController extends Controller
     }
 
     private function retrieveCartDatabaseEntry($request) {
-        $token = $request->session()->get('_token');
-        $cartDbEntry = DB::table('carts')->where('token', $token)->first();
-        return Cart::findOrFail($cartDbEntry->id);
+        $sessionToken = $request->session()->get('_token');
+        $cartDbEntry = DB::table('carts')->where('token', $sessionToken)->first();
+        return (is_null($cartDbEntry)) ? null : Cart::findOrFail($cartDbEntry->id);
     }
 
     private function setApiKey() {
