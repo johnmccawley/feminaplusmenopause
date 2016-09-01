@@ -26,7 +26,7 @@ class HomeRequest extends Request
         return [
             'user-name' => 'required',
             'user-email' => 'required',
-            'user-phone' => 'required|max:10',
+            'user-phone' => 'required|max:14',
             'user-address-1' => 'required',
             'user-city' => 'required',
             'user-state' => 'required',
