@@ -90,12 +90,30 @@
             </div>
         </div>
     </section>
+    <div id="cart" data-cart="{{json_encode($cartItems)}}" data-transId="{{$transId}}"></div>
     @if(env('APP_ENV') == 'production')
         <script>
             $(document).ready(function(){
-                var total = $("#receiptTotal").text();
-                var totalSplit = total.split("$");
+                var total = $('#receiptTotal').text();
+                var totalSplit = total.split('$');
                 fbq('track', 'Purchase', {value: totalSplit[1], currency:'USD'});
+                
+                window.dataLayer = window.dataLayer || [];
+                var cart = $('#cart').data('cart');
+                var transProds = [];
+                $.each(cart, function(index, value) {
+                    transProds.push({
+                        'sku': index,
+                        'name': value.name,
+                        'price': (value.price/100),
+                        'quantity': value.amount
+                    });
+                });
+                dataLayer.push({
+                   'transactionId': $('#cart').data('transId'),
+                   'transactionTotal': parseInt(totalSplit[1]),
+                   'transactionProducts': transProds
+                });
             });
         </script>
     @endif

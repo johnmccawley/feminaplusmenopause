@@ -233,7 +233,7 @@ class CheckoutController extends Controller
 
         if (isset($purchaseDbEntry->purchase_status) && $purchaseDbEntry->purchase_status == 'complete') {
             $total = $this->formatDisplayPrice($purchaseDbEntry->amount);
-            return view('receipt', ['customerData' => json_decode($purchaseDbEntry->customer_info), 'cartItems' => json_decode($purchaseDbEntry->items), 'total' => $total]);
+            return view('receipt', ['customerData' => json_decode($purchaseDbEntry->customer_info), 'cartItems' => json_decode($purchaseDbEntry->items), 'total' => $total, 'transId' => $purchaseDbEntry->transaction_id]);
         } else {
             return redirect('/');
         }
