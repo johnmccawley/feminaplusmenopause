@@ -48,7 +48,7 @@ Route::post('/checkout', 'CheckoutController@create');
 Route::post('/checkoutCoupon', 'CheckoutController@applyCoupon');
 Route::get('/paymentComplete', 'CheckoutController@paymentComplete');
 Route::get('/paymentCancelled', 'CheckoutController@paymentCancelled');
-Route::get('/receipt/{id}', 'CheckoutController@receipt');
+Route::get('/receipt/{id}/{noAnal?}', 'CheckoutController@receipt');
 
 // Coupon routes
 Route::get('/coupon', 'CouponController@show');

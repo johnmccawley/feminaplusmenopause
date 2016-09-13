@@ -91,7 +91,7 @@
         </div>
     </section>
     <div id="cart" data-cart="{{json_encode($cartItems)}}" data-transId="{{$transId}}"></div>
-    @if(env('APP_ENV') == 'production')
+    @if(env('APP_ENV') == 'production' && $noAnal == false)
         <script>
             $(document).ready(function(){
                 var total = $('#receiptTotal').text();

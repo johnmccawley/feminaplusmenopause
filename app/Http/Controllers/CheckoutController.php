@@ -223,7 +223,8 @@ class CheckoutController extends Controller
         return redirect('/');
     }
 
-    public function receipt(Request $request, $id) {
+    public function receipt(Request $request, $id, $noAnal = null) {
+        $noAnal = (is_null($noAnal)) ? false : true;
         if (is_null($this->userId)) {
             $sessionToken = $request->session()->get('_token');
             $purchaseDbEntry = DB::table('purchases')->orderBy('created_at', 'desc')->where('id', $id)->where('token', $sessionToken)->first();
@@ -233,7 +234,7 @@ class CheckoutController extends Controller
 
         if (isset($purchaseDbEntry->purchase_status) && $purchaseDbEntry->purchase_status == 'complete') {
             $total = $this->formatDisplayPrice($purchaseDbEntry->amount);
-            return view('receipt', ['customerData' => json_decode($purchaseDbEntry->customer_info), 'cartItems' => json_decode($purchaseDbEntry->items), 'total' => $total, 'transId' => $purchaseDbEntry->transaction_id]);
+            return view('receipt', ['customerData' => json_decode($purchaseDbEntry->customer_info), 'cartItems' => json_decode($purchaseDbEntry->items), 'total' => $total, 'transId' => $purchaseDbEntry->transaction_id, 'noAnal' => $noAnal]);
         } else {
             return redirect('/');
         }
