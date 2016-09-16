@@ -462,10 +462,10 @@ class CheckoutController extends Controller
     }
 
     private function fulfillmentEmail($customerData, $purchased) {
-        Mail::send('emails.fulfill', ['customerData' => $customerData, 'purchased' => $purchased], function ($message) use ($customerData, $purchased) {
-           $message->from('fulfillment@mg.feminaplusmenopause.com', 'Femina Plus');
-           $message->to(env('FULFILL_EMAIL_ONE'), null)->subject('FULFILLMENT REQUEST');
-           $message->cc(env('FULFILL_EMAIL_TWO'), null)->subject('FULFILLMENT REQUEST');
+        $data = ['customerData' => $customerData, 'purchased' => $purchased];
+        Mail::send('emails.fulfill', $data, function ($message) use ($customerData, $purchased) {
+            $message->from('fulfillment@mg.feminaplusmenopause.com', 'Femina Plus');
+            $message->to(env('FULFILL_EMAIL_ONE'), null)->cc(env('FULFILL_EMAIL_TWO'), null)->subject('FULFILLMENT REQUEST');
        });
     }
 
