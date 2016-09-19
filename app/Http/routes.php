@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 
 Route::post('/notify', 'SubscriptionController@sendMessage');
 
-Route::get('/', function () {
+Route::any('/', function () {
     return view('home');
 });
 
