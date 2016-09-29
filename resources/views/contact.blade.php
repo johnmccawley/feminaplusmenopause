@@ -66,9 +66,9 @@
                 <div class="row">
                     <h3>SOCIAL</h3>
                     <ul class="social-icons">
-                        <li class="social-icon facebook"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                        <li class="social-icon twitter"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                        <li class="social-icon twitter"><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                        <a href="https://www.facebook.com/MyFeminaPlus/?hc_ref=SEARCH&fref=nf"><li class="social-icon facebook"><i class="fa fa-facebook" aria-hidden="true"></i></li></a>
+                        <a href="https://twitter.com/MyFeminaPlus"><li class="social-icon twitter"><i class="fa fa-twitter" aria-hidden="true"></i></li></a>
+                        <a href="https://www.instagram.com/feminaplusmenopause/"><li class="social-icon twitter"><i class="fa fa-instagram" aria-hidden="true"></i></li></a>
                     </ul>
                 </div>
             </aside>

@@ -201,6 +201,7 @@
                                     FOLLOW US
                                     <a href="https://www.facebook.com/MyFeminaPlus/?hc_ref=SEARCH&fref=nf"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                                     <a href="https://twitter.com/MyFeminaPlus"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    <a href="https://www.instagram.com/feminaplusmenopause/"><i class="fa fa-instagram" aria-hidden="true"></i></a>
                                 </li>
                             </ul>
                             <span class="copy align-right">&copy; 2016 FEMINAPLUS ALL RIGHTS RESERVED</span>
