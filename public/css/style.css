@@ -339,7 +339,7 @@ p {
   overflow: hidden; }
 
 .background-area {
-  background: url("../img/wood-background.png"); }
+  background: url("../img/wood-background.jpg"); }
 
 .fixed {
   float: left; }
@@ -843,7 +843,7 @@ footer #sub-footer {
     display: none; } }
 @media screen and (max-width: 800px) {
   #tile-hero {
-    background: url("../img/wood-background.png") !important;
+    background: url("../img/wood-background.jpg") !important;
     text-align: center; }
     #tile-hero .product-image {
       display: inline-block;
@@ -1121,7 +1121,7 @@ footer #sub-footer {
   margin: 0 5px; }
 
 #product #tile-hero {
-  background: url("../img/orchid-background-3.png");
+  background: url("../img/orchid-background-3.jpg");
   background-size: 110em;
   padding-bottom: 3.5em; }
   #product #tile-hero .product-image {
