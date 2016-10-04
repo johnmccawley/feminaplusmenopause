@@ -545,7 +545,7 @@ p {
     padding-left: 12em; }
 
 #tile-hero {
-  background: white url("../img/orchid-background-2.png");
+  background: white url("../img/orchid-background-2.jpg");
   background-repeat: no-repeat;
   background-size: 112em;
   background-position-y: -1em;
@@ -894,7 +894,7 @@ footer #sub-footer {
   #home h1 span {
     display: inline-block; }
 #home #tile-lifestyle {
-  background: url("../img/yoga-girls.png") center;
+  background: url("../img/yoga-girls.jpg") center;
   background-position: center;
   background-repeat: no-repeat;
   padding: 24em 0em 2em 0em; }
@@ -1408,7 +1408,7 @@ footer #sub-footer {
     color: #c31da2; }
 #clinical section#tile-hero {
   padding-bottom: 3em;
-  background: url("../img/orchid-background-3.png");
+  background: url("../img/orchid-background-3.jpg");
   border-bottom: 1px solid #ededed;
   background-size: 110em; }
   #clinical section#tile-hero .product-image {
