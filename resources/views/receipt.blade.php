@@ -105,6 +105,8 @@
 
                 ga('create', 'UA-77053752-1', 'auto');
 
+                ga('require', 'ecommerce', 'ecommerce.js');
+
                 var transId = $('#cart').data('transId');
                 var cart = $('#cart').data('cart');
                 ga('ecommerce:addTransaction', {
