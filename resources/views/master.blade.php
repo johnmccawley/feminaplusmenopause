@@ -9,6 +9,7 @@
 
     <title>@yield('page_title') | Femina Plus</title>
     <link href="{{ url('/css/style.css') }}" rel="stylesheet">
+    <script src="{{ url('/js/all.js') }}"></script>
 
     <link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
@@ -166,19 +167,6 @@
                         </div>
                     </div>
                 </div>
-
-                <script type="text/javascript">
-                    function downloadJSAtOnload() {
-                        var element = document.createElement("script");
-                        element.src = "{{ url('/js/all.js') }}";
-                        document.body.appendChild(element);
-                    }
-                    if (window.addEventListener)
-                        window.addEventListener("load", downloadJSAtOnload, false);
-                    else if (window.attachEvent)
-                        window.attachEvent("onload", downloadJSAtOnload);
-                    else window.onload = downloadJSAtOnload;
-                </script>
 
                 @if(env('APP_ENV') == 'production')
                     <!-- Facebook Pixel Code -->
