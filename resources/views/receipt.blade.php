@@ -90,7 +90,7 @@
             </div>
         </div>
     </section>
-    <div id="cart" data-cart="{{json_encode($cartItems)}}" data-transId="{{$transId}}"></div>
+    <div id="cart" data-cart="{{json_encode($cartItems)}}" data-transid="{{$transId}}"></div>
     @if(env('APP_ENV') == 'production' && $noAnal == false)
         <script>
             $(document).ready(function(){
@@ -107,7 +107,7 @@
 
                 ga('require', 'ecommerce', 'ecommerce.js');
 
-                var transId = $('#cart').data('transId');
+                var transId = $('#cart').data('transid');
                 var cart = $('#cart').data('cart');
                 ga('ecommerce:addTransaction', {
                     'id': transId, // Transaction ID. Required.
