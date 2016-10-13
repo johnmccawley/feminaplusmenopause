@@ -87,7 +87,8 @@ class CheckoutController extends Controller
             $source = $this->getSource($request);
 
             $response = $this->user->newSubscription('primary', 'fpClub')->create($source->id, ['email' => $request->input('billing-email')]);
-            
+            $responseId = $response->stripe_id;
+
             if ($this->user->email == 'guestCheckout@feminaplusmenopause.com') {
                 $this->user->stripe_id = null;
                 $this->user->save();
@@ -98,11 +99,12 @@ class CheckoutController extends Controller
             $source = $this->getSource($request);
 
             $response = $this->user->charge(($amount->product), ['source' => $source]);
+            $responseId = $response->id;
 
             unset($itemsPurchased['fpClub']);
         }
 
-        $purchase = $this->createPurchase($response->id, $sessionToken, $customerData, 'complete', $cartItems, $amount->total, 'stripe');
+        $purchase = $this->createPurchase($responseId, $sessionToken, $customerData, 'complete', $cartItems, $amount->total, 'stripe');
 
         if (is_null($response)) {
             throw new \Exception('Failed to make purchase');
