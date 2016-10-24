@@ -23,9 +23,9 @@ class ContactController extends Controller
         $request->session()->flash('status', 'Your message has been sent successfully.');
 
         Mail::send('emails.contact', ['contact' => $request], function ($m) use ($request) {
-            $m->from('hello@app.com', 'Your Application');
+            $m->from('contact@feminaplusmenopause.com', 'Femina Plus Menopause');
 
-            $m->to(env('ADMIN_EMAIL'), env('ADMIN_NAME'))->subject('New Message!');
+            $m->to(env('ADMIN_EMAIL'), env('ADMIN_NAME'))->subject("Femina Plus Contact $request->name");
         });
 
         return redirect('/contact');

@@ -73,7 +73,7 @@ class CouponController extends Controller
      */
     public function show(Request $request)
     {
-        if (is_null($this->user) || $this->user->email != env('ADMIN_EMAIL')) {
+        if (is_null($this->user) || $this->user->email != env('WEB_ADMIN_EMAIL')) {
             return redirect('/');
         } else {
             $coupons = DB::table('coupons')->get();
