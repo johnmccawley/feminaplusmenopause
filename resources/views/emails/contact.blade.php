@@ -1,5 +1,6 @@
 You have a new message
-Name: {{ $contact->name }}
-Email: {{ $contact->email }}
-Message: {{ $contact->message }}
-IP Address: {{ $contact->ip() }}
+<br/>
+<p>Name: {{ $contact->name }}</p>
+<p>Email: {{ $contact->email }}</p>
+<p>Message: {{ $contact->message }}</p>
+<p>IP Address: {{ $contact->ip() }}</p>
