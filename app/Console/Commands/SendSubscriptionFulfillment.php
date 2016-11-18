@@ -3,6 +3,10 @@
 namespace App\Console\Commands;
 
 use Mail;
+use DB;
+use \Stripe\Stripe as Stripe;
+use \Stripe\Plan as Plan;
+use \Stripe\Subscription as Subscription;
 use Illuminate\Console\Command;
 
 class SendSubscriptionFulfillment extends Command
@@ -38,8 +42,28 @@ class SendSubscriptionFulfillment extends Command
      */
     public function handle()
     {
-        Mail::send('emails.test', [], function ($message) {
-            $message->from('test@local.com', 'Testing');
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+        $subscriptions = DB::table('subscriptions')->orderBy('id')->get();
+        $currentDate = getdate(time());
+
+        foreach($subscriptions as $value) {
+            if ($value->active == true) {
+                $subscription = Subscription::retrieve($value->stripe_id);
+                $subscriptionDate = getdate($subscription->current_period_end);
+
+                if ($subscriptionDate['year'] == $currentDate['year'] && $subscriptionDate['mon'] == $currentDate['mon'] && $subscriptionDate['mday'] == $currentDate['mday']) {
+                    $customerData = json_decode($value->customer_info);
+                    $purchased = (object)['fpClub' => (object)['amount' => $value->quantity, 'type' => 'plan', 'name' => 'Femina Plus Club Refill']];
+                    $this->fulfillmentEmail($customerData->shipping, $purchased);
+                }
+            }
+        }
+    }
+
+    private function fulfillmentEmail($customerData, $purchased) {
+        $data = ['customerData' => $customerData, 'purchased' => $purchased];
+        Mail::send('emails.fulfill', $data, function ($message) use ($customerData, $purchased) {
+            $message->from('fulfillment@mg.feminaplusmenopause.com', 'Femina Plus');
             $message->to(env('FULFILL_EMAIL_ONE'))->cc(env('FULFILL_EMAIL_TWO'))->subject('FULFILLMENT REQUEST');
        });
     }

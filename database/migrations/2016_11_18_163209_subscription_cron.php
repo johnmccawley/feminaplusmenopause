@@ -14,7 +14,7 @@ class SubscriptionCron extends Migration
     {
         Schema::table('subscriptions', function ($table) {
             $table->integer('active')->after('user_id');
-            $table->string('next_fulfill_date')->after('quantity')->nullable();
+            $table->text('customer_info')->after('stripe_plan');
         });
     }
 
@@ -27,7 +27,7 @@ class SubscriptionCron extends Migration
     {
         Schema::table('subscriptions', function ($table) {
             $table->dropColumn('active');
-            $table->dropColumn('next_fulfill_date');
+            $table->dropColumn('customer_info');
         });
     }
 }
