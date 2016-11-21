@@ -87,10 +87,7 @@ class CheckoutController extends Controller
             $source = $this->getSource($request);
 
             $response = $this->user->newSubscription('primary', 'fpClub')->create($source->id, ['email' => $request->input('billing-email')]);
-            // TODO: WIP save customerData to subscription table
-            // $subscription = DB::table('subscriptions')->where('id', $response->id)->get();
-            // $subscription->customer_info = json_encode($customerData);
-            // $subscriptions->save();
+            DB::table('subscriptions')->where('id', $response->id)->update(['customer_info' => json_encode($customerData), 'active' => true]);
             $responseId = $response->stripe_id;
 
             if ($this->user->email == 'guestCheckout@feminaplusmenopause.com') {

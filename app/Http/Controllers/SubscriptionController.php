@@ -233,6 +233,7 @@ class SubscriptionController extends Controller
     {
         try {
             $response = $this->user->subscription('primary')->cancel();
+            DB::table('subscriptions')->where('id', $response->id)->update(['active' => false]);
         } catch (\Exception $e) {
             return back()->withErrors($e->getMessage())->withInput();
         }
