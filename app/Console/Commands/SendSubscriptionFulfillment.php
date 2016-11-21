@@ -47,16 +47,7 @@ class SendSubscriptionFulfillment extends Command
         $currentDate = getdate(time());
 
         foreach($subscriptions as $value) {
-            if ($value->active == true) {
-                $subscription = Subscription::retrieve($value->stripe_id);
-                $subscriptionDate = getdate($subscription->current_period_end);
-
-                if ($subscriptionDate['year'] == $currentDate['year'] && $subscriptionDate['mon'] == $currentDate['mon'] && $subscriptionDate['mday'] == $currentDate['mday']) {
-                    $customerData = json_decode($value->customer_info);
-                    $purchased = (object)['fpClub' => (object)['amount' => $value->quantity, 'type' => 'plan', 'name' => 'Femina Plus Club Refill']];
-                    $this->fulfillmentEmail($customerData->shipping, $purchased);
-                }
-            }
+            
         }
     }
 
