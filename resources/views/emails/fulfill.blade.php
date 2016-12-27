@@ -4,7 +4,7 @@ CUSTOMER SHIPPING INFORMATION
 <p>Name: {{ $customerData->firstName }} {{ $customerData->lastName }}</p>
 <p>Email: {{ $customerData->email }}</p>
 <p>Phone: {{ $customerData->phone }}</p>
-<p>Adress: {{ $customerData->addressOne }}</p>
+<p>Address: {{ $customerData->addressOne }}</p>
 @if(isset($customerData->addressTwo))
     <p>Apartment/Suite Number: {{ $customerData->addressTwo }}</p>
 @endif
