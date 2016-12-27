@@ -14,8 +14,6 @@ use DB as DB;
 use App\User;
 use Illuminate\Http\Request;
 
-Route::post('/notify', 'SubscriptionController@sendMessage');
-
 Route::get('/', function () {
     return view('home');
 });
