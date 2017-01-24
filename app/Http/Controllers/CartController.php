@@ -12,10 +12,6 @@ use App\Http\Requests;
 
 class CartController extends Controller
 {
-
-    private $productNames = ['oneBottle' => 'Femina Plus Single Bottle', 'twoBottle' => 'Femina Plus 2 Pack', 'fourBottle' => 'Femina Plus 4 Pack'];
-    private $productDescriptions = ['oneBottle' => '1 bottle', 'twoBottle' => '2 bottles', 'fourBottle' => '4 bottles'];
-
     function __construct() {
         $this->setApiKey();
     }
