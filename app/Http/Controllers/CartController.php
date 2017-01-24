@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use DB as DB;
 use App\Cart;
 use \Stripe\Stripe as Stripe;
-use \Stripe\Product as Product;
-use \Stripe\SKU as SKU;
-use \Stripe\Plan as Plan;
 use Illuminate\Cookie\CookieJar;
 use Illuminate\Http\Request;
 
@@ -49,7 +46,7 @@ class CartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id, $itemType)
+    public function store(Request $request, $id)
     {
         $cartDbEntry = $this->retrieveCartDatabaseEntry($request);
         if ($cartDbEntry) {
@@ -72,17 +69,11 @@ class CartController extends Controller
             $cartItems->$id->amount++;
             $cartItems->$id->display_price = $this->formatDisplayPrice($cartItems->$id->price);
         } else {
-            if ($itemType == 'product') {
-                $sku = SKU::retrieve($id);
+            $product = DB::table('products')->where('sku', $id)->first();
+            $type = ($product->subscription == true) ? 'plan' : 'product';
 
-                $displayPrice = $this->formatDisplayPrice($sku->price);
-                $cartItems->$id = (object)['amount' => 1, 'type' => 'product', 'name' => $this->productNames[$id], 'description' => $this->productDescriptions[$id], 'price' => $sku->price, 'display_price' => $displayPrice];
-            } else if ($itemType == 'plan') {
-                $plan = Plan::retrieve('fpClub');
-
-                $displayPrice = $this->formatDisplayPrice($plan->amount);
-                $cartItems->$id = (object)['amount' => 1, 'type' => 'plan', 'name' => 'Femina Plus Club Refill', 'description' => '1 Bottle a Month for 12 Months (13th Bottle Free!)', 'price' => $plan->amount, 'display_price' => $displayPrice];
-            }
+            $displayPrice = $this->formatDisplayPrice($product->price);
+            $cartItems->$id = (object)['amount' => 1, 'type' => $type, 'name' => $product->full_name, 'description' => $product->description, 'price' => $product->price, 'display_price' => $displayPrice];
         }
 
         $this->saveCart($cart, $cartItems);
