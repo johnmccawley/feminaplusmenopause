@@ -24,13 +24,13 @@
                             @else
                                 <span class="product-info">{{ $product->per_bottle }}</span>
                             @endif
-                            @if ($product->shipping == NULL)
+                            @if ($product->shipping_text == NULL)
                                 <div class="product-banner">
                                     FREE SHIPPING
                                 </div>
                             @else
                                 <div class="product-banner no-banner">
-                                    {{ $product->shipping }}
+                                    {{ $product->shipping_text }}
                                 </div>
                             @endif
                             @if ($product->more_info == NULL)
