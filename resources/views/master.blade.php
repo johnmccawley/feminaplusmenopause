@@ -6,6 +6,9 @@
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The fastest, safest, most effective herbal menopause relief in the world.">
+    <link rel="canonical" href=<?php echo URL::current(); ?> />
+
 
     <title>@yield('page_title') | Femina Plus</title>
     <link href="{{ url('/css/style.css') }}" rel="stylesheet">
