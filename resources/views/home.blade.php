@@ -2,6 +2,7 @@
 
 @section('page_title', 'Home')
 @section('page_id', 'home')
+@section('meta_description', "<meta name='description' content='The fastest, safest, most effective herbal menopause relief in the world.'>")
 
 <?php
     $page_id = "home";

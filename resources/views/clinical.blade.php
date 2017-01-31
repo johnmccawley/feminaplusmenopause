@@ -2,6 +2,7 @@
 
 @section('page_title', 'Clinical')
 @section('page_id', 'clinical')
+@section('meta_description', "<meta name='description' content='Fem-Fleur is the active ingredient in Femina Plus which is safe and effective in 7-10 days when taken daily.'>")
 
 <?php
     $page_id = "clinical";

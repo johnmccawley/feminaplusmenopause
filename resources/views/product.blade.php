@@ -2,6 +2,7 @@
 
 @section('page_title', 'Product')
 @section('page_id', 'product')
+@section('meta_description', "<meta name='description' content='Femina Plus maintains 3 human clinical studies and works in 7-10  days, when taken daily, while managing insomnia, hot flashes and night sweats.'>")
 
 <?php
     $page_id = "product";

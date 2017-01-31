@@ -2,6 +2,7 @@
 
 @section('page_title', 'Cart')
 @section('page_id', 'cart')
+@section('meta_description', "<meta name='description' content='Join the Femina Plus Auto refill club and get a free bottle. Buy now! EASY secure payments with PayPal, and all other credit card options.'>")
 
 <?php
     $page_id = "cart";
