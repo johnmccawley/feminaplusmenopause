@@ -2,7 +2,7 @@
 
 @section('page_title', 'Home')
 @section('page_id', 'home')
-@section('meta_description', "<meta name='description' content='The fastest, safest, most effective herbal menopause relief in the world.'>")
+@section('meta_description', "<meta name='description' content='FEMINA PLUS IS THE FASTEST, SAFEST, MOST EFFECTIVE  HERBAL MENOPAUSE RELIEF SUPPLEMENT IN THE WORLD. BEST TAKEN DAILY.'>")
 
 <?php
     $page_id = "home";
