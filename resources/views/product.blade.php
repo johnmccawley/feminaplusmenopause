@@ -1,8 +1,9 @@
 @extends('master')
 
-@section('page_title', 'Product')
+@section('page_title', 'Clinically Tested Effective and Safest Menopause Relief')
 @section('page_id', 'product')
-@section('meta_description', "<meta name='description' content='Femina Plus maintains 3 human clinical studies and works in 7-10  days, when taken daily, while managing insomnia, hot flashes and night sweats.'>")
+@section('meta_description', "<meta name='description' content='Femina Plus is FDA reviewed herbal menopause relief preparation, clinically tested in safety and effectiveness for relief from menopause symptoms. Order today!'>")
+@section('meta_keywords', "<meta name='keywords' content='Vaginal Dryness,Night Sweats'>")
 
 <?php
     $page_id = "product";

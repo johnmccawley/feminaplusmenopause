@@ -1,8 +1,9 @@
 @extends('master')
 
-@section('page_title', 'Home')
+@section('page_title', 'Safe and Fast Menopause Relief | Faster than Black Cohosh')
 @section('page_id', 'home')
-@section('meta_description', "<meta name='description' content='FEMINA PLUS IS THE FASTEST, SAFEST, MOST EFFECTIVE  HERBAL MENOPAUSE RELIEF SUPPLEMENT IN THE WORLD. BEST TAKEN DAILY.'>")
+@section('meta_description', "<meta name='description' content='Femina Plus is an herbal menopause relief with clinically tested safest and fastest results. Femina Plus works 6x faster than Black Cohosh. Order now!'>")
+@section('meta_keywords', "<meta name='keywords' content='Hot Flashes,Insomnia,Mood Swings'>")
 
 <?php
     $page_id = "home";

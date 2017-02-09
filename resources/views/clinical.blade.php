@@ -1,8 +1,8 @@
 @extends('master')
 
-@section('page_title', 'Clinical')
+@section('page_title', 'Clinical Study of Herbal Menopause Relief with Fem-Fleur')
 @section('page_id', 'clinical')
-@section('meta_description', "<meta name='description' content='Fem-Fleur is the active ingredient in Femina Plus which is safe and effective in 7-10 days when taken daily.'>")
+@section('meta_description', "<meta name='description' content='Femina Plus with Fem-Fleur has passed through different clinical studies for safety and effectiveness from menopause symptoms relief. Read our case studies!'>")
 
 <?php
     $page_id = "clinical";
