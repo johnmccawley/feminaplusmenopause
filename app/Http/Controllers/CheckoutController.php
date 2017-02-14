@@ -474,11 +474,9 @@ class CheckoutController extends Controller
                 $m->sender('fulfillment@feminaplusmenopause.com', 'Femina Plus Menopause');
                 $m->replyTo($customerData->email, $fullName);
                 $m->subject('FULFILLMENT REQUEST');
-                
-                $emailList = env('FULFILL_EMAIL_LIST');
-                foreach($emailList as $name => $email;) {
-                    $m->to($email, $name);
-                }
+                $m->to(env('FULFILL_EMAIL_ONE'), env('FULFILL_NAME_ONE'));
+                $m->to(env('FULFILL_EMAIL_TWO'), env('FULFILL_NAME_TWO'));
+                $m->cc(env('ADMIN_EMAIL'), env('ADMIN_NAME'));
             });
         } catch (\Exception $exception) {
             if (env('APP_DEBUG') == true) {
