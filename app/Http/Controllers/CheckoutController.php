@@ -61,7 +61,7 @@ class CheckoutController extends Controller
                 throw new \Exception('Invalid payment selection');
             }
         } catch (\Exception $e) {
-            return back()->withErrors($e->getMessage())->withInput();
+            return redirect('/cart')->withErrors($e->getMessage())->withInput();
         }
     }
 
