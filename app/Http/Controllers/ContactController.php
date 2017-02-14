@@ -24,8 +24,10 @@ class ContactController extends Controller
 
         Mail::send('emails.contact', ['contact' => $request], function ($m) use ($request) {
             $m->from('contact@feminaplusmenopause.com', 'Femina Plus Menopause');
-
-            $m->to(env('ADMIN_EMAIL'), env('ADMIN_NAME'))->subject("Femina Plus Contact $request->name");
+            $m->sender('contact@feminaplusmenopause.com', 'Femina Plus Menopause');
+            $m->replyTo($request->email, $request->name);
+            $m->subject("Femina Plus Contact $request->name");
+            $m->to(env('ADMIN_EMAIL'), env('ADMIN_NAME'));
         });
 
         return redirect('/contact');

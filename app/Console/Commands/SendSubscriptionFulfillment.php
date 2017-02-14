@@ -67,9 +67,18 @@ class SendSubscriptionFulfillment extends Command
 
     private function fulfillmentEmail($customerData, $purchased) {
         $data = ['customerData' => $customerData, 'purchased' => $purchased];
-        Mail::send('emails.fulfill', $data, function ($message) use ($customerData, $purchased) {
-            $message->from('fulfillment@mg.feminaplusmenopause.com', 'Femina Plus');
-            $message->to(env('FULFILL_EMAIL_ONE'))->cc(env('FULFILL_EMAIL_TWO'))->subject('FULFILLMENT REQUEST');
-       });
+        $fullName = $customerData->firstName . " " . $customerData->lastName;
+
+        Mail::send('emails.fulfill', $data, function ($m) use ($customerData, $purchased, $fullName) {
+            $m->from('fulfillment@feminaplusmenopause.com', 'Femina Plus Menopause');
+            $m->sender('fulfillment@feminaplusmenopause.com', 'Femina Plus Menopause');
+            $m->replyTo($customerData->email, $fullName);
+            $m->subject('FULFILLMENT REQUEST');
+
+            $emailList = env('FULFILL_EMAIL_LIST');
+            foreach($emailList as $name => $email;) {
+                $m->to($email, $name);
+            }
+        });
     }
 }
