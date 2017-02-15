@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Mail;
 use DB;
+use App\Fulfillment;
 use \Stripe\Stripe as Stripe;
 use \Stripe\Plan as Plan;
 use \Stripe\Subscription as Subscription;
@@ -46,26 +47,26 @@ class SendSubscriptionFulfillment extends Command
         $subscriptions = DB::table('subscriptions')->orderBy('id')->get();
         $currentDate = getdate(time());
 
-        foreach($subscriptions as $value) {
-            if ($value->active == true) {
-                $subscription = Subscription::retrieve($value->stripe_id);
+        foreach($subscriptions as $sub) {
+            if ($sub->active == true) {
+                $subscription = Subscription::retrieve($sub->stripe_id);
                 $subscriptionDate = getdate($subscription->current_period_end);
 
                 if ($subscription->status == 'active') {
                     if ($subscriptionDate['year'] == $currentDate['year'] && $subscriptionDate['mon'] == $currentDate['mon'] && ($subscriptionDate['mday']-1) == $currentDate['mday']) {
-                        $customerData = json_decode($value->customer_info);
-                        $purchased = (object)['fpClub' => (object)['amount' => $value->quantity, 'type' => 'plan', 'name' => 'Femina Plus Club Refill']];
-                        $this->fulfillmentEmail($customerData->shipping, $purchased);
+                        $customerData = json_decode($sub->customer_info);
+                        $purchased = (object)['fpClub' => (object)['amount' => $sub->quantity, 'type' => 'plan', 'name' => 'Femina Plus Club Refill']];
+                        $this->fulfillmentEmail($customerData->shipping, $purchased, $sub->id);
                     }
                 } else {
                     $endDate = $subscriptionDate['year'] . '-' . $subscriptionDate['mon'] . '-' . $subscriptionDate['mday'] . ' ' . $subscriptionDate['hours'] . ':' . $subscriptionDate['minutes'] . ':' . $subscriptionDate['seconds'];
-                    DB::table('subscriptions')->where('id', $value->id)->update(['active' => false, 'ends_at' => $endDate]);
+                    DB::table('subscriptions')->where('id', $sub->id)->update(['active' => false, 'ends_at' => $endDate]);
                 }
             }
         }
     }
 
-    private function fulfillmentEmail($customerData, $purchased) {
+    private function fulfillmentEmail($customerData, $purchased, $subscriptionId) {
         $data = ['customerData' => $customerData, 'purchased' => $purchased];
         $fullName = $customerData->firstName . " " . $customerData->lastName;
 
@@ -78,5 +79,12 @@ class SendSubscriptionFulfillment extends Command
             $m->to(env('FULFILL_EMAIL_TWO'), env('FULFILL_NAME_TWO'));
             $m->cc(env('ADMIN_EMAIL'), env('ADMIN_NAME'));
         });
+
+        $fulfillment = new Fulfillment();
+        $fulfillment->subscription_id = $subscriptionId;
+        $fulfillment->name = $fullName;
+        $fulfillment->email = $customerData->email;
+        $fulfillment->message = "Subscription fulfillment";
+        $fulfillment->save();
     }
 }

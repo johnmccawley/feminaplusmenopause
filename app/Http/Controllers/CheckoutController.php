@@ -9,6 +9,7 @@ use App\User;
 use App\Cart;
 use App\Coupon;
 use App\Purchase;
+use App\Fulfillment;
 use \Stripe\Stripe as Stripe;
 use \Stripe\Token as Token;
 use \Stripe\Charge as Charge;
@@ -116,7 +117,7 @@ class CheckoutController extends Controller
         $this->cart->total = null;
         $this->cart->save();
 
-        $this->fulfillmentEmail($customerData->shipping, $cartItems);
+        $this->fulfillmentEmail($customerData->shipping, $cartItems, $purchase->id);
 
         return redirect("/receipt/$purchase->id");
     }
@@ -190,7 +191,7 @@ class CheckoutController extends Controller
 
                         $customerData = json_decode($purchase->customer_info);
 
-                        $this->fulfillmentEmail($customerData->shipping, $cartItems);
+                        $this->fulfillmentEmail($customerData->shipping, $cartItems, $purchase->id);
 
                         $displayTotal = $this->formatDisplayPrice($purchase->amount);
                         return redirect("/receipt/$purchase->id");
@@ -464,7 +465,7 @@ class CheckoutController extends Controller
         ]);
     }
 
-    private function fulfillmentEmail($customerData, $purchased) {
+    private function fulfillmentEmail($customerData, $purchased, $purchaseId) {
         try {
             $data = ['customerData' => $customerData, 'purchased' => $purchased];
             $fullName = $customerData->firstName . " " . $customerData->lastName;
@@ -478,6 +479,13 @@ class CheckoutController extends Controller
                 $m->to(env('FULFILL_EMAIL_TWO'), env('FULFILL_NAME_TWO'));
                 $m->cc(env('ADMIN_EMAIL'), env('ADMIN_NAME'));
             });
+
+            $fulfillment = new Fulfillment();
+            $fulfillment->purchase_id = $purchaseId;
+            $fulfillment->name = $fullName;
+            $fulfillment->email = $customerData->email;
+            $fulfillment->message = "Cart purchase";
+            $fulfillment->save();
         } catch (\Exception $exception) {
             if (env('APP_DEBUG') == true) {
                 return view('errors.500', compact('exception'));
