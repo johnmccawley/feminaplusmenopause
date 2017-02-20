@@ -41,7 +41,7 @@ class CheckoutRequest extends Request
             'shipping-state' => 'required_without:billing-same',
             'shipping-zip' => 'required_without:billing-same|min:5|max:10',
             'cardName' => 'required_with:card-submit',
-            'cardNumber' => 'required_with:card-submit|min:16|max:16',
+            'cardNumber' => 'required_with:card-submit|min:13|max:19',
             'cardExpiration' => 'required_with:card-submit|max:7',
             'cardCvc' => 'required_with:card-submit|max:4'
         ];

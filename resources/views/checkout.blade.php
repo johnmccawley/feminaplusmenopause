@@ -236,7 +236,7 @@
                             <input type="text" class="form-control" name="cardName" placeholder="Name" value="{{ old('cardName') }}"/>
                         </div>
                         <div class="row input-row">
-                            <input type="text" class="form-control" name="cardNumber" maxlength="16" placeholder="Card number" value="{{ old('cardNumber') }}"/>
+                            <input type="text" class="form-control" name="cardNumber" maxlength="19" placeholder="Card number" value="{{ old('cardNumber') }}"/>
                         </div>
                         <div class="row input-row">
                             <div class="span8">
