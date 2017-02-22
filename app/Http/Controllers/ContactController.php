@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-
 use App\Contact;
-
-use Mail;
+use App\Jobs\SendContactEmail;
+use App\Http\Requests\StoreContactRequest;
+use Illuminate\Http\Request;
+use App\Http\Requests;
 
 class ContactController extends Controller
 {
-    public function create(\App\Http\Requests\StoreContactRequest $request)
+    public function create(StoreContactRequest $request)
     {
         $contact = new Contact();
         $contact->name = $request->name;
@@ -20,16 +18,9 @@ class ContactController extends Controller
         $contact->message = $request->message;
         $contact->ip_address = $request->ip();
         $contact->save();
-        $request->session()->flash('status', 'Your message has been sent successfully.');
 
-        Mail::send('emails.contact', ['contact' => $request], function ($m) use ($request) {
-            $m->from('contact@feminaplusmenopause.com', 'Femina Plus Menopause');
-            $m->sender('contact@feminaplusmenopause.com', 'Femina Plus Menopause');
-            $m->replyTo($request->email, $request->name);
-            $m->subject("Femina Plus Contact $request->name");
-            $m->to(env('ADMIN_EMAIL'), env('ADMIN_NAME'));
-        });
+        $this->dispatch((new SendContactEmail($contact))->onQueue('emails'));
 
-        return redirect('/contact');
+        return \Redirect::back()->with('status', 'Your message has been sent successfully.');
     }
 }

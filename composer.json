@@ -10,7 +10,8 @@
         "barryvdh/laravel-debugbar": "^2.2",
         "stripe/stripe-php": "3.*",
         "guzzlehttp/guzzle": "~5.3|~6.0",
-        "laravel/cashier": "~6.0"
+        "laravel/cashier": "~6.0",
+        "pda/pheanstalk": "~3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
