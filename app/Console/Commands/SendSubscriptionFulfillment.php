@@ -2,16 +2,19 @@
 
 namespace App\Console\Commands;
 
-use Mail;
 use DB;
 use App\Fulfillment;
 use \Stripe\Stripe as Stripe;
 use \Stripe\Plan as Plan;
 use \Stripe\Subscription as Subscription;
+use App\Jobs\SendFulfillmentEmail;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Console\Command;
 
 class SendSubscriptionFulfillment extends Command
 {
+    use DispatchesJobs;
+
     /**
      * The name and signature of the console command.
      *
@@ -67,24 +70,13 @@ class SendSubscriptionFulfillment extends Command
     }
 
     private function fulfillmentEmail($customerData, $purchased, $subscriptionId) {
-        $data = ['customerData' => $customerData, 'purchased' => $purchased];
-        $fullName = $customerData->firstName . " " . $customerData->lastName;
-
-        Mail::send('emails.fulfill', $data, function ($m) use ($customerData, $purchased, $fullName) {
-            $m->from('fulfillment@feminaplusmenopause.com', 'Femina Plus Menopause');
-            $m->sender('fulfillment@feminaplusmenopause.com', 'Femina Plus Menopause');
-            $m->replyTo($customerData->email, $fullName);
-            $m->subject('FULFILLMENT REQUEST');
-            $m->to(env('FULFILL_EMAIL_ONE'), env('FULFILL_NAME_ONE'));
-            $m->to(env('FULFILL_EMAIL_TWO'), env('FULFILL_NAME_TWO'));
-            $m->cc(env('ADMIN_EMAIL'), env('ADMIN_NAME'));
-        });
-
         $fulfillment = new Fulfillment();
         $fulfillment->subscription_id = $subscriptionId;
-        $fulfillment->name = $fullName;
+        $fulfillment->name = $customerData->firstName . " " . $customerData->lastName;
         $fulfillment->email = $customerData->email;
         $fulfillment->message = "Subscription fulfillment";
         $fulfillment->save();
+
+        $this->dispatch((new SendFulfillmentEmail($customerData, $purchased))->onQueue('emails'));
     }
 }

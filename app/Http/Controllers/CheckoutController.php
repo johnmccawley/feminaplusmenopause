@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use DB;
 use Auth;
-use Mail;
 use App\User;
 use App\Cart;
 use App\Coupon;
@@ -14,6 +13,7 @@ use \Stripe\Stripe as Stripe;
 use \Stripe\Token as Token;
 use \Stripe\Charge as Charge;
 use \Stripe\Subscription as Subscription;
+use App\Jobs\SendFulfillmentEmail;
 use App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CheckoutRequest as CheckoutRequest;
@@ -467,25 +467,14 @@ class CheckoutController extends Controller
 
     private function fulfillmentEmail($customerData, $purchased, $purchaseId) {
         try {
-            $data = ['customerData' => $customerData, 'purchased' => $purchased];
-            $fullName = $customerData->firstName . " " . $customerData->lastName;
-
-            Mail::send('emails.fulfill', $data, function ($m) use ($customerData, $purchased, $fullName) {
-                $m->from('fulfillment@feminaplusmenopause.com', 'Femina Plus Menopause');
-                $m->sender('fulfillment@feminaplusmenopause.com', 'Femina Plus Menopause');
-                $m->replyTo($customerData->email, $fullName);
-                $m->subject('FULFILLMENT REQUEST');
-                $m->to(env('FULFILL_EMAIL_ONE'), env('FULFILL_NAME_ONE'));
-                $m->to(env('FULFILL_EMAIL_TWO'), env('FULFILL_NAME_TWO'));
-                $m->cc(env('ADMIN_EMAIL'), env('ADMIN_NAME'));
-            });
-
             $fulfillment = new Fulfillment();
             $fulfillment->purchase_id = $purchaseId;
-            $fulfillment->name = $fullName;
+            $fulfillment->name = $customerData->firstName . " " . $customerData->lastName;
             $fulfillment->email = $customerData->email;
             $fulfillment->message = "Cart purchase";
             $fulfillment->save();
+
+            $this->dispatch((new SendFulfillmentEmail($customerData, $purchased))->onQueue('emails'));
         } catch (\Exception $exception) {
             if (env('APP_DEBUG') == true) {
                 return view('errors.500', compact('exception'));
