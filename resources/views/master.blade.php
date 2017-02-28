@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @yield('meta_description')
     @yield('meta_keywords')
+    <meta name="google-site-verification" content="oneSN1pJW_b41ye81_Nk-cCV-ssltIqxaTJtu6Y7L14"/>
     <link rel="canonical" href=<?php echo URL::current(); ?> />
 
 
