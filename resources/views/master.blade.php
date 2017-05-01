@@ -115,7 +115,8 @@
                         </div>
                         <div class="offer-info">
                             <h5>Join the Femina Plus<sup>&reg;</sup> Auto-Refill Club!</h5>
-                            <p>You will recieve one bottle per month, delievered monthly for 12 months and receive the 13th bottle for free. </p>
+                            <p>You will receive one bottle per month, delivered monthly for 12 months and receive the 13th bottle for free.
+Buy Femina Plus for best results in managing menopause symptoms. Embrace aging with Femina Plus which works fast, effective and is proven and tested. </p>
                             @if ($page_id != "buy")
                             <a href="/buy" class="secondary-cta-btn">BUY NOW</a>
                             @endif
