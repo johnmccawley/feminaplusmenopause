@@ -93,7 +93,7 @@
                 <div class="span4 clinical-keypoint">
                     <img class="icon-tulip" src="img/icon-tulip.png" />
                     <h4>FDA REVIEWED</h4>
-                    <p>Three FDA “Gold Medal Standard” trials show Femina Plus<sup>&reg;</sup> with the Herbal Blend, Fem-Fleur<sup>&#8482;</sup> effectivley relieves the 10 most common symptoms of peri-menopause and menopause.</p>
+                    <p>Three FDA “Gold Medal Standard” trials show Femina Plus<sup>&reg;</sup> with the Herbal Blend, Fem-Fleur<sup>&#8482;</sup> effectively relieves the 10 most common symptoms of peri-menopause and menopause.</p>
                 </div>
                 <div class="span4 clinical-keypoint">
                     <img class="icon-tulip" src="img/icon-tulip.png" />
